@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MODELIST - Attendance & Leave</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f4f6fa;--card:#fff;--tx:#14213d;--ink:#000;--mut:#6b7691;--ln:#dde2ec;--band:#14213d;--gold:#c9a227;--hd:#263a63;--wk:#f1f3f8;--today:#fff6d6;
+--P:#1f9d62;--A:#d6384b;--C:#3d9bff;--S:#e8830c;--X:#8a4fd1;--H:#0e9aa7;--F:#8a93a6;--O:#8a93a6;--L:#b99a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}}
+:root[data-theme="dark"]{--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Arial,sans-serif}
+header{position:relative;background:var(--band);color:#fff;text-align:center;padding:18px 12px 14px;border-bottom:5px solid var(--gold)}
+header h1{margin:0;font-size:30px;letter-spacing:8px;font-weight:800}
+header p{margin:4px 0 0;color:var(--gold);font-weight:600}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;padding:14px}
+.bar button,.bar select{font:inherit;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:10px;padding:6px 14px;cursor:pointer;font-weight:700}
+.frow{position:sticky;left:0;width:max-content;max-width:100%;padding:10px 12px}
+.frow select{font:inherit;font-weight:700;border:1px solid var(--gold);background:var(--card);color:var(--tx);border-radius:10px;padding:6px 14px;cursor:pointer;width:260px;max-width:100%}
+.per{font-weight:800;font-size:17px;min-width:260px;text-align:center}
+.per small{display:block;color:var(--mut);font-weight:600;font-size:13px}
+.leg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 12px 10px}
+.leg span{display:flex;align-items:center;gap:6px;font-size:13px;background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:3px 10px}
+.leg i,.c{font-style:normal;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
+.leg i{min-width:28px;height:22px;padding:0 4px;border-radius:6px;font-size:11px}
+.wrap{margin:0 12px 24px;background:var(--card);border:1px solid var(--ln);border-radius:14px;overflow-x:auto;max-width:100%}
+table{border-collapse:separate;border-spacing:0;font-size:13px}
+th,td{border-bottom:1px solid var(--ln);border-right:1px solid var(--ln);padding:0;text-align:center;height:38px;white-space:nowrap}
+thead th{background:var(--hd);color:#fff;font-weight:700;position:sticky;top:0;z-index:2;padding:4px 6px}
+th.d{min-width:47px;cursor:pointer;line-height:1.2}th.d small{display:block;font-weight:400;opacity:.8;font-size:9.5px}
+th.d.t{background:var(--gold);color:#14213d}
+.nm{position:sticky;left:0;z-index:3;background:var(--card);padding:0 12px;text-align:left;min-width:230px;font-weight:700;}
+thead .nm{background:var(--hd);z-index:4}
+.nm b{color:var(--mut);font-weight:600;margin-right:8px}
+.inf{padding:0 10px;color:var(--mut)}
+td.inf{color:var(--ink);font-weight:700}
+td.cell{cursor:pointer;min-width:47px;height:38px}td.wk{background:var(--wk)}td.t{background:var(--today)}
+.c{width:28px;height:28px;border-radius:8px;font-size:12px}
+.c.F{background:var(--F)}.c.P{background:var(--P);color:#000}.c.A{background:var(--A)}.c.C{background:var(--C)}.c.S{background:var(--S)}.c.X{background:var(--X)}.c.H{background:var(--H)}.c.O{background:var(--O)}.c.L{background:var(--L)}
+.c.Q{background:#000;color:#ff2d2d;box-shadow:0 0 0 1px #ff2d2d66}
+.c.auto{opacity:.45}
+.cell .c{width:auto;min-width:40px;height:auto;min-height:28px;padding:1px 2px;line-height:1.1;font-size:13px;white-space:normal;border-radius:7px}
+td.sum{min-width:52px;font-weight:800;padding:0 8px}
+#menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
+#menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
+#menu button:hover{background:var(--wk)}
+#ex,#pdf{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
+#ex{background:#1f9d62}#pdf{background:#d6384b}
+.tools{position:absolute;left:12px;top:12px;display:flex;flex-direction:column;gap:6px}
+@media(max-width:760px){.tools{position:static;flex-direction:row;justify-content:center;margin-bottom:10px}}
+#pr{position:fixed;left:-30000px;top:0;width:max-content;background:#f4f6fa;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
+#pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#fff}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
+.addrow{position:sticky;left:0;display:inline-flex;gap:8px;padding:12px}
+#add,#edt{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:10px;padding:8px 18px;cursor:pointer}
+#edt{background:var(--gold);color:#14213d}
+#dlg,#edlg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:30;display:none;align-items:center;justify-content:center;padding:16px}
+#dlg>div,#edlg>div{background:var(--card);border-radius:14px;padding:20px;width:100%;max-width:360px;display:grid;gap:10px}
+#edlg>div{max-width:780px;max-height:92vh;grid-template-rows:auto minmax(0,1fr) auto auto}
+#dlg h3,#edlg h3{margin:0}#dlg input,#edlg input{font:inherit;padding:9px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--tx);min-width:0}
+#dlg .r,#edlg .r{display:flex;gap:8px}#dlg button,#edlg button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+#ds,#es{background:var(--P);color:#fff;flex:1}#dc,#ec{background:var(--wk);color:var(--tx)}#er,#eer{color:var(--A);font-size:13px;min-height:18px}
+#elist{display:grid;gap:8px;overflow:auto;align-content:start;padding-right:2px}
+#elist .er{display:grid;grid-template-columns:26px minmax(0,2fr) minmax(0,.8fr) minmax(0,1fr) 40px;gap:6px;align-items:center}
+#elist .er b{color:var(--mut);text-align:center;font-weight:600}
+#elist .er .del{background:#d6384b;color:#fff;padding:7px 0}
+@media(max-width:560px){#elist .er{grid-template-columns:22px 1fr 40px}#elist .er .ec,#elist .er .ej{grid-column:2}}
+.hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
+</style>
+</head>
+<body>
+<header><div class="tools"><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
+<div class="bar">
+  <button id="pv">◀ الشهر السابق</button>
+  <div class="per" id="per"></div>
+  <button id="nx">الشهر التالي ▶</button>
+  <button id="td">اليوم</button>
+</div>
+<div class="leg" id="leg"></div>
+<div class="wrap"><div class="frow"><select id="flt" aria-label="فلتر الموظفين"></select></div><table id="tb"></table><div class="addrow"><button id="add">+ Add New Employee</button><button id="edt">Edit</button></div></div>
+<div id="dlg"><div><h3>Add New Employee</h3><input id="f1" placeholder="Full Name" dir="ltr" lang="en"><input id="f2" placeholder="Code" inputmode="numeric" dir="ltr"><input id="f3" placeholder="Title" dir="ltr" lang="en"><div id="er"></div><div class="r"><button id="ds">Save</button><button id="dc">Cancel</button></div></div></div>
+<div id="edlg"><div><h3>Edit Employees</h3><div id="elist"></div><div id="eer"></div><div class="r"><button id="es">Save</button><button id="ec">Cancel</button></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<div class="hint">اضغط على أي خانة لاختيار الحالة • اضغط على رقم اليوم لتسجيل «X» (حضور) للجميع في الخانات الفارغة</div>
+<div id="menu"></div>
+<script>
+let EMP=[[1,'محمد عاطف عبدة عبدالعاطي',2622,'Marker'],[2,'جنة أشرف مراد جودة',2624,'Translator'],[3,'نوريهان نبيل محمود كامل',2743,'Designer'],[4,'محمد احمد محمد عبدالرحيم',2931,'Operator'],[5,'شهد خليل ابراهيم نصار',3106,'Translator'],[6,'أحمد سالمان عبدالظاهر احمد',3147,'Modelist'],[7,'ابانوب عوض الله ابراهيم',3710,'Modelist'],[8,'حسناء محمد حسن محمد',3729,'Translator'],[9,'Nouran Sadek Hafez El-Taher',3759,'Data Entry']];
+const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS']};
+const SUM=[];
+const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const pad=n=>String(n).padStart(2,'0');
+const ds=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const $=id=>document.getElementById(id);
+const OLD={"2026-05":{"2622_2026-05-27":"C","2622_2026-05-28":"C","2622_2026-05-31":"P","2622_2026-06-01":"P","2622_2026-06-02":"P","2622_2026-06-03":"P","2622_2026-06-04":"P","2622_2026-06-05":"P","2622_2026-06-06":"P","2622_2026-06-07":"P","2622_2026-06-08":"P","2622_2026-06-09":"P","2622_2026-06-10":"P","2622_2026-06-11":"P","2622_2026-06-12":"P","2622_2026-06-13":"P","2622_2026-06-14":"P","2622_2026-06-15":"P","2622_2026-06-16":"P","2622_2026-06-17":"P","2622_2026-06-18":"C","2622_2026-06-21":"P","2622_2026-06-22":"P","2622_2026-06-23":"P","2622_2026-06-24":"P","2622_2026-06-25":"P","3147_2026-05-27":"C","3147_2026-05-28":"C","3147_2026-05-31":"P","3147_2026-06-01":"P","3147_2026-06-02":"P","3147_2026-06-03":"P","3147_2026-06-04":"C","3147_2026-06-06":"P","3147_2026-06-07":"P","3147_2026-06-08":"P","3147_2026-06-09":"P","3147_2026-06-10":"P","3147_2026-06-11":"P","3147_2026-06-13":"P","3147_2026-06-14":"P","3147_2026-06-15":"P","3147_2026-06-16":"P","3147_2026-06-17":"P","3147_2026-06-18":"C","3147_2026-06-21":"P","3147_2026-06-22":"P","3147_2026-06-23":"P","3147_2026-06-24":"P","3147_2026-06-25":"P","3710_2026-05-27":"C","3710_2026-05-28":"C","3710_2026-05-31":"P","3710_2026-06-01":"P","3710_2026-06-02":"P","3710_2026-06-03":"P","3710_2026-06-04":"P","3710_2026-06-07":"P","3710_2026-06-08":"P","3710_2026-06-09":"P","3710_2026-06-10":"P","3710_2026-06-11":"P","3710_2026-06-14":"P","3710_2026-06-15":"P","3710_2026-06-16":"P","3710_2026-06-17":"P","3710_2026-06-18":"C","3710_2026-06-21":"P","3710_2026-06-22":"P","3710_2026-06-23":"P","3710_2026-06-24":"P","3710_2026-06-25":"P","3106_2026-05-27":"C","3106_2026-05-28":"C","3106_2026-05-31":"P","3106_2026-06-01":"P","3106_2026-06-02":"P","3106_2026-06-03":"P","3106_2026-06-04":"P","3106_2026-06-06":"P","3106_2026-06-07":"P","3106_2026-06-08":"P","3106_2026-06-09":"P","3106_2026-06-10":"P","3106_2026-06-11":"C","3106_2026-06-14":"P","3106_2026-06-15":"P","3106_2026-06-16":"P","3106_2026-06-17":"C","3106_2026-06-18":"C","3106_2026-06-21":"P","3106_2026-06-22":"P","3106_2026-06-23":"P","3106_2026-06-24":"P","3106_2026-06-25":"P","-_2026-05-27":"C","-_2026-05-28":"C","-_2026-05-31":"C","-_2026-06-01":"P","-_2026-06-02":"P","-_2026-06-03":"P","-_2026-06-04":"P","-_2026-06-07":"P"},"2026-06":{"2622_2026-06-27":"P","2622_2026-06-28":"P","2622_2026-06-29":"C","2622_2026-06-30":"P","2622_2026-07-01":"P","2622_2026-07-02":"C","2622_2026-07-05":"P","2622_2026-07-06":"P","2622_2026-07-07":"P","2622_2026-07-08":"P","2622_2026-07-09":"P","2622_2026-07-11":"P","2622_2026-07-12":"P","2622_2026-07-13":"P","2622_2026-07-14":"P","2622_2026-07-15":"P","2622_2026-07-16":"P","2622_2026-07-19":"P","2622_2026-07-20":"P","2622_2026-07-21":"P","2622_2026-07-22":"P","2622_2026-07-23":"C","2622_2026-07-26":"P","3147_2026-06-27":"P","3147_2026-06-28":"C","3147_2026-06-29":"P","3147_2026-06-30":"P","3147_2026-07-01":"P","3147_2026-07-02":"C","3147_2026-07-05":"P","3147_2026-07-06":"P","3147_2026-07-07":"P","3147_2026-07-08":"P","3147_2026-07-09":"P","3147_2026-07-12":"P","3147_2026-07-13":"P","3147_2026-07-14":"P","3147_2026-07-15":"P","3147_2026-07-16":"P","3147_2026-07-19":"C","3147_2026-07-20":"P","3147_2026-07-21":"P","3147_2026-07-22":"C","3147_2026-07-23":"C","3147_2026-07-26":"P","3710_2026-06-29":"P","3710_2026-06-30":"P","3710_2026-07-01":"P","3710_2026-07-02":"C","3710_2026-07-05":"P","3710_2026-07-06":"P","3710_2026-07-07":"P","3710_2026-07-08":"P","3710_2026-07-09":"P","3710_2026-07-12":"P","3710_2026-07-13":"P","3710_2026-07-14":"P","3710_2026-07-15":"P","3710_2026-07-16":"P","3710_2026-07-19":"P","3710_2026-07-20":"P","3710_2026-07-21":"P","3710_2026-07-22":"P","3710_2026-07-23":"C","3710_2026-07-26":"P","3106_2026-06-27":"P","3106_2026-06-28":"P","3106_2026-06-29":"P","3106_2026-06-30":"P","3106_2026-07-01":"C","3106_2026-07-02":"C","3106_2026-07-05":"P","3106_2026-07-06":"P","3106_2026-07-07":"P","3106_2026-07-08":"P","3106_2026-07-09":"P","3106_2026-07-11":"P","3106_2026-07-12":"P","3106_2026-07-13":"P","3106_2026-07-14":"P","3106_2026-07-15":"P","3106_2026-07-16":"P","3106_2026-07-19":"P","3106_2026-07-20":"P","3106_2026-07-21":"P","3106_2026-07-22":"P","3106_2026-07-23":"C","3106_2026-07-25":"P","3106_2026-07-26":"P"},"2026-07":{"2622_2026-07-27":"P","2622_2026-07-28":"P","2622_2026-07-29":"P","2622_2026-07-30":"P","2622_2026-07-31":"P","2622_2026-08-02":"P","2622_2026-08-03":"P","2622_2026-08-04":"P","2622_2026-08-05":"P","2622_2026-08-06":"C","2622_2026-08-07":"P","2622_2026-08-09":"P","2622_2026-08-10":"P","2622_2026-08-11":"P","2622_2026-08-12":"P","2622_2026-08-13":"P","2622_2026-08-16":"P","2622_2026-08-17":"P","2622_2026-08-18":"P","2622_2026-08-19":"P","2622_2026-08-20":"P","2622_2026-08-23":"P","2622_2026-08-24":"P","2622_2026-08-25":"P","2622_2026-08-26":"P","2624_2026-07-27":"P","2624_2026-07-28":"P","2624_2026-07-29":"P","2624_2026-07-30":"P","2624_2026-08-02":"P","2624_2026-08-03":"P","2624_2026-08-04":"P","2624_2026-08-05":"P","2624_2026-08-06":"P","2624_2026-08-09":"P","2624_2026-08-10":"P","2624_2026-08-11":"P","2624_2026-08-12":"P","2624_2026-08-13":"P","2624_2026-08-16":"P","2624_2026-08-17":"P","2624_2026-08-18":"P","2624_2026-08-19":"P","2624_2026-08-20":"P","2624_2026-08-23":"P","2624_2026-08-24":"P","2624_2026-08-25":"P","2624_2026-08-26":"P","2743_2026-07-27":"P","2743_2026-07-28":"P","2743_2026-07-29":"P","2743_2026-07-30":"P","2743_2026-08-02":"P","2743_2026-08-03":"P","2743_2026-08-04":"P","2743_2026-08-05":"P","2743_2026-08-06":"P","2743_2026-08-09":"P","2743_2026-08-10":"P","2743_2026-08-11":"P","2743_2026-08-12":"P","2743_2026-08-13":"P","2743_2026-08-16":"P","2743_2026-08-17":"P","2743_2026-08-18":"P","2743_2026-08-19":"P","2743_2026-08-20":"P","2743_2026-08-23":"P","2743_2026-08-24":"C","2743_2026-08-25":"P","2743_2026-08-26":"P","3106_2026-07-27":"P","3106_2026-07-28":"P","3106_2026-07-29":"P","3106_2026-07-30":"P","3106_2026-08-02":"P","3106_2026-08-03":"P","3106_2026-08-04":"P","3106_2026-08-05":"P","3106_2026-08-06":"P","3106_2026-08-09":"P","3106_2026-08-10":"P","3106_2026-08-11":"P","3106_2026-08-12":"P","3106_2026-08-13":"C","3106_2026-08-15":"P","3106_2026-08-16":"P","3106_2026-08-17":"P","3106_2026-08-18":"P","3106_2026-08-19":"P","3106_2026-08-20":"P","3106_2026-08-22":"P","3106_2026-08-23":"P","3106_2026-08-24":"P","3106_2026-08-25":"P","3106_2026-08-26":"P","3147_2026-07-27":"P","3147_2026-07-28":"P","3147_2026-07-29":"P","3147_2026-07-30":"P","3147_2026-07-31":"P","3147_2026-08-02":"P","3147_2026-08-03":"P","3147_2026-08-04":"P","3147_2026-08-05":"C","3147_2026-08-06":"P","3147_2026-08-09":"P","3147_2026-08-10":"P","3147_2026-08-11":"P","3147_2026-08-12":"P","3147_2026-08-13":"P","3147_2026-08-16":"P","3147_2026-08-17":"P","3147_2026-08-18":"P","3147_2026-08-19":"P","3147_2026-08-20":"P","3147_2026-08-23":"P","3147_2026-08-24":"P","3147_2026-08-25":"P","3147_2026-08-26":"P","3710_2026-07-27":"P","3710_2026-07-28":"P","3710_2026-07-29":"P","3710_2026-07-30":"P","3710_2026-08-02":"P","3710_2026-08-03":"P","3710_2026-08-04":"P","3710_2026-08-05":"P","3710_2026-08-06":"P","3710_2026-08-09":"P","3710_2026-08-10":"P","3710_2026-08-11":"P","3710_2026-08-12":"P","3710_2026-08-13":"P","3710_2026-08-15":"P","3710_2026-08-16":"P","3710_2026-08-17":"P","3710_2026-08-18":"P","3710_2026-08-19":"P","3710_2026-08-20":"P","3710_2026-08-23":"P","3710_2026-08-24":"P","3710_2026-08-25":"P","3710_2026-08-26":"P","3729_2026-07-27":"P","3729_2026-07-28":"P","3729_2026-07-29":"P","3729_2026-07-30":"P","3729_2026-08-02":"P","3729_2026-08-03":"P","3729_2026-08-04":"P","3729_2026-08-05":"P","3729_2026-08-06":"P","3729_2026-08-09":"P","3729_2026-08-10":"P","3729_2026-08-11":"P","3729_2026-08-12":"P","3729_2026-08-13":"P","3729_2026-08-16":"P","3729_2026-08-17":"P","3729_2026-08-18":"P","3729_2026-08-19":"P","3729_2026-08-20":"P","3729_2026-08-23":"P","3729_2026-08-24":"P","3729_2026-08-25":"C","3729_2026-08-26":"P","4839_2026-08-13":"P","4839_2026-08-16":"P","4839_2026-08-17":"P","4839_2026-08-18":"P","4839_2026-08-19":"P","4839_2026-08-20":"P","4839_2026-08-23":"P","4839_2026-08-24":"P","4839_2026-08-25":"P","4839_2026-08-26":"P"},"2026-08":{"2622_2026-08-27":"H","2622_2026-08-29":"P","2622_2026-08-30":"P","2622_2026-08-31":"P","2622_2026-09-01":"P","2622_2026-09-02":"P","2622_2026-09-03":"P","2622_2026-09-05":"P","2622_2026-09-06":"P","2622_2026-09-07":"P","2622_2026-09-08":"P","2622_2026-09-09":"P","2622_2026-09-10":"P","2622_2026-09-12":"P","2622_2026-09-13":"P","2622_2026-09-14":"P","2622_2026-09-15":"S","2622_2026-09-16":"S","2622_2026-09-17":"S","2622_2026-09-19":"P","2622_2026-09-20":"P","2622_2026-09-21":"P","2622_2026-09-22":"P","2622_2026-09-23":"P","2622_2026-09-24":"P","2622_2026-09-26":"P","2624_2026-08-27":"H","2624_2026-08-29":"P","2624_2026-08-30":"P","2624_2026-08-31":"P","2624_2026-09-01":"P","2624_2026-09-02":"P","2624_2026-09-03":"P","2624_2026-09-05":"P","2624_2026-09-06":"P","2624_2026-09-07":"P","2624_2026-09-08":"C","2624_2026-09-09":"P","2624_2026-09-10":"P","2624_2026-09-12":"P","2624_2026-09-13":"P","2624_2026-09-14":"P","2624_2026-09-15":"P","2624_2026-09-16":"P","2624_2026-09-17":"P","2624_2026-09-19":"P","2624_2026-09-20":"P","2624_2026-09-21":"P","2624_2026-09-22":"P","2624_2026-09-23":"P","2624_2026-09-24":"P","2624_2026-09-26":"P","2743_2026-08-27":"H","2743_2026-08-29":"C","2743_2026-08-30":"C","2743_2026-08-31":"P","2743_2026-09-01":"P","2743_2026-09-02":"P","2743_2026-09-03":"P","2743_2026-09-05":"P","2743_2026-09-06":"P","2743_2026-09-07":"P","2743_2026-09-08":"P","2743_2026-09-09":"C","2743_2026-09-10":"P","2743_2026-09-12":"P","2743_2026-09-13":"P","2743_2026-09-14":"P","2743_2026-09-15":"P","2743_2026-09-16":"P","2743_2026-09-17":"P","2743_2026-09-19":"P","2743_2026-09-20":"P","2743_2026-09-21":"P","2743_2026-09-22":"P","2743_2026-09-23":"P","2743_2026-09-24":"P","2743_2026-09-26":"C","2931_2026-08-27":"H","2931_2026-08-29":"P","2931_2026-08-30":"C","2931_2026-08-31":"P","2931_2026-09-01":"P","2931_2026-09-02":"P","2931_2026-09-03":"P","2931_2026-09-05":"P","2931_2026-09-06":"P","2931_2026-09-07":"P","2931_2026-09-08":"P","2931_2026-09-09":"P","2931_2026-09-10":"P","2931_2026-09-12":"P","2931_2026-09-13":"P","2931_2026-09-14":"P","2931_2026-09-15":"P","2931_2026-09-16":"P","2931_2026-09-17":"P","2931_2026-09-19":"P","2931_2026-09-20":"P","2931_2026-09-21":"P","2931_2026-09-22":"P","2931_2026-09-23":"P","2931_2026-09-24":"P","2931_2026-09-26":"P","3106_2026-08-27":"H","3106_2026-08-29":"P","3106_2026-08-30":"P","3106_2026-08-31":"P","3106_2026-09-01":"P","3106_2026-09-02":"P","3106_2026-09-03":"P","3106_2026-09-05":"P","3106_2026-09-06":"P","3106_2026-09-07":"P","3106_2026-09-08":"P","3106_2026-09-09":"P","3106_2026-09-10":"C","3106_2026-09-12":"P","3106_2026-09-13":"P","3106_2026-09-14":"P","3106_2026-09-15":"P","3106_2026-09-16":"P","3106_2026-09-17":"P","3106_2026-09-19":"P","3106_2026-09-20":"P","3106_2026-09-21":"P","3106_2026-09-22":"P","3106_2026-09-23":"P","3106_2026-09-24":"P","3106_2026-09-26":"P","3147_2026-08-27":"H","3147_2026-08-29":"C","3147_2026-08-30":"C","3147_2026-08-31":"P","3147_2026-09-01":"P","3147_2026-09-02":"P","3147_2026-09-03":"P","3147_2026-09-05":"P","3147_2026-09-06":"P","3147_2026-09-07":"P","3147_2026-09-08":"P","3147_2026-09-09":"P","3147_2026-09-10":"P","3147_2026-09-12":"P","3147_2026-09-13":"P","3147_2026-09-14":"P","3147_2026-09-15":"P","3147_2026-09-16":"P","3147_2026-09-17":"P","3147_2026-09-19":"P","3147_2026-09-20":"P","3147_2026-09-21":"P","3147_2026-09-22":"C","3147_2026-09-23":"P","3147_2026-09-24":"P","3147_2026-09-26":"P","3710_2026-08-27":"H","3710_2026-08-29":"C","3710_2026-08-30":"C","3710_2026-08-31":"P","3710_2026-09-01":"P","3710_2026-09-02":"P","3710_2026-09-03":"P","3710_2026-09-05":"P","3710_2026-09-06":"P","3710_2026-09-07":"P","3710_2026-09-08":"P","3710_2026-09-09":"P","3710_2026-09-10":"P","3710_2026-09-12":"P","3710_2026-09-13":"P","3710_2026-09-14":"P","3710_2026-09-15":"P","3710_2026-09-16":"P","3710_2026-09-17":"P","3710_2026-09-19":"P","3710_2026-09-20":"P","3710_2026-09-21":"P","3710_2026-09-22":"P","3710_2026-09-23":"P","3710_2026-09-24":"P","3710_2026-09-26":"C","3729_2026-08-27":"H","3729_2026-08-29":"P","3729_2026-08-30":"P","3729_2026-08-31":"P","3729_2026-09-01":"P","3729_2026-09-02":"P","3729_2026-09-03":"P","3729_2026-09-05":"P","3729_2026-09-06":"P","3729_2026-09-07":"P","3729_2026-09-08":"P","3729_2026-09-09":"P","3729_2026-09-10":"P","3729_2026-09-12":"P","3729_2026-09-13":"P","3729_2026-09-14":"P","3729_2026-09-15":"P","3729_2026-09-16":"P","3729_2026-09-17":"P","3729_2026-09-19":"P","3729_2026-09-20":"P","3729_2026-09-21":"P","3729_2026-09-22":"P","3729_2026-09-23":"P","3729_2026-09-24":"P","3729_2026-09-26":"P","4839_2026-08-27":"H","4839_2026-08-29":"P","4839_2026-08-30":"C","4839_2026-08-31":"P","4839_2026-09-01":"S","4839_2026-09-02":"S","4839_2026-09-03":"S","4839_2026-09-05":"S","4839_2026-09-06":"S","4839_2026-09-07":"S","4839_2026-09-08":"S","4839_2026-09-09":"S","4839_2026-09-10":"S","4839_2026-09-12":"S","4839_2026-09-13":"S","4839_2026-09-14":"S","4839_2026-09-15":"S","4839_2026-09-16":"S","4839_2026-09-17":"S","4839_2026-09-19":"S","4839_2026-09-20":"S","4839_2026-09-21":"S","4839_2026-09-22":"S"}};
+const OLDX={"2026-05":[["5","محمد محمد امين","-","Modelist Assistant"]],"2026-07":[["8","مارينا سمير فتحي نخلة",4839,"Assistant"]],"2026-08":[["9","مارينا سمير فتحي نخلة",4839,"Assistant"]]};
+let start,cells={},db=null,unsub=null,days=[],flt='',HID=[];
+function setStart(t){let m=t.getMonth(),y=t.getFullYear();if(t.getDate()<27)m--;start=new Date(y,m,27)}
+function key(){return start.getFullYear()+'-'+pad(start.getMonth()+1)}
+function build(){days=[];const e=new Date(start.getFullYear(),start.getMonth()+1,26);for(let d=new Date(start);d<=e;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))days.push(new Date(d))}
+const NMEN={'2622':'Mohamed Atef Abdo Abdelaty','2624':'Jannah Ashraf Mourad Gouda','2743':'Nourhan Nabil Mahmoud Kamel','2931':'Mohamed Ahmed Mohamed Abdelrahim','3106':'Shahd Khalil Ibrahim Nassar','3147':'Ahmed Salman Abdelzaher Ahmed','3710':'Abanoub Awadallah Ibrahim','3729':'Hasnaa Mohamed Hassan Mohamed','4839':'Marina Samir Fathy Nakhla','3759':'Nouran Sadek Hafez El-Taher','-':'Mohamed Mohamed Amin'};
+const NMAR=[['نوران صادق','Nouran Sadek Hafez El-Taher']];
+const enName=r=>{if(!/[\u0600-\u06FF]/.test(String(r[1])))return r[1];return NMEN[String(r[2])]||(NMAR.find(a=>String(r[1]).replace(/\s+/g,' ').trim().startsWith(a[0]))||[])[1]||r[1]};
+function allEmp(){const x=OLDX[key()]||[];return EMP.concat(x.filter(r=>!EMP.some(e=>String(e[2])===String(r[2]))&&HID.indexOf(String(r[2]))<0)).map(r=>[r[0],enName(r),r[2],r[3]])}
+function base(){const k=key();let st={};try{st=JSON.parse(localStorage.getItem('att'+k)||'{}')}catch(e){}
+ if(OLD[k]){let seeded=null;try{seeded=localStorage.getItem('seed'+k)}catch(e){}
+  if(!seeded){st=Object.assign({},OLD[k],st);try{localStorage.setItem('att'+k,JSON.stringify(st));localStorage.setItem('seed'+k,'1')}catch(e){}}}
+ return st}
+function eff(code,d){const v=cells[code+'_'+ds(d)];if(v&&ST[v])return [v,false];return d.getDay()===5?['F',false]:['',false]}
+function fillSel(){
+  const s=$('flt');
+  if(flt&&!allEmp().some(x=>String(x[2])===flt))flt='';
+  s.innerHTML='<option value="">All Employees</option>'+allEmp().map(x=>'<option value="'+x[2]+'">'+x[1]+' — '+x[2]+'</option>').join('');
+  s.value=flt;
+}
+/* one-time patch: Jannah Ashraf (2624) resigned from 2026-11-02 to the end of the 27 Oct – 26 Nov period */
+function applyPatch(){
+  if(key()!=='2026-10')return;
+  try{if(localStorage.getItem('patchQ1'))return}catch(e){}
+  for(let d=new Date(2026,10,2);d<=new Date(2026,10,26);d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))cells['2624_'+ds(d)]='Q';
+  try{localStorage.setItem('patchQ1','1')}catch(e){}
+  save();
+}
+async function load(){
+  if(unsub){unsub();unsub=null}
+  build();
+  cells=base();
+  if(!window.claude)applyPatch();
+  render();
+  if(db){try{unsub=db.collection('attendance').doc(key()).onSnapshot(s=>{if(s.exists){cells=s.data().cells||{}}applyPatch();render()},()=>{})}catch(e){}}
+}
+function save(){
+  try{localStorage.setItem('att'+key(),JSON.stringify(cells))}catch(e){}
+  if(db){try{db.collection('attendance').doc(key()).set({cells}).catch(()=>{})}catch(e){}}
+}
+function render(){
+  fillSel();
+  const list=flt?allEmp().filter(x=>String(x[2])===flt):allEmp();
+  const e=days[days.length-1],tdy=ds(new Date());
+  $('per').innerHTML='شهر '+MN[e.getMonth()]+' '+e.getFullYear()+'<small>من '+start.getDate()+' '+MN[start.getMonth()]+' إلى '+e.getDate()+' '+MN[e.getMonth()]+'</small>';
+  let h='<thead><tr><th class="nm"><b>#</b>Full Name</th><th class="inf" style="background:var(--hd);color:#fff">Code</th><th class="inf" style="background:var(--hd);color:#fff">Title</th>';
+  days.forEach(d=>h+='<th class="d'+(ds(d)===tdy?' t':'')+'" data-day="'+ds(d)+'">'+d.getDate()+'<small>'+WD[d.getDay()]+'</small></th>');
+  SUM.forEach(s=>h+='<th>'+ST[s][0].replace('إجازة ','')+'</th>');
+  h+='</tr></thead><tbody>';
+  list.forEach(([n,name,code,job])=>{
+    h+='<tr><td class="nm"><b>'+n+'</b>'+name+'</td><td class="inf">'+code+'</td><td class="inf">'+job+'</td>';
+    const cnt={};
+    days.forEach(d=>{const[v,a]=eff(code,d);if(v&&!a||v==='O'&&a)cnt[v]=(cnt[v]||0)+(a?0:1);
+      h+='<td class="cell'+(d.getDay()===5?' wk':'')+(ds(d)===tdy?' t':'')+'" data-e="'+code+'" data-d="'+ds(d)+'">'+(v?'<span class="c '+v+(a?' auto':'')+'">'+ST[v][1]+'</span>':'')+'</td>'});
+    SUM.forEach(s=>h+='<td class="sum" style="color:var(--'+s+')">'+(cnt[s]||0)+'</td>');
+    h+='</tr>';
+  });
+  $('tb').innerHTML=h+'</tbody>';
+}
+$('leg').innerHTML=Object.entries(ST).map(([k,v])=>'<span><i class="c '+k+'">'+v[1]+'</i>'+v[0]+'</span>').join('');
+$('menu').innerHTML=Object.entries(ST).filter(([k])=>k!=='F').map(([k,v])=>'<button data-s="'+k+'"><i class="c '+k+'" style="min-width:30px;height:22px;padding:0 4px;border-radius:6px;font-size:11px">'+v[1]+'</i>'+v[0]+'</button>').join('')+'<button data-s="" style="grid-column:1/3;color:var(--A)">✕ مسح</button>';
+let cur=null;
+$('flt').onchange=e=>{flt=e.target.value;render()};
+$('flt').addEventListener('click',e=>e.stopPropagation());
+$('tb').addEventListener('click',ev=>{
+  const th=ev.target.closest('th.d');
+  if(th){allEmp().forEach(([n,nm,code])=>{const k=code+'_'+th.dataset.day;if(!cells[k]&&new Date(th.dataset.day+'T00:00').getDay()!==5)cells[k]='P'});save();render();return}
+  const td=ev.target.closest('td.cell');if(!td)return;
+  cur=td;const m=$('menu'),r=td.getBoundingClientRect();m.style.display='grid';
+  m.style.top=Math.min(r.bottom+4,innerHeight-m.offsetHeight-8)+'px';
+  m.style.left=Math.max(8,Math.min(r.left,innerWidth-m.offsetWidth-8))+'px';ev.stopPropagation();
+});
+$('menu').addEventListener('click',ev=>{
+  const b=ev.target.closest('button');if(!b||!cur)return;
+  const k=cur.dataset.e+'_'+cur.dataset.d;
+  if(b.dataset.s)cells[k]=b.dataset.s;else delete cells[k];
+  $('menu').style.display='none';save();render();
+});
+document.addEventListener('click',()=>$('menu').style.display='none');
+$('pv').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()-1,27);load()};
+$('nx').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()+1,27);load()};
+$('td').onclick=()=>{setStart(new Date());load()};
+try{const s=JSON.parse(localStorage.getItem('emp')||'null');if(s&&s.length)EMP=s}catch(e){}
+try{const h=JSON.parse(localStorage.getItem('hid')||'null');if(h&&h.length)HID=h}catch(e){}
+function saveEmp(){try{localStorage.setItem('emp',JSON.stringify(EMP));localStorage.setItem('hid',JSON.stringify(HID))}catch(e){}if(db){try{db.collection('meta').doc('employees').set({list:EMP,hid:HID}).catch(()=>{})}catch(e){}}}
+$('add').onclick=e=>{e.stopPropagation();$('dlg').style.display='flex';$('f1').focus()};
+$('dc').onclick=()=>{$('dlg').style.display='none'};
+$('ds').onclick=()=>{const n=$('f1').value.trim(),c=$('f2').value.trim(),j=$('f3').value.trim();
+ if(!n||!c){$('er').textContent='Enter full name and code';return}
+ if(/[\u0600-\u06FF]/.test(n+j)){$('er').textContent='Please enter name and title in English';return}
+ if(EMP.some(x=>String(x[2])===c)){$('er').textContent='This code already exists';return}
+ EMP.push([EMP.length+1,n,c,j||'-']);saveEmp();['f1','f2','f3'].forEach(i=>$(i).value='');$('er').textContent='';$('dlg').style.display='none';render()};
+/* ---------- Edit employees ---------- */
+function renum(){[...document.querySelectorAll('#elist .er')].forEach((d,i)=>{d.querySelector('b').textContent=i+1})}
+function rekey(o,map){const r={};for(const k in o){const i=k.indexOf('_'),c=k.slice(0,i);r[Object.prototype.hasOwnProperty.call(map,c)?map[c]+k.slice(i):k]=o[k]}return r}
+$('edt').onclick=e=>{e.stopPropagation();
+ const L=$('elist');L.innerHTML='';
+ allEmp().forEach(r=>{
+  const d=document.createElement('div');d.className='er';
+  d.dataset.oc=String(r[2]);d.dataset.on=r[1];d.dataset.oj=r[3];
+  d.innerHTML='<b></b><input class="en" dir="ltr" placeholder="Full Name"><input class="ec" dir="ltr" placeholder="Code"><input class="ej" dir="ltr" placeholder="Title"><button class="del" title="Delete">🗑</button>';
+  d.querySelector('.en').value=r[1];d.querySelector('.ec').value=r[2];d.querySelector('.ej').value=r[3];
+  L.appendChild(d)});
+ renum();$('eer').textContent='';$('edlg').style.display='flex'};
+$('elist').addEventListener('click',ev=>{const b=ev.target.closest('.del');if(b){b.parentNode.remove();renum()}});
+$('ec').onclick=()=>{$('edlg').style.display='none'};
+$('es').onclick=()=>{
+ const er=$('eer'),seen={};
+ const rows=[...document.querySelectorAll('#elist .er')].map(d=>({oc:d.dataset.oc,on:d.dataset.on,oj:d.dataset.oj,name:d.querySelector('.en').value.trim(),code:d.querySelector('.ec').value.trim(),job:d.querySelector('.ej').value.trim()}));
+ for(const r of rows){
+  if(!r.name||!r.code){er.textContent='Enter full name and code for every employee';return}
+  if(/[\u0600-\u06FF]/.test(r.name+r.job)){er.textContent='Please enter name and title in English';return}
+  if(/[\s_]/.test(r.code)){er.textContent='Code must not contain spaces or underscores';return}
+  if(seen[r.code]){er.textContent='Duplicate code: '+r.code;return}
+  seen[r.code]=1}
+ const isExt=c=>!EMP.some(e=>String(e[2])===String(c)),keep=new Set(rows.map(r=>r.oc));
+ allEmp().forEach(r=>{const oc=String(r[2]);if(!keep.has(oc)&&isExt(oc)&&HID.indexOf(oc)<0)HID.push(oc)});
+ const map={},ne=[];
+ rows.forEach(r=>{
+  const same=r.name===r.on&&r.code===r.oc&&(r.job||'-')===r.oj;
+  if(r.code!==r.oc)map[r.oc]=r.code;
+  if(isExt(r.oc)){if(same)return;if(HID.indexOf(r.oc)<0)HID.push(r.oc)}
+  ne.push([0,r.name,r.code,r.job||'-'])});
+ ne.forEach((r,i)=>r[0]=i+1);
+ if(Object.keys(map).length){
+  cells=rekey(cells,map);
+  try{const ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('att')===0)ks.push(k)}
+   ks.forEach(k=>{if(k==='att'+key())return;try{localStorage.setItem(k,JSON.stringify(rekey(JSON.parse(localStorage.getItem(k)||'{}'),map)))}catch(e){}})}catch(e){}}
+ EMP=ne;saveEmp();save();$('edlg').style.display='none';render()};
+async function makeXlsx(ExcelJS,ctx){
+ const {EMP,days,eff,ST,SUM,WD,MN,start,HEX}=ctx;
+ const W=new ExcelJS.Workbook(),ws=W.addWorksheet('الحضور',{views:[{rightToLeft:false,showGridLines:false,state:'frozen',xSplit:2,ySplit:4}],pageSetup:{orientation:'landscape',paperSize:8,fitToPage:true,fitToWidth:1,fitToHeight:0,horizontalCentered:true}});
+ const nc=4+days.length+SUM.length,e=days[days.length-1],nd=days.length;
+ const fl=c=>({type:'pattern',pattern:'solid',fgColor:{argb:'FF'+c}}),mid={horizontal:'center',vertical:'middle',wrapText:true};
+ const F=o=>Object.assign({name:'Arial',size:11,color:{argb:'FF14213D'}},o),W_={argb:'FFFFFFFF'};
+ const ln={style:'thin',color:{argb:'FFD5DAE5'}},bd={top:ln,bottom:ln,left:ln,right:ln};
+ for(let i=1;i<=nc;i++){ws.getCell(1,i).fill=fl('14213D');ws.getCell(2,i).fill=fl('C9A227')}
+ ws.getRow(1).height=50;ws.getRow(2).height=5;
+ ws.mergeCells(1,1,1,10);let c=ws.getCell(1,1);c.value='MODELIST';c.font=F({size:26,bold:true,color:W_});c.alignment=mid;
+ ws.mergeCells(3,1,3,10);c=ws.getCell(3,1);
+ c.value='كشف الحضور والغياب — شهر '+MN[e.getMonth()]+' '+e.getFullYear()+'  (من '+start.getDate()+' '+MN[start.getMonth()]+' إلى '+e.getDate()+' '+MN[e.getMonth()]+')';
+ c.font=F({size:12,bold:true});c.alignment=mid;ws.getRow(3).height=28;
+ const hd=['#','Full Name','Code','Title',...days.map(d=>d.getDate()+'\n'+WD[d.getDay()]),...SUM.map(s=>ST[s][0].replace('إجازة ',''))];
+ hd.forEach((h,i)=>{const x=ws.getCell(4,i+1);x.value=h;x.font=F({size:i>=4&&i<4+nd?10:11,bold:true,color:W_});x.fill=fl('263A63');x.alignment=mid;x.border={...bd,bottom:{style:'medium',color:{argb:'FFC9A227'}}}});
+ ws.getRow(4).height=38;
+ EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'F4F6FA':'FFFFFF',cnt={};
+  [n,name,Number(code)||code,job].forEach((v,i)=>{const x=ws.getCell(row,i+1);x.value=v;x.font=F({bold:i===1||i>=2,color:i===0?{argb:'FF6B7691'}:i>=2?{argb:'FF000000'}:undefined});x.alignment=i===1?{horizontal:'left',vertical:'middle',indent:1}:mid;x.fill=fl(z);x.border=bd});
+  days.forEach((d,i)=>{const[v,a]=eff(code,d);const x=ws.getCell(row,5+i);x.alignment=mid;x.border=bd;x.fill=fl(d.getDay()===5?'EEF0F6':z);
+   if(v){x.value=ST[v][1];if(a){x.fill=fl('DDE1EA');x.font=F({size:9,color:{argb:'FF6B7691'}})}else{x.fill=fl(HEX[v]);x.font=F({size:10,bold:true,color:v==='P'?{argb:'FF000000'}:v==='Q'?{argb:'FFFF2D2D'}:W_});cnt[v]=(cnt[v]||0)+1}}});
+  SUM.forEach((s,i)=>{const x=ws.getCell(row,5+nd+i);x.value=cnt[s]||0;x.font=F({size:12,bold:true,color:{argb:'FF'+HEX[s]}});x.alignment=mid;x.border=bd;x.fill=fl(z)});
+  ws.getRow(row).height=26});
+ const lr=7+EMP.length;ws.getCell(lr,2).value='دليل الألوان';ws.getCell(lr,2).font=F({bold:true});ws.getCell(lr,2).alignment={horizontal:'left'};
+ Object.entries(ST).forEach(([k,v],i)=>{const a=ws.getCell(lr+1+i,1);a.value=v[1];a.font=F({size:10,bold:true,color:k==='P'?{argb:'FF000000'}:k==='Q'?{argb:'FFFF2D2D'}:W_});a.alignment=mid;a.fill=fl(HEX[k]);a.border=bd;const b=ws.getCell(lr+1+i,2);b.value=v[0];b.font=F();b.alignment={horizontal:'left',indent:1}});
+ ws.getColumn(1).width=5;ws.getColumn(2).width=30;ws.getColumn(3).width=9;ws.getColumn(4).width=13;
+ for(let i=5;i<=nc;i++)ws.getColumn(i).width=i<5+nd?7:9;
+ return W.xlsx.writeBuffer();
+}
+
+
+const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
+async function saveFile(fn,data){
+ try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
+$('ex').onclick=async()=>{const b=await makeXlsx(ExcelJS,{EMP:allEmp(),days,eff,ST,SUM,WD,MN,start,HEX});await saveFile('MODELIST_attendance_'+key()+'.xlsx',b)};
+$('pdf').onclick=async()=>{
+ const root=document.documentElement,prev=root.getAttribute('data-theme');root.setAttribute('data-theme','light');
+ const box=document.createElement('div');box.id='pr';
+ const hd=document.querySelector('header').cloneNode(true);hd.querySelector('.tools').remove();
+ box.innerHTML=hd.outerHTML+'<div class="per">'+$('per').innerHTML+'</div>'+$('leg').outerHTML.replace(' id="leg"','')+'<div class="wrap2">'+$('tb').outerHTML.replace(' id="tb"','')+'</div>';
+ box.querySelectorAll('span.c.P').forEach(s=>s.remove());
+ document.body.appendChild(box);
+ try{
+  await (document.fonts&&document.fonts.ready);
+  const cv=await html2canvas(box,{scale:2,backgroundColor:'#f4f6fa'}),w=cv.width/2,h=cv.height/2;
+  const doc=new window.jspdf.jsPDF({orientation:w>h?'l':'p',unit:'px',format:[w,h],hotfixes:['px_scaling']});
+  doc.addImage(cv.toDataURL('image/jpeg',0.95),'JPEG',0,0,w,h);
+  await saveFile('MODELIST_attendance_'+key()+'.pdf',doc.output('arraybuffer'));
+ }finally{box.remove();prev?root.setAttribute('data-theme',prev):root.removeAttribute('data-theme')}
+};
+setStart(new Date());load();
+(async()=>{try{if(window.claude){db=await window.claude.use('db');if(db){load();db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){EMP=s.data().list;HID=s.data().hid||HID;render()}},()=>{})}}}catch(e){}
+ if(!db){applyPatch();render()}})();
+</script>
+</body>
+</html>
