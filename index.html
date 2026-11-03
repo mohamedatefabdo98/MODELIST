@@ -114,7 +114,7 @@ const enName=r=>{if(!/[\u0600-\u06FF]/.test(String(r[1])))return r[1];return NME
 function baseRoster(){const x=OLDX[key()]||[];return EMP.concat(x.filter(r=>!EMP.some(e=>String(e[2])===String(r[2]))&&HID.indexOf(String(r[2]))<0)).map(r=>[r[0],enName(r),r[2],r[3]])}
 /* each month (27th to 26th) has its own roster; nothing is shared between months */
 let R=null,unsub2=null;
-function allEmp(){return R||baseRoster()}
+function allEmp(){const a=(R||baseRoster()).map(r=>r.slice()),num=c=>{const n=Number(c);return isNaN(n)?Infinity:n};a.sort((x,y)=>{const p=num(x[2]),q=num(y[2]);return p===q?String(x[2]).localeCompare(String(y[2])):p<q?-1:1});a.forEach((r,i)=>r[0]=i+1);return a}
 function loadRoster(){R=null;try{const s=JSON.parse(localStorage.getItem('roster'+key())||'null');if(Array.isArray(s))R=s}catch(e){}}
 function saveRoster(){try{localStorage.setItem('roster'+key(),JSON.stringify(R))}catch(e){}if(db){try{db.collection('meta').doc('roster-'+key()).set({list:R}).catch(()=>{})}catch(e){}}}
 function base(){const k=key();let st={};try{st=JSON.parse(localStorage.getItem('att'+k)||'{}')}catch(e){}
