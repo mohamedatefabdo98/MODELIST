@@ -11,8 +11,8 @@
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#f7f5ef;--card:#fffdf8;--tx:#1b2f45;--ink:#000;--mut:#6f7d88;--ln:#e3dfd2;--band:#183247;--gold:#d4a84f;--hd:#2f7f86;--wk:#f2efe6;--today:#fbf0d0;
 --P:#1f9d62;--A:#d6384b;--C:#3d9bff;--S:#e8830c;--X:#8a4fd1;--H:#0e9aa7;--F:#8a93a6;--O:#8a93a6;--L:#b99a00}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}}
-:root[data-theme="dark"]{--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1722;--card:#13222f;--tx:#e6eef3;--ink:#fff;--mut:#8fa3b1;--ln:#243645;--band:#08111a;--hd:#1d5a62;--wk:#101d29;--today:#3a3216}}
+:root[data-theme="dark"]{--bg:#0c1722;--card:#13222f;--tx:#e6eef3;--ink:#fff;--mut:#8fa3b1;--ln:#243645;--band:#08111a;--hd:#1d5a62;--wk:#101d29;--today:#3a3216}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Arial,sans-serif}
@@ -54,8 +54,13 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
 #menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
 #menu button:hover{background:var(--wk)}
-#ex,#pdf{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
+#ex,#pdf,#th{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
 #ex{background:#1f9d62}#pdf{background:#d6384b}
+#th{background:var(--gold);color:#14213d}
+.adm{position:absolute;right:14px;top:12px;text-align:right;line-height:1.3;direction:ltr}
+.adm span{display:block;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:1px}
+.adm b{display:block;color:#fff;font-weight:700;font-size:15px}
+@media(max-width:760px){.adm{position:static;text-align:center;margin-bottom:8px}}
 .tools{position:absolute;left:12px;top:12px;display:flex;flex-direction:column;gap:6px}
 @media(max-width:760px){.tools{position:static;flex-direction:row;justify-content:center;margin-bottom:10px}}
 #pr{position:fixed;left:-30000px;top:0;width:max-content;background:#f4f6fa;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
@@ -78,7 +83,7 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 </style>
 </head>
 <body>
-<header><div class="tools"><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
+<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><div class="tools"><button id="th"></button><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
 <div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
@@ -194,6 +199,12 @@ document.addEventListener('click',()=>$('menu').style.display='none');
 $('pv').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()-1,27);load()};
 $('nx').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()+1,27);load()};
 $('td').onclick=()=>{setStart(new Date());load()};
+(function(){const r=document.documentElement,b=$('th');
+ try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.setAttribute('data-theme',t)}catch(e){}
+ const isDark=()=>{const t=r.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
+ const lab=()=>{b.textContent=isDark()?'☀️ Light mode':'🌙 Dark mode'};
+ b.onclick=e=>{e.stopPropagation();const n=isDark()?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}lab()};
+ lab()})();
 try{const s=JSON.parse(localStorage.getItem('emp')||'null');if(s&&s.length)EMP=s}catch(e){}
 try{const h=JSON.parse(localStorage.getItem('hid')||'null');if(h&&h.length)HID=h}catch(e){}
 function saveEmp(){try{localStorage.setItem('emp',JSON.stringify(EMP));localStorage.setItem('hid',JSON.stringify(HID))}catch(e){}if(db){try{db.collection('meta').doc('employees').set({list:EMP,hid:HID}).catch(()=>{})}catch(e){}}}
