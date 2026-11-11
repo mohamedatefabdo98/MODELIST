@@ -325,8 +325,8 @@ $('pdf').onclick=async()=>{
  }finally{box.remove();prev?root.setAttribute('data-theme',prev):root.removeAttribute('data-theme')}
 };
 /* ---------- Firebase + login ---------- */
-const FIREBASE_CONFIG={apiKey:'PASTE_API_KEY',authDomain:'PASTE_PROJECT.firebaseapp.com',projectId:'PASTE_PROJECT_ID',storageBucket:'PASTE_PROJECT.appspot.com',messagingSenderId:'PASTE',appId:'PASTE'};
-const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='PASTE_YOUR_GMAIL@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
+const FIREBASE_CONFIG={apiKey:'AIzaSyDaH3KDpr6Qxa7WGSZcXb3ruR2Nf0U1uBU',authDomain:'modelist-2026.firebaseapp.com',projectId:'modelist-2026',storageBucket:'modelist-2026.firebasestorage.app',messagingSenderId:'1059486672648',appId:'1:1059486672648:web:1fac1ba4be2cd3ca4c2ebd'};
+const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='alkzaz38@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
 let ROLE=null,auth=null,CLOUD=false,MSG=[],unsubI=null,unsubE=null,RV=null,SYNCED=false;
 try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
 try{if(typeof firebase!=='undefined'&&!/PASTE/.test(FIREBASE_CONFIG.apiKey)){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();CLOUD=true}}catch(e){}
