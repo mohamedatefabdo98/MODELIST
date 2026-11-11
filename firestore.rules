@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return request.auth != null &&
+        (request.auth.token.email == 'matef@modelist.app' ||
+         request.auth.token.email == 'PASTE_YOUR_GMAIL@gmail.com');
+    }
+
+    // attendance + employee lists: everyone signed in can read, only admin can change
+    match /attendance/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /meta/{id}       { allow read: if signedIn(); allow write: if isAdmin(); }
+
+    // correction requests: employees can only send, only admin can read / manage
+    match /inbox/{id} {
+      allow create: if signedIn()
+                    && request.resource.data.text is string
+                    && request.resource.data.text.size() < 1000;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}
