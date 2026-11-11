@@ -54,9 +54,27 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
 #menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
 #menu button:hover{background:var(--wk)}
-#ex,#pdf,#th{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
+#ex,#pdf,#th,#inb,#lo{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
 #ex{background:#1f9d62}#pdf{background:#d6384b}
-#th{background:var(--gold);color:#14213d}
+#th{background:var(--gold);color:#14213d}#inb{background:#2f7f86}#lo{background:#6b7280}
+body.locked>*:not(#lg):not(script){display:none!important}
+body.emp #ex,body.emp #pdf,body.emp #inb,body.emp .addrow,body.emp .frow,body.emp .hint{display:none}
+#lg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#183247,#24566a)}
+body.locked #lg{display:flex}
+#lg [hidden]{display:none!important}
+#lg .bx{background:var(--card);color:var(--tx);border-radius:18px;padding:26px 22px;width:100%;max-width:380px;display:grid;gap:10px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);border-top:5px solid var(--gold)}
+#lg h2{margin:0;letter-spacing:6px;font-weight:800}#lg p{margin:0}#lg .sub{color:var(--mut);font-size:13px;margin-bottom:6px}
+#lg .v{display:grid;gap:10px}
+#lg input,.md input,.md textarea{font:inherit;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);width:100%}
+#lg button,.md button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+#lg .pri{background:var(--hd);color:#fff}#lg .alt{background:var(--gold);color:#14213d}
+#lg .lnk{background:transparent;color:var(--mut);font-weight:600;text-decoration:underline;padding:4px}
+.err{color:var(--A);font-size:13px;min-height:16px}.ok{color:var(--P);font-size:13px;min-height:16px}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none;align-items:center;justify-content:center;padding:16px}
+.md>div{background:var(--card);color:var(--tx);border-radius:14px;padding:20px;width:100%;max-width:460px;display:grid;gap:10px;max-height:92vh;overflow:auto}
+.md h3{margin:0}.md .r{display:flex;gap:8px}
+#rvb{background:var(--P);color:#fff;flex:1}#rvc,#ibc,.msg button{background:var(--wk);color:var(--tx)}
+.msg{border:1px solid var(--ln);border-radius:10px;padding:10px;display:grid;gap:4px;text-align:left}.msg.un{border-color:var(--gold);background:var(--today)}.msg button{padding:5px 10px}
 .adm{position:absolute;right:14px;top:12px;text-align:right;line-height:1.3;direction:ltr}
 .adm span{display:block;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:1px}
 .adm b{display:block;color:#fff;font-weight:700;font-size:15px}
@@ -82,8 +100,8 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
-<body>
-<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><div class="tools"><button id="th"></button><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
+<body class="locked">
+<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><div class="tools"><button id="th"></button><button id="inb">Inbox</button><button id="lo">Logout</button><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
 <div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
@@ -92,6 +110,14 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 </div>
 <div class="leg" id="leg"></div>
 <div class="wrap"><div class="frow"><select id="flt" aria-label="فلتر الموظفين"></select></div><table id="tb"></table><div class="addrow"><button id="add">+ Add New Employee</button><button id="edt">Edit</button></div></div>
+<div id="lg"><div class="bx">
+<h2>MODELIST</h2><p class="sub">Attendance &amp; Leave System</p>
+<div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lr" class="alt">Review my data</button><button id="lf" class="lnk">Forgot username or password?</button></div>
+<div id="lv2" class="v" hidden><p>Enter your Code to see your own attendance</p><input id="lc" placeholder="Code" inputmode="numeric" dir="ltr"><button id="lcb" class="pri">View my data</button><div class="err" id="lce"></div><button class="lnk bk">Back</button></div>
+<div id="lv3" class="v" hidden><p>Recover access using the owner's Google account</p><button id="lrv" class="pri">Verify with my Google account</button><div class="err" id="lre"></div><div id="lrf" class="v" hidden><input id="lnu" placeholder="New username" dir="ltr"><input id="lnp" type="password" placeholder="New password (6+ characters)" dir="ltr"><button id="lrs" class="pri">Save and login</button></div><button class="lnk bk">Back</button></div>
+</div></div>
+<div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
+<div class="md" id="ibx"><div><h3>Inbox</h3><div id="ibl" style="display:grid;gap:8px"></div><button id="ibc">Close</button></div></div>
 <div id="dlg"><div><h3>Add New Employee</h3><input id="f1" placeholder="Full Name" dir="ltr" lang="en"><input id="f2" placeholder="Code" inputmode="numeric" dir="ltr"><input id="f3" placeholder="Title" dir="ltr" lang="en"><div id="er"></div><div class="r"><button id="ds">Save</button><button id="dc">Cancel</button></div></div></div>
 <div id="edlg"><div><h3>Edit Employees</h3><div id="elist"></div><div id="eer"></div><div class="r"><button id="es">Save</button><button id="ec">Cancel</button></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
@@ -136,7 +162,7 @@ function fillSel(){
 }
 /* one-time patch: Jannah Ashraf (2624) resigned from 2026-11-02 to the end of the 27 Oct – 26 Nov period */
 function applyPatch(){
-  if(key()!=='2026-10')return;
+  if(ROLE!=='admin'||key()!=='2026-10')return;
   try{if(localStorage.getItem('patchQ1'))return}catch(e){}
   for(let d=new Date(2026,10,2);d<=new Date(2026,10,26);d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))cells['2624_'+ds(d)]='Q';
   try{localStorage.setItem('patchQ1','1')}catch(e){}
@@ -158,8 +184,9 @@ function save(){
   if(db){try{db.collection('attendance').doc(key()).set({cells}).catch(()=>{})}catch(e){}}
 }
 function render(){
+  if(!ROLE){$('tb').innerHTML='';return}
   fillSel();
-  const list=flt?allEmp().filter(x=>String(x[2])===flt):allEmp();
+  const list=ROLE!=='admin'?allEmp().filter(x=>String(x[2])===ROLE):flt?allEmp().filter(x=>String(x[2])===flt):allEmp();
   const e=days[days.length-1],tdy=ds(new Date());
   $('per').innerHTML='شهر '+MN[e.getMonth()]+' '+e.getFullYear()+'<small>من '+start.getDate()+' '+MN[start.getMonth()]+' إلى '+e.getDate()+' '+MN[e.getMonth()]+'</small>';
   let h='<thead><tr><th class="nm"><b>#</b>Full Name</th><th class="inf" style="background:var(--hd);color:#fff">Code</th><th class="inf" style="background:var(--hd);color:#fff">Title</th>';
@@ -182,6 +209,7 @@ let cur=null;
 $('flt').onchange=e=>{flt=e.target.value;render()};
 $('flt').addEventListener('click',e=>e.stopPropagation());
 $('tb').addEventListener('click',ev=>{
+  if(ROLE!=='admin'){const c=ev.target.closest('td.cell');if(c&&ROLE)openReview(c);return}
   const th=ev.target.closest('th.d');
   if(th){allEmp().forEach(([n,nm,code])=>{const k=code+'_'+th.dataset.day;if(!cells[k]&&new Date(th.dataset.day+'T00:00').getDay()!==5)cells[k]='P'});save();render();return}
   const td=ev.target.closest('td.cell');if(!td)return;
@@ -292,9 +320,83 @@ $('pdf').onclick=async()=>{
   await saveFile('MODELIST_attendance_'+key()+'.pdf',doc.output('arraybuffer'));
  }finally{box.remove();prev?root.setAttribute('data-theme',prev):root.removeAttribute('data-theme')}
 };
+/* ---------- login / roles (UI gate; see notes) ---------- */
+let ROLE=null,DBP=Promise.resolve(),AUTH={u:'matef',h:'a2d6f093c7ae4c294fc669a6886b04db563c098d58ef598646e8628769cefeec'},MSG=[],unsubI=null,RV=null;
+try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('modelist|'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const ready=()=>Promise.race([DBP,new Promise(r=>setTimeout(r,4000))]);
+async function loadAuth(){let a=null;try{a=JSON.parse(localStorage.getItem('auth')||'null')}catch(e){}
+ try{if(db){const s=await db.collection('meta').doc('auth').get();if(s&&s.exists&&s.data().h)a=s.data()}}catch(e){}
+ if(a&&a.u&&a.h)AUTH={u:a.u,h:a.h}}
+const V=n=>{['lv1','lv2','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lce','lre'].forEach(i=>{$(i).textContent=''});$('lrf').hidden=true};
+function applyRole(){const b=document.body,a=document.querySelector('.adm');
+ b.classList.toggle('locked',!ROLE);b.classList.toggle('emp',!!ROLE&&ROLE!=='admin');
+ if(!ROLE){V('lv1');['lu','lp','lc','lnu','lnp'].forEach(i=>{$(i).value=''})}
+ else if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
+ else{const e=allEmp().find(x=>String(x[2])===ROLE);a.innerHTML='<span>Employee Review</span><b></b>';a.querySelector('b').textContent=e?e[1]:ROLE}
+ render()}
+function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r==='admin'){applyPatch();subInbox()}}
+$('lb').onclick=async()=>{const u=$('lu').value.trim().toLowerCase(),p=$('lp').value;$('le').textContent='';
+ if(!u||!p){$('le').textContent='Enter username and password';return}
+ await ready();
+ if(u===String(AUTH.u).toLowerCase()&&await sha(p)===AUTH.h){$('lp').value='';setRole('admin')}else $('le').textContent='Wrong username or password'};
+$('lr').onclick=()=>V('lv2');$('lf').onclick=()=>V('lv3');
+document.querySelectorAll('#lg .bk').forEach(b=>b.onclick=()=>V('lv1'));
+$('lcb').onclick=async()=>{const c=$('lc').value.trim();$('lce').textContent='';if(!c){$('lce').textContent='Enter your Code';return}
+ await ready();
+ if(allEmp().concat(baseRoster()).some(x=>String(x[2])===c)){$('lc').value='';setRole(c)}else $('lce').textContent='Code not found'};
+[['lu','lb'],['lp','lb'],['lc','lcb']].forEach(([i,b])=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$(b).click()}));
+$('lrv').onclick=async()=>{$('lre').textContent='Checking...';let ok=false;
+ try{const u=window.claude&&await window.claude.use('user');ok=!!(u&&u.isOwner())}catch(e){}
+ if(ok){$('lre').className='ok';$('lre').textContent='Verified. Your username: '+AUTH.u;$('lnu').value=AUTH.u;$('lrf').hidden=false}
+ else{$('lre').className='err';$('lre').textContent='This Google account is not the owner of this page';$('lrf').hidden=true}};
+$('lrs').onclick=async()=>{const u=$('lnu').value.trim(),p=$('lnp').value;
+ if(u.length<3||p.length<6){$('lre').className='err';$('lre').textContent='Username 3+ and password 6+ characters';return}
+ const a={u,h:await sha(p)};try{localStorage.setItem('auth',JSON.stringify(a))}catch(e){}
+ if(db){try{await db.collection('meta').doc('auth').set(a)}catch(e){}}
+ AUTH=a;setRole('admin')};
+$('lo').onclick=()=>{if(unsubI){unsubI();unsubI=null}MSG=[];flt='';setRole(null)};
+/* employee review -> message to admin */
+function openReview(td){const code=td.dataset.e,d=td.dataset.d,e=allEmp().find(x=>String(x[2])===String(code)),v=eff(code,new Date(d+'T00:00'))[0];
+ RV={code:String(code),name:e?e[1]:'',date:d,status:v?ST[v][0]:'No record'};
+ $('rvd').textContent=d+' — '+RV.name;$('rvs').textContent='Recorded: '+RV.status;$('rvt').value='';$('rve').className='err';$('rve').textContent='';$('rv').style.display='flex'}
+$('rvc').onclick=()=>{$('rv').style.display='none'};
+$('rvb').onclick=async()=>{const t=$('rvt').value.trim(),m=(x,ok)=>{$('rve').className=ok?'ok':'err';$('rve').textContent=x};
+ if(!t){m('Write the correction first');return}
+ if(!db){m('Cannot send right now (not connected)');return}
+ try{const u=window.claude&&await window.claude.use('user'),id=u&&await u.id();
+  if(!id){m('Please sign in to claude.ai to send');return}
+  const ref=db.collection('inbox').doc(id);let cur=[];
+  try{const s=await ref.get();if(s.exists)cur=s.data().msgs||[]}catch(e){}
+  cur.push({code:RV.code,name:RV.name,date:RV.date,status:RV.status,text:t,ts:Date.now(),read:false});
+  await ref.set({msgs:cur});
+  m('Sent to admin',true);setTimeout(()=>{$('rv').style.display='none'},1200)}
+ catch(e){m('Could not send. You need Contributor access to the page.')}};
+let DOCS={};
+function subInbox(){if(!db||unsubI)return;
+ try{unsubI=db.collection('inbox').onSnapshot(s=>{MSG=[];DOCS={};
+  s.docs.forEach(d=>{const a=(d.data()||{}).msgs||[];DOCS[d.id]=a;a.forEach(x=>MSG.push(Object.assign({uid:d.id},x)))});
+  MSG.sort((x,y)=>y.ts-x.ts);
+  const n=MSG.filter(x=>!x.read).length;$('inb').textContent='Inbox'+(n?' ('+n+')':'');if($('ibx').style.display==='flex')showInbox()},()=>{})}catch(e){}}
+const putMsgs=(uid,arr)=>{try{db.collection('inbox').doc(uid).update({msgs:arr})}catch(e){}};
+function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length){L.textContent='No messages yet';return}
+ MSG.forEach(m=>{const d=document.createElement('div');d.className='msg'+(m.read?'':' un');
+  const h=document.createElement('b');h.textContent=m.name+' ('+m.code+') — '+m.date;
+  const s=document.createElement('div');s.textContent='Recorded: '+m.status;
+  const c=document.createElement('div');c.textContent='Correction: '+m.text;
+  const a=document.createElement('div');a.className='r';
+  const r=document.createElement('button');r.textContent=m.read?'Mark unread':'Mark read';
+  r.onclick=()=>putMsgs(m.uid,(DOCS[m.uid]||[]).map(x=>x.ts===m.ts?Object.assign({},x,{read:!x.read}):x));
+  const x=document.createElement('button');x.textContent='Delete';
+  x.onclick=()=>putMsgs(m.uid,(DOCS[m.uid]||[]).filter(y=>y.ts!==m.ts));
+  a.append(r,x);d.append(h,s,c,a);L.appendChild(d)})}
+$('inb').onclick=e=>{e.stopPropagation();showInbox();$('ibx').style.display='flex'};
+$('ibc').onclick=()=>{$('ibx').style.display='none'};
 setStart(new Date());load();
-(async()=>{try{if(window.claude){db=await window.claude.use('db');if(db){load();db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){EMP=s.data().list;HID=s.data().hid||HID;render()}},()=>{})}}}catch(e){}
- if(!db){applyPatch();render()}})();
+DBP=(async()=>{try{if(window.claude){db=await window.claude.use('db');if(db){load();db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){EMP=s.data().list;HID=s.data().hid||HID;render()}},()=>{})}}}catch(e){}
+ if(!db){render()}await loadAuth()})();
+DBP.then(()=>{if(ROLE==='admin'){applyPatch();subInbox()}});
+applyRole();
 </script>
 </body>
 </html>
