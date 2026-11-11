@@ -9,14 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#f4f6fa;--card:#fff;--tx:#14213d;--ink:#000;--mut:#6b7691;--ln:#dde2ec;--band:#14213d;--gold:#c9a227;--hd:#263a63;--wk:#f1f3f8;--today:#fff6d6;
+--bg:#f7f5ef;--card:#fffdf8;--tx:#1b2f45;--ink:#000;--mut:#6f7d88;--ln:#e3dfd2;--band:#183247;--gold:#d4a84f;--hd:#2f7f86;--wk:#f2efe6;--today:#fbf0d0;
 --P:#1f9d62;--A:#d6384b;--C:#3d9bff;--S:#e8830c;--X:#8a4fd1;--H:#0e9aa7;--F:#8a93a6;--O:#8a93a6;--L:#b99a00}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}}
 :root[data-theme="dark"]{--bg:#0e1320;--card:#161d2e;--tx:#e8ecf5;--ink:#fff;--mut:#98a3bd;--ln:#2a3348;--band:#0a0f1a;--hd:#1f2a45;--wk:#1b2438;--today:#3a3216}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Arial,sans-serif}
-header{position:relative;background:var(--band);color:#fff;text-align:center;padding:18px 12px 14px;border-bottom:5px solid var(--gold)}
+header{position:relative;background:linear-gradient(135deg,var(--band),#24566a);color:#fff;text-align:center;padding:18px 12px 14px;border-bottom:5px solid var(--gold)}
 header h1{margin:0;font-size:30px;letter-spacing:8px;font-weight:800}
 header p{margin:4px 0 0;color:var(--gold);font-weight:600}
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;padding:14px}
@@ -44,6 +44,7 @@ td.cell{cursor:pointer;min-width:47px;height:38px}td.wk{background:var(--wk)}td.
 .c{width:28px;height:28px;border-radius:8px;font-size:12px}
 .c.F{background:var(--F)}.c.P{background:var(--P);color:#000}.c.A{background:var(--A)}.c.C{background:var(--C)}.c.S{background:var(--S)}.c.X{background:var(--X)}.c.H{background:var(--H)}.c.O{background:var(--O)}.c.L{background:var(--L)}
 .c.Q{background:#000;color:#ff2d2d}
+.c.T{background:#8b5e3c}.c.N{background:#d6384b}
 .cell .c.Q{font-size:17px;min-width:44px;min-height:30px}
 .leg i.c.Q{font-size:15px}
 #menu i.c.Q{font-size:15px!important}
@@ -95,7 +96,7 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 <div id="menu"></div>
 <script>
 let EMP=[[1,'محمد عاطف عبدة عبدالعاطي',2622,'Marker'],[2,'جنة أشرف مراد جودة',2624,'Translator'],[3,'نوريهان نبيل محمود كامل',2743,'Designer'],[4,'محمد احمد محمد عبدالرحيم',2931,'Operator'],[5,'شهد خليل ابراهيم نصار',3106,'Translator'],[6,'أحمد سالمان عبدالظاهر احمد',3147,'Modelist'],[7,'ابانوب عوض الله ابراهيم',3710,'Modelist'],[8,'حسناء محمد حسن محمد',3729,'Translator'],[9,'Nouran Sadek Hafez El-Taher',3759,'Data Entry']];
-const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS']};
+const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS'],T:['TRANSFER','TR'],N:['خارج العمل','']};
 const SUM=[];
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
@@ -186,7 +187,7 @@ $('tb').addEventListener('click',ev=>{
 $('menu').addEventListener('click',ev=>{
   const b=ev.target.closest('button');if(!b||!cur)return;
   const k=cur.dataset.e+'_'+cur.dataset.d;
-  if(b.dataset.s)cells[k]=b.dataset.s;else delete cells[k];
+  if(b.dataset.s==='T'){const e=cur.dataset.e;days.forEach(d=>{if(ds(d)>=cur.dataset.d)cells[e+'_'+ds(d)]='T'})}else if(b.dataset.s)cells[k]=b.dataset.s;else delete cells[k];
   $('menu').style.display='none';save();render();
 });
 document.addEventListener('click',()=>$('menu').style.display='none');
@@ -261,7 +262,7 @@ async function makeXlsx(ExcelJS,ctx){
 }
 
 
-const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
+const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
 async function saveFile(fn,data){
  try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
@@ -271,7 +272,6 @@ $('pdf').onclick=async()=>{
  const box=document.createElement('div');box.id='pr';
  const hd=document.querySelector('header').cloneNode(true);hd.querySelector('.tools').remove();
  box.innerHTML=hd.outerHTML+'<div class="per">'+$('per').innerHTML+'</div>'+$('leg').outerHTML.replace(' id="leg"','')+'<div class="wrap2">'+$('tb').outerHTML.replace(' id="tb"','')+'</div>';
- box.querySelectorAll('span.c.P').forEach(s=>s.remove());
  document.body.appendChild(box);
  try{
   await (document.fonts&&document.fonts.ready);
