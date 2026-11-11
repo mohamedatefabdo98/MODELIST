@@ -54,7 +54,7 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
 #menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
 #menu button:hover{background:var(--wk)}
-#ex,#pdf,#th,#inb,#lo{font:inherit;font-size:13px;font-weight:700;color:#fff;border:0;border-radius:10px;padding:7px 14px;cursor:pointer}
+#ex,#pdf,#th,#inb,#lo{font:inherit;font-size:12px;font-weight:700;color:#fff;border:0;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
 #ex{background:#1f9d62}#pdf{background:#d6384b}
 #th{background:var(--gold);color:#14213d}#inb{background:#2f7f86}#lo{background:#6b7280}
 body.locked>*:not(#lg):not(script){display:none!important}
@@ -79,8 +79,8 @@ body.locked #lg{display:flex}
 .adm span{display:block;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:1px}
 .adm b{display:block;color:#fff;font-weight:700;font-size:15px}
 @media(max-width:760px){.adm{position:static;text-align:center;margin-bottom:8px}}
-.tools{position:absolute;left:12px;top:12px;display:flex;flex-direction:column;gap:6px}
-@media(max-width:760px){.tools{position:static;flex-direction:row;justify-content:center;margin-bottom:10px}}
+.tools{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
+.tools svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #pr{position:fixed;left:-30000px;top:0;width:max-content;background:#f4f6fa;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
 #pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#fff}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
 .addrow{position:sticky;left:0;display:inline-flex;gap:8px;padding:12px}
@@ -101,7 +101,7 @@ body.locked #lg{display:flex}
 </style>
 </head>
 <body class="locked">
-<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><div class="tools"><button id="th"></button><button id="inb">Inbox</button><button id="lo">Logout</button><button id="ex">Export as XLSX</button><button id="pdf">Export as PDF</button></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p></header>
+<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
 <div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
@@ -114,7 +114,7 @@ body.locked #lg{display:flex}
 <h2>MODELIST</h2><p class="sub">Attendance &amp; Leave System</p>
 <div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lr" class="alt">Review my data</button><button id="lf" class="lnk">Forgot username or password?</button></div>
 <div id="lv2" class="v" hidden><p>Enter your Code to see your own attendance</p><input id="lc" placeholder="Code" inputmode="numeric" dir="ltr"><button id="lcb" class="pri">View my data</button><div class="err" id="lce"></div><button class="lnk bk">Back</button></div>
-<div id="lv3" class="v" hidden><p>Recover access using the owner's Google account</p><button id="lrv" class="pri">Verify with my Google account</button><div class="err" id="lre"></div><div id="lrf" class="v" hidden><input id="lnu" placeholder="New username" dir="ltr"><input id="lnp" type="password" placeholder="New password (6+ characters)" dir="ltr"><button id="lrs" class="pri">Save and login</button></div><button class="lnk bk">Back</button></div>
+<div id="lv3" class="v" hidden><p>Recover access with the admin Google account</p><button id="lgg" class="pri">Sign in with Google</button><div class="err" id="lre"></div><button class="lnk bk">Back</button></div>
 </div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
 <div class="md" id="ibx"><div><h3>Inbox</h3><div id="ibl" style="display:grid;gap:8px"></div><button id="ibc">Close</button></div></div>
@@ -123,6 +123,9 @@ body.locked #lg{display:flex}
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <div class="hint">اضغط على أي خانة لاختيار الحالة • اضغط على رقم اليوم لتسجيل «X» (حضور) للجميع في الخانات الفارغة</div>
 <div id="menu"></div>
 <script>
@@ -148,7 +151,7 @@ function baseRoster(){const x=OLDX[key()]||[];return EMP.concat(x.filter(r=>!EMP
 let R=null,unsub2=null;
 function allEmp(){const a=(R||baseRoster()).map(r=>r.slice()),num=c=>{const n=Number(c);return isNaN(n)?Infinity:n};a.sort((x,y)=>{const p=num(x[2]),q=num(y[2]);return p===q?String(x[2]).localeCompare(String(y[2])):p<q?-1:1});a.forEach((r,i)=>r[0]=i+1);return a}
 function loadRoster(){R=null;try{const s=JSON.parse(localStorage.getItem('roster'+key())||'null');if(Array.isArray(s))R=s}catch(e){}}
-function saveRoster(){try{localStorage.setItem('roster'+key(),JSON.stringify(R))}catch(e){}if(db){try{db.collection('meta').doc('roster-'+key()).set({list:R}).catch(()=>{})}catch(e){}}}
+function saveRoster(){try{localStorage.setItem('roster'+key(),JSON.stringify(R))}catch(e){}if(db){try{db.collection('meta').doc('roster-'+key()).set({list:JSON.stringify(R)}).catch(()=>{})}catch(e){}}}
 function base(){const k=key();let st={};try{st=JSON.parse(localStorage.getItem('att'+k)||'{}')}catch(e){}
  if(OLD[k]){let seeded=null;try{seeded=localStorage.getItem('seed'+k)}catch(e){}
   if(!seeded){st=Object.assign({},OLD[k],st);try{localStorage.setItem('att'+k,JSON.stringify(st));localStorage.setItem('seed'+k,'1')}catch(e){}}}
@@ -177,7 +180,7 @@ async function load(){
   if(!window.claude)applyPatch();
   render();
   if(db){try{unsub=db.collection('attendance').doc(key()).onSnapshot(s=>{if(s.exists){cells=s.data().cells||{}}applyPatch();render()},()=>{})}catch(e){}
-   try{const k0=key();unsub2=db.collection('meta').doc('roster-'+k0).onSnapshot(s=>{if(k0===key()&&s.exists&&Array.isArray(s.data().list)){R=s.data().list;render()}},()=>{})}catch(e){}}
+   try{const k0=key();unsub2=db.collection('meta').doc('roster-'+k0).onSnapshot(s=>{if(k0===key()&&s.exists){let l=s.data().list;try{if(typeof l==='string')l=JSON.parse(l)}catch(e){l=null}if(Array.isArray(l)){R=l;render()}}},()=>{})}catch(e){}}
 }
 function save(){
   try{localStorage.setItem('att'+key(),JSON.stringify(cells))}catch(e){}
@@ -230,12 +233,13 @@ $('td').onclick=()=>{setStart(new Date());load()};
 (function(){const r=document.documentElement,b=$('th');
  try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.setAttribute('data-theme',t)}catch(e){}
  const isDark=()=>{const t=r.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
- const lab=()=>{b.textContent=isDark()?'☀️ Light mode':'🌙 Dark mode'};
+ const SUN='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>',MOON='<svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/></svg>';
+ const lab=()=>{b.innerHTML=isDark()?SUN+'<span>Light</span>':MOON+'<span>Dark</span>'};
  b.onclick=e=>{e.stopPropagation();const n=isDark()?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}lab()};
  lab()})();
 try{const s=JSON.parse(localStorage.getItem('emp')||'null');if(s&&s.length)EMP=s}catch(e){}
 try{const h=JSON.parse(localStorage.getItem('hid')||'null');if(h&&h.length)HID=h}catch(e){}
-function saveEmp(){try{localStorage.setItem('emp',JSON.stringify(EMP));localStorage.setItem('hid',JSON.stringify(HID))}catch(e){}if(db){try{db.collection('meta').doc('employees').set({list:EMP,hid:HID}).catch(()=>{})}catch(e){}}}
+function saveEmp(){try{localStorage.setItem('emp',JSON.stringify(EMP));localStorage.setItem('hid',JSON.stringify(HID))}catch(e){}if(db){try{db.collection('meta').doc('employees').set({list:JSON.stringify(EMP),hid:HID}).catch(()=>{})}catch(e){}}}
 $('add').onclick=e=>{e.stopPropagation();$('dlg').style.display='flex';$('f1').focus()};
 $('dc').onclick=()=>{$('dlg').style.display='none'};
 $('ds').onclick=()=>{const n=$('f1').value.trim(),c=$('f2').value.trim(),j=$('f3').value.trim();
@@ -320,42 +324,53 @@ $('pdf').onclick=async()=>{
   await saveFile('MODELIST_attendance_'+key()+'.pdf',doc.output('arraybuffer'));
  }finally{box.remove();prev?root.setAttribute('data-theme',prev):root.removeAttribute('data-theme')}
 };
-/* ---------- login / roles (UI gate; see notes) ---------- */
-let ROLE=null,DBP=Promise.resolve(),AUTH={u:'matef',h:'a2d6f093c7ae4c294fc669a6886b04db563c098d58ef598646e8628769cefeec'},MSG=[],unsubI=null,RV=null;
+/* ---------- Firebase + login ---------- */
+const FIREBASE_CONFIG={apiKey:'PASTE_API_KEY',authDomain:'PASTE_PROJECT.firebaseapp.com',projectId:'PASTE_PROJECT_ID',storageBucket:'PASTE_PROJECT.appspot.com',messagingSenderId:'PASTE',appId:'PASTE'};
+const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='PASTE_YOUR_GMAIL@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
+let ROLE=null,auth=null,CLOUD=false,MSG=[],unsubI=null,unsubE=null,RV=null,SYNCED=false;
 try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
-const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('modelist|'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
-const ready=()=>Promise.race([DBP,new Promise(r=>setTimeout(r,4000))]);
-async function loadAuth(){let a=null;try{a=JSON.parse(localStorage.getItem('auth')||'null')}catch(e){}
- try{if(db){const s=await db.collection('meta').doc('auth').get();if(s&&s.exists&&s.data().h)a=s.data()}}catch(e){}
- if(a&&a.u&&a.h)AUTH={u:a.u,h:a.h}}
-const V=n=>{['lv1','lv2','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lce','lre'].forEach(i=>{$(i).textContent=''});$('lrf').hidden=true};
+try{if(typeof firebase!=='undefined'&&!/PASTE/.test(FIREBASE_CONFIG.apiKey)){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();CLOUD=true}}catch(e){}
+const V=n=>{['lv1','lv2','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lce','lre'].forEach(i=>{$(i).className='err';$(i).textContent=''})};
 function applyRole(){const b=document.body,a=document.querySelector('.adm');
  b.classList.toggle('locked',!ROLE);b.classList.toggle('emp',!!ROLE&&ROLE!=='admin');
- if(!ROLE){V('lv1');['lu','lp','lc','lnu','lnp'].forEach(i=>{$(i).value=''})}
+ if(!ROLE){V('lv1');['lu','lp','lc'].forEach(i=>{$(i).value=''})}
  else if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
  else{const e=allEmp().find(x=>String(x[2])===ROLE);a.innerHTML='<span>Employee Review</span><b></b>';a.querySelector('b').textContent=e?e[1]:ROLE}
  render()}
-function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r==='admin'){applyPatch();subInbox()}}
+function subEmp(){if(!db||unsubE)return;
+ try{unsubE=db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){let l=s.data().list;try{if(typeof l==='string')l=JSON.parse(l)}catch(e){l=null}if(Array.isArray(l)){EMP=l;HID=s.data().hid||HID;render()}}},()=>{})}catch(e){}}
+/* one-time upload of data that only exists in this browser */
+async function syncUp(){if(!db||SYNCED)return;SYNCED=true;
+ try{const ks=[];for(let i=0;i<localStorage.length;i++)ks.push(localStorage.key(i));
+  for(const k of ks){if(!k)continue;
+   if(/^att\d{4}-\d{2}$/.test(k)){const ref=db.collection('attendance').doc(k.slice(3)),s=await ref.get();if(!s.exists){const c=JSON.parse(localStorage.getItem(k)||'{}');if(Object.keys(c).length)await ref.set({cells:c})}}
+   else if(/^roster\d{4}-\d{2}$/.test(k)){const ref=db.collection('meta').doc('roster-'+k.slice(6)),s=await ref.get();if(!s.exists)await ref.set({list:localStorage.getItem(k)})}}
+  const e=localStorage.getItem('emp');if(e){const ref=db.collection('meta').doc('employees'),s=await ref.get();if(!s.exists)await ref.set({list:e,hid:JSON.parse(localStorage.getItem('hid')||'[]')})}}catch(e){}}
+function startCloud(){load();subEmp();if(ROLE==='admin'){applyPatch();subInbox();syncUp()}}
+function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r)startCloud()}
 $('lb').onclick=async()=>{const u=$('lu').value.trim().toLowerCase(),p=$('lp').value;$('le').textContent='';
  if(!u||!p){$('le').textContent='Enter username and password';return}
- await ready();
- if(u===String(AUTH.u).toLowerCase()&&await sha(p)===AUTH.h){$('lp').value='';setRole('admin')}else $('le').textContent='Wrong username or password'};
+ if(!CLOUD){$('le').textContent='Cloud is not configured yet';return}
+ if(u!==ADMIN_USER){$('le').textContent='Wrong username or password';return}
+ try{const c=await auth.signInWithEmailAndPassword(LOGIN_EMAIL,p);if(!c.user||c.user.email!==LOGIN_EMAIL)throw 0;$('lp').value='';setRole('admin')}
+ catch(e){$('le').textContent='Wrong username or password'}};
 $('lr').onclick=()=>V('lv2');$('lf').onclick=()=>V('lv3');
 document.querySelectorAll('#lg .bk').forEach(b=>b.onclick=()=>V('lv1'));
 $('lcb').onclick=async()=>{const c=$('lc').value.trim();$('lce').textContent='';if(!c){$('lce').textContent='Enter your Code';return}
- await ready();
- if(allEmp().concat(baseRoster()).some(x=>String(x[2])===c)){$('lc').value='';setRole(c)}else $('lce').textContent='Code not found'};
+ if(!CLOUD){$('lce').textContent='Cloud is not configured yet';return}
+ try{await auth.signInAnonymously()}catch(e){$('lce').textContent='Cannot connect. Try again';return}
+ load();subEmp();
+ let ok=false;for(let i=0;i<12&&!ok;i++){ok=allEmp().concat(baseRoster()).some(x=>String(x[2])===c);if(!ok)await new Promise(r=>setTimeout(r,300))}
+ if(ok){$('lc').value='';setRole(c)}else{$('lce').textContent='Code not found';try{await auth.signOut()}catch(e){}}};
 [['lu','lb'],['lp','lb'],['lc','lcb']].forEach(([i,b])=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$(b).click()}));
-$('lrv').onclick=async()=>{$('lre').textContent='Checking...';let ok=false;
- try{const u=window.claude&&await window.claude.use('user');ok=!!(u&&u.isOwner())}catch(e){}
- if(ok){$('lre').className='ok';$('lre').textContent='Verified. Your username: '+AUTH.u;$('lnu').value=AUTH.u;$('lrf').hidden=false}
- else{$('lre').className='err';$('lre').textContent='This Google account is not the owner of this page';$('lrf').hidden=true}};
-$('lrs').onclick=async()=>{const u=$('lnu').value.trim(),p=$('lnp').value;
- if(u.length<3||p.length<6){$('lre').className='err';$('lre').textContent='Username 3+ and password 6+ characters';return}
- const a={u,h:await sha(p)};try{localStorage.setItem('auth',JSON.stringify(a))}catch(e){}
- if(db){try{await db.collection('meta').doc('auth').set(a)}catch(e){}}
- AUTH=a;setRole('admin')};
-$('lo').onclick=()=>{if(unsubI){unsubI();unsubI=null}MSG=[];flt='';setRole(null)};
+$('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('lre').textContent=x};
+ if(!CLOUD){m('Cloud is not configured yet');return}
+ try{const c=await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  if(c.user&&c.user.email===ADMIN_EMAIL){m('Verified. Your username is: '+ADMIN_USER,true);setTimeout(()=>setRole('admin'),2000)}
+  else{await auth.signOut();m('This Google account is not the admin account')}}
+ catch(e){m('Google sign-in failed')}};
+$('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
+ unsubI=unsubE=unsub=unsub2=null;MSG=[];flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
 /* employee review -> message to admin */
 function openReview(td){const code=td.dataset.e,d=td.dataset.d,e=allEmp().find(x=>String(x[2])===String(code)),v=eff(code,new Date(d+'T00:00'))[0];
  RV={code:String(code),name:e?e[1]:'',date:d,status:v?ST[v][0]:'No record'};
@@ -363,39 +378,29 @@ function openReview(td){const code=td.dataset.e,d=td.dataset.d,e=allEmp().find(x
 $('rvc').onclick=()=>{$('rv').style.display='none'};
 $('rvb').onclick=async()=>{const t=$('rvt').value.trim(),m=(x,ok)=>{$('rve').className=ok?'ok':'err';$('rve').textContent=x};
  if(!t){m('Write the correction first');return}
- if(!db){m('Cannot send right now (not connected)');return}
- try{const u=window.claude&&await window.claude.use('user'),id=u&&await u.id();
-  if(!id){m('Please sign in to claude.ai to send');return}
-  const ref=db.collection('inbox').doc(id);let cur=[];
-  try{const s=await ref.get();if(s.exists)cur=s.data().msgs||[]}catch(e){}
-  cur.push({code:RV.code,name:RV.name,date:RV.date,status:RV.status,text:t,ts:Date.now(),read:false});
-  await ref.set({msgs:cur});
+ if(!db||!auth||!auth.currentUser){m('Not connected. Please log in again');return}
+ try{await db.collection('inbox').doc(Date.now()+'_'+RV.code).set({code:RV.code,name:RV.name,date:RV.date,status:RV.status,text:t.slice(0,900),ts:Date.now(),read:false});
   m('Sent to admin',true);setTimeout(()=>{$('rv').style.display='none'},1200)}
- catch(e){m('Could not send. You need Contributor access to the page.')}};
-let DOCS={};
+ catch(e){m('Could not send. Please try again')}};
 function subInbox(){if(!db||unsubI)return;
- try{unsubI=db.collection('inbox').onSnapshot(s=>{MSG=[];DOCS={};
-  s.docs.forEach(d=>{const a=(d.data()||{}).msgs||[];DOCS[d.id]=a;a.forEach(x=>MSG.push(Object.assign({uid:d.id},x)))});
-  MSG.sort((x,y)=>y.ts-x.ts);
-  const n=MSG.filter(x=>!x.read).length;$('inb').textContent='Inbox'+(n?' ('+n+')':'');if($('ibx').style.display==='flex')showInbox()},()=>{})}catch(e){}}
-const putMsgs=(uid,arr)=>{try{db.collection('inbox').doc(uid).update({msgs:arr})}catch(e){}};
+ try{unsubI=db.collection('inbox').onSnapshot(s=>{MSG=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);
+  const n=MSG.filter(m=>!m.read).length;$('inb').querySelector('span').textContent='Inbox'+(n?' ('+n+')':'');if($('ibx').style.display==='flex')showInbox()},()=>{})}catch(e){}}
 function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length){L.textContent='No messages yet';return}
  MSG.forEach(m=>{const d=document.createElement('div');d.className='msg'+(m.read?'':' un');
   const h=document.createElement('b');h.textContent=m.name+' ('+m.code+') — '+m.date;
   const s=document.createElement('div');s.textContent='Recorded: '+m.status;
   const c=document.createElement('div');c.textContent='Correction: '+m.text;
   const a=document.createElement('div');a.className='r';
-  const r=document.createElement('button');r.textContent=m.read?'Mark unread':'Mark read';
-  r.onclick=()=>putMsgs(m.uid,(DOCS[m.uid]||[]).map(x=>x.ts===m.ts?Object.assign({},x,{read:!x.read}):x));
-  const x=document.createElement('button');x.textContent='Delete';
-  x.onclick=()=>putMsgs(m.uid,(DOCS[m.uid]||[]).filter(y=>y.ts!==m.ts));
+  const r=document.createElement('button');r.textContent=m.read?'Mark unread':'Mark read';r.onclick=()=>{try{db.collection('inbox').doc(m.id).update({read:!m.read})}catch(e){}};
+  const x=document.createElement('button');x.textContent='Delete';x.onclick=()=>{try{db.collection('inbox').doc(m.id).delete()}catch(e){}};
   a.append(r,x);d.append(h,s,c,a);L.appendChild(d)})}
 $('inb').onclick=e=>{e.stopPropagation();showInbox();$('ibx').style.display='flex'};
 $('ibc').onclick=()=>{$('ibx').style.display='none'};
 setStart(new Date());load();
-DBP=(async()=>{try{if(window.claude){db=await window.claude.use('db');if(db){load();db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){EMP=s.data().list;HID=s.data().hid||HID;render()}},()=>{})}}}catch(e){}
- if(!db){render()}await loadAuth()})();
-DBP.then(()=>{if(ROLE==='admin'){applyPatch();subInbox()}});
+if(CLOUD){auth.onAuthStateChanged(u=>{if(!ROLE)return;
+ const ok=ROLE==='admin'?(u&&!u.isAnonymous&&ADMINS.indexOf(u.email)>=0):(u&&u.isAnonymous);
+ if(ok)startCloud();else setRole(null)})}
+else if(ROLE){ROLE=null;try{sessionStorage.removeItem('role')}catch(e){}}
 applyRole();
 </script>
 </body>
