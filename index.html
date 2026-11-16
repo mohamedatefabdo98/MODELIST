@@ -43,7 +43,7 @@ td.cell{cursor:pointer;min-width:47px;height:38px}td.wk{background:var(--wk)}td.
 .c{width:28px;height:28px;border-radius:8px;font-size:12px}
 .c.F{background:var(--F)}.c.P{background:var(--P);color:#000}.c.A{background:var(--A)}.c.C{background:var(--C)}.c.S{background:var(--S)}.c.X{background:var(--X)}.c.H{background:var(--H)}.c.O{background:var(--O)}.c.L{background:var(--L)}
 .c.Q{background:#000;color:#ff2d2d}
-.c.T{background:#8b5e3c}.c.N{background:#d6384b}
+.c.T{background:#8b5e3c}.c.N{background:#d6384b}.c.W{background:#c026d3}.c.M{background:#4f46e5}
 .cell .c.Q{font-size:17px;min-width:44px;min-height:30px}
 .leg i.c.Q{font-size:15px}
 #menu i.c.Q{font-size:15px!important}
@@ -53,11 +53,11 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
 #menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
 #menu button:hover{background:var(--wk)}
-#ex,#pdf,#th,#inb,#lo,#bk{font:inherit;font-size:12px;font-weight:700;color:#fff;border:0;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+#ex,#pdf,#th,#inb,#lo,#bk,#ct{font:inherit;font-size:12px;font-weight:700;color:#fff;border:0;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
 #ex{background:#1f9d62}#pdf{background:#d6384b}
-#th{background:var(--gold);color:#14213d}#inb{background:#2563eb}#bk{background:#0e9aa7}#lo{background:#6b7280}
+#th{background:var(--gold);color:#14213d}#inb{background:#2563eb}#bk{background:#0e9aa7}#ct{background:#7c3aed}#lo{background:#6b7280}
 body.locked>*:not(#lg):not(script){display:none!important}
-body.emp #ex,body.emp #pdf,body.emp #inb,body.emp #bk,body.emp .addrow,body.emp .frow,body.emp .hint{display:none}
+body.emp #ex,body.emp #pdf,body.emp #inb,body.emp #bk,body.emp #ct,body.emp .addrow,body.emp .frow,body.emp .hint{display:none}
 #lg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:#1e2a44 var(--img) center/cover no-repeat}
 body.locked #lg{display:flex}
 #lg [hidden]{display:none!important}
@@ -102,25 +102,26 @@ body.locked #lg{display:flex}
 body.emp #ep{display:block}
 #ep .epc{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 #ep .epc small{display:block;color:var(--mut)}#ep .epc b{font-size:26px}
-#eprq{font:inherit;font-weight:700;background:var(--gold);color:#14213d;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}
+#eprl,#eprp{font:inherit;font-weight:700;background:var(--gold);color:#14213d;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}#eprp{background:#2563eb;color:#fff}.epbtn{display:flex;gap:8px;flex-wrap:wrap}
 #eplist{margin-top:8px;display:grid;gap:6px}
 #eplist .rr{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:13px}
 .chip{border-radius:20px;padding:1px 10px;font-weight:700;font-size:12px;color:#fff}.chip.pending{background:#e8830c}.chip.approved{background:#1f9d62}.chip.rejected{background:#d6384b}
 .md p{margin:0}.md select{font:inherit;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);width:100%}
-#rqs,#pws{background:var(--P);color:#fff;flex:1}#rqc,#pwo{background:var(--wk);color:var(--tx)}
+#rqs,#pws,#cts{background:var(--P);color:#fff;flex:1}#rqc,#pwo,#ctc{background:var(--wk);color:var(--tx)}
+.md .lk{flex:1;text-align:center;text-decoration:none;color:#fff;font-weight:700;border-radius:10px;padding:10px 12px}.lk.wa{background:#25d366}.lk.em{background:#2563eb}
 #elist .er .key{background:#0e9aa7;color:#fff;padding:7px 0}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
 <body class="locked">
-<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
+<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Notify</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
 <div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
   <button id="nx">الشهر التالي ▶</button>
   <button id="td">اليوم</button>
 </div>
-<div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><button id="eprq">Request leave / permission</button></div><div id="eplist"></div></div>
+<div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><div class="epbtn"><button id="eprl">Request leave</button><button id="eprp">Request permission</button></div></div><div id="eplist"></div></div>
 <div class="leg" id="leg"></div>
 <div class="wrap"><div class="frow"><select id="flt" aria-label="فلتر الموظفين"></select></div><table id="tb"></table><div class="addrow"><button id="add">+ Add New Employee</button><button id="edt">Edit</button></div></div>
 <div id="lg"><div class="bx">
@@ -128,7 +129,8 @@ body.emp #ep{display:block}
 <div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lf" class="lnk">Forgot username or password?</button></div>
 <div id="lv3" class="v" hidden><p>Recover access with the admin Google account</p><p style="font-size:12px;color:var(--mut)">Employees: ask the admin for a new temporary password.</p><button id="lgg" class="pri">Sign in with Google</button><div class="err" id="lre"></div><button class="lnk bk">Back</button></div>
 </div></div>
-<div class="md" id="rq"><div><h3>New request</h3><select id="rqt"><option value="leave">Annual leave</option><option value="permission">Permission</option></select><small style="color:var(--mut)">Date</small><input id="rqf" type="date"><div id="rqtowrap"><small style="color:var(--mut)">Until</small><input id="rqto" type="date"></div><textarea id="rqn" rows="3" placeholder="Note (for a permission: the time and the reason)"></textarea><div class="err" id="rqe"></div><div class="r"><button id="rqs">Send</button><button id="rqc">Cancel</button></div></div></div>
+<div class="md" id="ctm"><div><h3>Notify me about requests</h3><p style="font-size:13px;color:var(--mut)">After an employee sends a leave or permission request, they get quick buttons to message you here.</p><input id="cte" type="email" placeholder="Email" dir="ltr"><input id="ctw" placeholder="WhatsApp number with country code, e.g. 201012345678" inputmode="numeric" dir="ltr"><div class="err" id="cter"></div><div class="r"><button id="cts">Save</button><button id="ctc">Cancel</button></div></div></div>
+<div class="md" id="rq"><div><h3 id="rqh">New request</h3><select id="rqt"></select><div id="rqbal" style="font-size:13px"></div><small style="color:var(--mut)" id="rqfl">Date</small><input id="rqf" type="date"><div id="rqtowrap"><small style="color:var(--mut)">Until</small><input id="rqto" type="date"></div><div id="rqtmw"><small style="color:var(--mut)" id="rqt1l">Time</small><input id="rqt1" type="time"><div id="rqt2w"><small style="color:var(--mut)">To</small><input id="rqt2" type="time"></div></div><textarea id="rqn" rows="3" placeholder="Note (optional)"></textarea><div class="err" id="rqe"></div><div id="rqnt" class="r" hidden></div><div class="r"><button id="rqs">Send</button><button id="rqc">Cancel</button></div></div></div>
 <div class="md" id="pwd"><div><h3>Choose a new password</h3><p>This is your first login. Please set your own password.</p><input id="pw1" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Repeat password"><div class="err" id="pwe"></div><div class="r"><button id="pws">Save</button><button id="pwo">Log out</button></div></div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
 <div class="md" id="ibx"><div><h3>Inbox</h3><div id="ibl" style="display:grid;gap:8px"></div><button id="ibc">Close</button></div></div>
@@ -143,7 +145,7 @@ body.emp #ep{display:block}
 <div id="menu"></div>
 <script>
 let EMP=[[1,'محمد عاطف عبدة عبدالعاطي',2622,'Marker'],[2,'جنة أشرف مراد جودة',2624,'Translator'],[3,'نوريهان نبيل محمود كامل',2743,'Designer'],[4,'محمد احمد محمد عبدالرحيم',2931,'Operator'],[5,'شهد خليل ابراهيم نصار',3106,'Translator'],[6,'أحمد سالمان عبدالظاهر احمد',3147,'Modelist'],[7,'ابانوب عوض الله ابراهيم',3710,'Modelist'],[8,'حسناء محمد حسن محمد',3729,'Translator'],[9,'Nouran Sadek Hafez El-Taher',3759,'Data Entry']];
-const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS'],T:['TRANSFER','TR'],N:['خارج العمل','']};
+const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS'],T:['TRANSFER','TR'],N:['خارج العمل',''],W:['إصابة عمل','WI'],M:['مهمة رسمية','OM']};
 const SUM=[];
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
@@ -284,11 +286,11 @@ $('elist').addEventListener('click',ev=>{const k=ev.target.closest('.key');if(k)
 async function mkLogin(row){const code=row.querySelector('.ec').value.trim(),name=row.querySelector('.en').value.trim(),job=row.querySelector('.ej').value.trim(),lv=row.querySelector('.el').value.trim();
  if(!db||ROLE!=='admin')return;
  if(!/^[A-Za-z0-9]+$/.test(code)){alert('The code must be letters or numbers only to create a login');return}
- const tmp=prompt('Temporary password for '+name+' (6+ characters). The employee will be asked to change it at the first login.');
- if(!tmp)return;if(tmp.length<6){alert('The password must be at least 6 characters');return}
+ if(!confirm('Create / reset the login for '+name+' ('+code+')?\nThe temporary password will be 0 and the employee must change it at the first login.'))return;
+ const tmp='0';
  try{const ref=db.collection('profiles').doc(code),s=await ref.get(),ver=(s.exists&&s.data().ver||0)+1,email=code+'-'+ver+'@modelist.app';
   const sec=firebase.apps.find(a=>a.name==='sec')||firebase.initializeApp(FIREBASE_CONFIG,'sec');
-  await sec.auth().createUserWithEmailAndPassword(email,tmp);await sec.auth().signOut();
+  await sec.auth().createUserWithEmailAndPassword(email,FBP(tmp));await sec.auth().signOut();
   await ref.set({name,title:job||'-',leave:lv===''?21:Number(lv),authEmail:email,ver,mustChange:true},{merge:true});
   await db.collection('login').doc(code).set({email});
   alert('Done.\nUsername: '+code+'\nTemporary password: '+tmp)}
@@ -339,7 +341,7 @@ async function makeXlsx(ExcelJS,ctx){
 }
 
 
-const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
+const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',W:'C026D3',M:'4F46E5',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
 async function saveFile(fn,data){
  try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
@@ -361,9 +363,16 @@ $('pdf').onclick=async()=>{
 /* ---------- Firebase + accounts ---------- */
 const FIREBASE_CONFIG={apiKey:'AIzaSyDaH3KDpr6Qxa7WGSZcXb3ruR2Nf0U1uBU',authDomain:'modelist-2026.firebaseapp.com',projectId:'modelist-2026',storageBucket:'modelist-2026.firebasestorage.app',messagingSenderId:'1059486672648',appId:'1:1059486672648:web:1fac1ba4be2cd3ca4c2ebd'};
 const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='alkzaz38@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
-let ROLE=null,auth=null,CLOUD=false,MSG=[],REQS=[],MYREQ=[],PROFILE=null,ECELLS={},unsubI=null,unsubE=null,unsubR=null,unsubP=[],RV=null,SYNCED=false;
+let ROLE=null,auth=null,CLOUD=false,CONTACT=null,unsubC=null,MSG=[],REQS=[],MYREQ=[],PROFILE=null,ECELLS={},unsubI=null,unsubE=null,unsubR=null,unsubP=[],RV=null,SYNCED=false;
 try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
 try{if(typeof firebase!=='undefined'&&!/PASTE/.test(FIREBASE_CONFIG.apiKey)){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();CLOUD=true}}catch(e){}
+const FBP=p=>p+'#Modelist26';
+/* EmailJS: fill these 3 values to send the admin an e-mail automatically for every request */
+const EMAILJS={pub:'',service:'',template:''};
+const emailOn=()=>!!(EMAILJS.pub&&EMAILJS.service&&EMAILJS.template);
+async function emailAdmin(d){if(!emailOn()||!CONTACT||!CONTACT.email)return;
+ try{await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:CONTACT.email,from_name:d.name+' ('+d.code+')',request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
 const V=n=>{['lv1','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lre'].forEach(i=>{$(i).className='err';$(i).textContent=''})};
 function applyHeader(){const a=document.querySelector('.adm');
  if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
@@ -388,14 +397,15 @@ function subMine(){if(!db||unsubP.length)return;const c=ROLE;
  try{unsubP.push(db.collection('profiles').doc(c).onSnapshot(s=>{if(s.exists){PROFILE=s.data();applyHeader();render();epRender();if(PROFILE.mustChange)$('pwd').style.display='flex'}},()=>{}))}catch(e){}
  try{unsubP.push(db.collection('att').where('code','==',c).onSnapshot(s=>{ECELLS={};s.docs.forEach(d=>Object.assign(ECELLS,d.data().cells||{}));cellsFromE();render();epRender()},()=>{}))}catch(e){}
  try{unsubP.push(db.collection('requests').where('code','==',c).onSnapshot(s=>{MYREQ=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);epRender()},()=>{}))}catch(e){}}
-function startCloud(){load();if(ROLE==='admin'){subEmp();applyPatch();subInbox();subReq();migrate()}else subMine()}
+function subContact(){if(!db||unsubC)return;try{unsubC=db.collection('settings').doc('contact').onSnapshot(s=>{CONTACT=s.exists?s.data():null},()=>{})}catch(e){}}
+function startCloud(){load();subContact();if(ROLE==='admin'){subEmp();applyPatch();subInbox();subReq();migrate()}else subMine()}
 function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r)startCloud()}
 $('lb').onclick=async()=>{const raw=$('lu').value.trim(),p=$('lp').value;$('le').textContent='';
  if(!raw||!p){$('le').textContent='Enter username and password';return}
  if(!CLOUD){$('le').textContent='Cloud is not configured yet';return}
  try{
   if(raw.toLowerCase()===ADMIN_USER){const c=await auth.signInWithEmailAndPassword(LOGIN_EMAIL,p);if(!c.user||c.user.email!==LOGIN_EMAIL)throw 0;$('lp').value='';setRole('admin')}
-  else{const s=await db.collection('login').doc(raw).get();if(!s.exists)throw 0;await auth.signInWithEmailAndPassword(s.data().email,p);$('lp').value='';setRole(raw)}}
+  else{const s=await db.collection('login').doc(raw).get();if(!s.exists)throw 0;const em=s.data().email;try{await auth.signInWithEmailAndPassword(em,FBP(p))}catch(e1){await auth.signInWithEmailAndPassword(em,p)}$('lp').value='';setRole(raw)}}
  catch(e){$('le').textContent='Wrong username or password'}};
 $('lf').onclick=()=>V('lv3');
 document.querySelectorAll('#lg .bk').forEach(b=>b.onclick=()=>V('lv1'));
@@ -406,38 +416,63 @@ $('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('
   if(c.user&&c.user.email===ADMIN_EMAIL){m('Verified. Your username is: '+ADMIN_USER,true);setTimeout(()=>setRole('admin'),2000)}
   else{await auth.signOut();m('This Google account is not the admin account')}}
  catch(e){m('Google sign-in failed')}};
-$('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
+$('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
  unsubP.forEach(f=>{try{f()}catch(e){}});
- unsubI=unsubE=unsubR=unsub=unsub2=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
+ unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
 /* employee: leave balance + requests */
+const DED=['annual','sick','leave'],TL={annual:'Annual',sick:'Sick leave',injury:'Work injury',mission:'Official mission',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
+const rdesc=r=>(TL[r.type]||r.type)+' '+r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
 const wdays=(f,t)=>{let n=0;for(let d=new Date(f+'T00:00');ds(d)<=t;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))if(d.getDay()!==5)n++;return n};
 const totLeave=()=>PROFILE&&PROFILE.leave!==undefined?Number(PROFILE.leave):21;
-function usedLeave(){const y=String(new Date().getFullYear());let n=0;for(const k in ECELLS){const i=k.indexOf('_')+1;if(ECELLS[k]==='C'&&k.slice(i,i+4)===y)n++}return n}
-const pendLeave=()=>MYREQ.filter(r=>r.status==='pending'&&r.type==='leave').reduce((a,r)=>a+(r.days||0),0);
+function usedLeave(){const y=String(new Date().getFullYear());let n=0;for(const k in ECELLS){const i=k.indexOf('_')+1;if((ECELLS[k]==='C'||ECELLS[k]==='S')&&k.slice(i,i+4)===y)n++}return n}
+const pendLeave=()=>MYREQ.filter(r=>r.status==='pending'&&DED.indexOf(r.type)>=0).reduce((a,r)=>a+(r.days||0),0);
 function epRender(){if(!ROLE||ROLE==='admin'||!PROFILE)return;
  const tot=totLeave(),u=usedLeave(),pd=pendLeave();
  $('eprem').textContent=(tot-u)+' days';$('epdet').textContent='Used '+u+' of '+tot+(pd?' · '+pd+' pending':'');
  const L=$('eplist');L.innerHTML='';
  MYREQ.slice(0,10).forEach(r=>{const d=document.createElement('div');d.className='rr';
-  const a=document.createElement('span');a.textContent=(r.type==='leave'?'Leave ':'Permission ')+r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.note?' — '+r.note:'');
+  const a=document.createElement('span');a.textContent=rdesc(r);
   const c=document.createElement('span');c.className='chip '+r.status;c.textContent=r.status;d.append(a,c);L.appendChild(d)})}
-const rqType=()=>{$('rqtowrap').hidden=$('rqt').value!=='leave'};
+let RQMODE='leave';
+const LT=[['annual','Annual'],['sick','Sick leave'],['injury','Work injury'],['mission','Official mission']],PT=[['p_in','Entry permission'],['p_out','Exit permission'],['p_gf','Garment Factory']];
+function rqType(){const ty=$('rqt').value,pm=isPerm(ty),b=$('rqbal');
+ $('rqtowrap').hidden=pm;$('rqtmw').hidden=!pm;$('rqt2w').hidden=ty!=='p_gf';
+ $('rqfl').textContent=pm?'Date':'From';
+ $('rqt1l').textContent=ty==='p_in'?'Arrival time':ty==='p_out'?'Leaving time':'From';
+ const left=totLeave()-usedLeave()-pendLeave();
+ if(pm){b.textContent=''}
+ else if(DED.indexOf(ty)>=0){b.textContent='Your remaining annual leave: '+left+' days';b.style.color=left>0?'var(--P)':'var(--A)'}
+ else{b.textContent='Not deducted from your annual leave (remaining: '+left+' days)';b.style.color='var(--mut)'}}
+function openRq(mode){RQMODE=mode;const L=mode==='leave'?LT:PT;
+ $('rqh').textContent=mode==='leave'?'Leave request':'Permission request';
+ $('rqt').innerHTML=L.map(x=>'<option value="'+x[0]+'">'+x[1]+'</option>').join('');
+ ['rqf','rqto','rqt1','rqt2','rqn'].forEach(i=>{$(i).value=''});
+ $('rqe').className='err';$('rqe').textContent='';$('rqs').hidden=false;$('rqnt').hidden=true;rqType();$('rq').style.display='flex'}
 $('rqt').onchange=rqType;
-$('eprq').onclick=()=>{$('rqt').value='leave';$('rqf').value='';$('rqto').value='';$('rqn').value='';$('rqe').textContent='';rqType();$('rq').style.display='flex'};
+$('eprl').onclick=()=>openRq('leave');$('eprp').onclick=()=>openRq('perm');
 $('rqc').onclick=()=>{$('rq').style.display='none'};
-$('rqs').onclick=async()=>{const ty=$('rqt').value,f=$('rqf').value,to=ty==='leave'?$('rqto').value:f,n=$('rqn').value.trim(),m=x=>{$('rqe').textContent=x};
+$('rqs').onclick=async()=>{const ty=$('rqt').value,pm=isPerm(ty),f=$('rqf').value,to=pm?f:$('rqto').value,t1=pm?$('rqt1').value:'',t2=ty==='p_gf'?$('rqt2').value:'',n=$('rqn').value.trim(),m=x=>{$('rqe').className='err';$('rqe').textContent=x};
  if(!f||!to||to<f){m('Choose valid dates');return}
- if(ty==='permission'&&!n){m('Write the time and the reason');return}
+ if(pm&&!t1){m('Choose the time');return}
+ if(ty==='p_gf'&&t2&&t2<=t1){m('The end time must be after the start time');return}
  let days=0;
- if(ty==='leave'){days=wdays(f,to);const left=totLeave()-usedLeave()-pendLeave();
-  if(days<1){m('There are no working days in this range');return}
-  if(days>left){m('Not enough balance ('+left+' days left)');return}}
+ if(!pm){days=wdays(f,to);if(days<1){m('There are no working days in this range');return}
+  if(ty==='annual'){const left=totLeave()-usedLeave()-pendLeave();if(days>left){m('Not enough balance ('+left+' days left)');return}}}
  if(!db||!PROFILE){m('Not connected. Please log in again');return}
- try{await db.collection('requests').doc(Date.now()+'_'+ROLE).set({code:ROLE,name:PROFILE.name||'',type:ty,from:f,to,days,note:n.slice(0,300),status:'pending',ts:Date.now()});$('rq').style.display='none'}
+ const doc={code:ROLE,name:PROFILE.name||'',type:ty,from:f,to,days,t1,t2,note:n.slice(0,300),status:'pending',ts:Date.now()};
+ try{await db.collection('requests').doc(Date.now()+'_'+ROLE).set(doc);
+  $('rqe').className='ok';$('rqe').textContent='Sent to admin';$('rqs').hidden=true;showNotify(doc);emailAdmin(doc)}
  catch(e){m('Could not send. Please try again')}};
+function showNotify(d){const box=$('rqnt');box.innerHTML='';box.hidden=true;if(!CONTACT)return;
+ const msg='MODELIST request: '+d.name+' ('+d.code+') - '+rdesc(d)+(d.days?' ('+d.days+' days)':'');
+ const mk=(cls,txt,href)=>{const a=document.createElement('a');a.className='lk '+cls;a.textContent=txt;a.href=href;a.target='_blank';a.rel='noopener';box.appendChild(a)};
+ const w=String(CONTACT.wa||'').replace(/\D/g,'');
+ if(w)mk('wa','WhatsApp the admin','https://wa.me/'+w+'?text='+encodeURIComponent(msg));
+ if(CONTACT.email&&!emailOn())mk('em','Email the admin','mailto:'+CONTACT.email+'?subject='+encodeURIComponent('MODELIST request')+'&body='+encodeURIComponent(msg));
+ box.hidden=!box.children.length}
 $('pws').onclick=async()=>{const a=$('pw1').value,b=$('pw2').value,m=x=>{$('pwe').textContent=x};
  if(a.length<6){m('At least 6 characters');return}if(a!==b){m('The passwords do not match');return}
- try{await auth.currentUser.updatePassword(a);await db.collection('profiles').doc(ROLE).update({mustChange:false});$('pwd').style.display='none';$('pw1').value='';$('pw2').value=''}
+ try{await auth.currentUser.updatePassword(FBP(a));await db.collection('profiles').doc(ROLE).update({mustChange:false});$('pwd').style.display='none';$('pw1').value='';$('pw2').value=''}
  catch(e){m('Could not change it. Log out, log in again, then retry')}};
 $('pwo').onclick=()=>{$('pwd').style.display='none';$('lo').click()};
 /* employee: correction of a recorded day */
@@ -460,15 +495,15 @@ function subReq(){if(!db||unsubR)return;
  try{unsubR=db.collection('requests').onSnapshot(s=>{REQS=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);badge();if(inboxOpen())showInbox()},()=>{})}catch(e){}}
 const periodKey=d=>{let m=d.getMonth();const y=d.getFullYear();if(d.getDate()<27)m--;const s=new Date(y,m,27);return s.getFullYear()+'-'+pad(s.getMonth()+1)};
 async function decide(r,ok){
- try{if(ok&&r.type==='leave'){const by={};
-   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]='C'}
+ try{if(ok&&!isPerm(r.type)){const by={};
+   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',sick:'S',injury:'W',mission:'M'})[r.type]||'C'}
    for(const k in by)await db.collection('att').doc(r.code+'_'+k).set({month:k,code:r.code,cells:by[k]},{merge:true})}
   await db.collection('requests').doc(r.id).update({status:ok?'approved':'rejected',decidedAt:Date.now()})}
  catch(e){alert('Could not save the decision')}}
 function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.length){L.textContent='No messages yet';return}
  REQS.forEach(r=>{const d=document.createElement('div');d.className='msg'+(r.status==='pending'?' un':'');
-  const h=document.createElement('b');h.textContent=r.name+' ('+r.code+') — '+(r.type==='leave'?'Leave request':'Permission request');
-  const s=document.createElement('div');s.textContent=r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.type==='leave'?' ('+r.days+' days)':'')+(r.note?' — '+r.note:'');
+  const h=document.createElement('b');h.textContent=r.name+' ('+r.code+') — '+((TL[r.type]||r.type)+' request');
+  const s=document.createElement('div');s.textContent=r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.days?' ('+r.days+' days)':'')+(r.note?' — '+r.note:'');
   const st=document.createElement('div');st.textContent='Status: '+r.status;d.append(h,s,st);
   if(r.status==='pending'){const a=document.createElement('div');a.className='r';
    const ok=document.createElement('button');ok.textContent='Approve';ok.onclick=()=>decide(r,true);
@@ -484,9 +519,15 @@ function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.lengt
   a.append(r,x);d.append(h,s,c,a);L.appendChild(d)})}
 $('inb').onclick=e=>{e.stopPropagation();showInbox();$('ibx').style.display='flex'};
 $('ibc').onclick=()=>{$('ibx').style.display='none'};
+$('ct').onclick=e=>{e.stopPropagation();$('cte').value=CONTACT&&CONTACT.email||'';$('ctw').value=CONTACT&&CONTACT.wa||'';$('cter').textContent='';$('ctm').style.display='flex'};
+$('ctc').onclick=()=>{$('ctm').style.display='none'};
+$('cts').onclick=async()=>{const e=$('cte').value.trim(),w=$('ctw').value.replace(/\D/g,'');
+ if(e&&!/^\S+@\S+\.\S+$/.test(e)){$('cter').textContent='Enter a valid email';return}
+ try{await db.collection('settings').doc('contact').set({email:e,wa:w});$('ctm').style.display='none'}
+ catch(er){$('cter').textContent='Could not save. Please try again'}};
 $('bk').onclick=async()=>{if(ROLE!=='admin'||!db)return;const s=$('bk').querySelector('span');s.textContent='Saving...';
  try{const out={exportedAt:new Date().toISOString()};
-  for(const c of ['att','attendance','profiles','requests','meta','inbox','login']){out[c]={};const q=await db.collection(c).get();q.docs.forEach(d=>{out[c][d.id]=d.data()})}
+  for(const c of ['att','attendance','profiles','requests','meta','inbox','login','settings']){out[c]={};const q=await db.collection(c).get();q.docs.forEach(d=>{out[c][d.id]=d.data()})}
   await saveFile('MODELIST_backup_'+ds(new Date())+'.json',new TextEncoder().encode(JSON.stringify(out,null,1)))}
  catch(e){alert('Backup failed. Please try again.')}
  s.textContent='Backup'};
