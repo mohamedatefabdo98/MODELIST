@@ -43,7 +43,7 @@ td.cell{cursor:pointer;min-width:47px;height:38px}td.wk{background:var(--wk)}td.
 .c{width:28px;height:28px;border-radius:8px;font-size:12px}
 .c.F{background:var(--F)}.c.P{background:var(--P);color:#000}.c.A{background:var(--A)}.c.C{background:var(--C)}.c.S{background:var(--S)}.c.X{background:var(--X)}.c.H{background:var(--H)}.c.O{background:var(--O)}.c.L{background:var(--L)}
 .c.Q{background:#000;color:#ff2d2d}
-.c.T{background:#8b5e3c}.c.N{background:#d6384b}.c.W{background:#c026d3}.c.M{background:#4f46e5}
+.c.T{background:#8b5e3c}.c.N{background:#d6384b}.c.W{background:#c026d3}.c.M{background:#4f46e5}.c.K{background:#65a30d}.c.U{background:#475569}.c.B{background:#db2777}
 .cell .c.Q{font-size:17px;min-width:44px;min-height:30px}
 .leg i.c.Q{font-size:15px}
 #menu i.c.Q{font-size:15px!important}
@@ -102,7 +102,7 @@ body.locked #lg{display:flex}
 body.emp #ep{display:block}
 #ep .epc{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 #ep .epc small{display:block;color:var(--mut)}#ep .epc b{font-size:26px}
-#eprl,#eprp{font:inherit;font-weight:700;background:var(--gold);color:#14213d;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}#eprp{background:#2563eb;color:#fff}.epbtn{display:flex;gap:8px;flex-wrap:wrap}
+#eprn{font:inherit;font-weight:700;background:var(--gold);color:#14213d;border:0;border-radius:10px;padding:9px 20px;cursor:pointer}
 #eplist{margin-top:8px;display:grid;gap:6px}
 #eplist .rr{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:13px}
 .chip{border-radius:20px;padding:1px 10px;font-weight:700;font-size:12px;color:#fff}.chip.pending{background:#e8830c}.chip.approved{background:#1f9d62}.chip.rejected{background:#d6384b}
@@ -110,18 +110,39 @@ body.emp #ep{display:block}
 #rqs,#pws,#cts{background:var(--P);color:#fff;flex:1}#rqc,#pwo,#ctc{background:var(--wk);color:var(--tx)}
 .md .lk{flex:1;text-align:center;text-decoration:none;color:#fff;font-weight:700;border-radius:10px;padding:10px 12px}.lk.wa{background:#25d366}.lk.em{background:#2563eb}
 #elist .er .key{background:#0e9aa7;color:#fff;padding:7px 0}
+.md>div.wide{max-width:720px}
+.md label{font-size:13px;color:var(--mut);font-weight:600;display:block;margin-bottom:4px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+@media(max-width:520px){.g2{grid-template-columns:1fr}}
+.md input[readonly]{background:var(--wk);color:var(--tx);opacity:.85}
+.rad{display:flex;flex-wrap:wrap;gap:8px 16px}
+.md label.rd{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--tx);font-weight:500;margin:0;cursor:pointer}
+.md input[type=radio]{width:auto;padding:0;accent-color:var(--gold)}
+.dd{position:relative}
+.md .ddb{width:100%;text-align:left;background:var(--bg);color:var(--tx);border:1px solid var(--ln);font-weight:400;min-height:48px;display:block;padding:6px 12px}
+.ddb b,.ddi b{display:block;font-weight:600}.ddb small,.ddi small{display:block;color:var(--mut)}
+.ddb .ph{color:var(--mut)}
+.ddl{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--ln);border-radius:10px;max-height:220px;overflow:auto;z-index:5;box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.ddi{padding:8px 12px;cursor:pointer}.ddi:hover{background:var(--wk)}
+#rqch{display:grid;gap:8px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--wk)}
+.md .r button{flex:1}
+#rqsm{background:#2563eb;color:#fff}#rqsv{background:var(--P);color:#fff}#rqclr,#rqnn{background:var(--wk);color:var(--tx)}#rqch #rqnn{border:1px solid var(--ln)}
+#rqnw{background:#25d366;color:#fff}#rqne{background:#2563eb;color:#fff}
+#eplist button{font:inherit;font-size:12px;font-weight:700;border:0;border-radius:8px;padding:3px 10px;margin-left:6px;background:var(--wk);color:var(--tx);cursor:pointer}
+.chip.draft{background:#6b7280}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--tx);border:1px solid var(--ln);padding:10px 18px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.3);z-index:60;display:none}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
 <body class="locked">
-<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Notify</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
+<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
 <div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
   <button id="nx">الشهر التالي ▶</button>
   <button id="td">اليوم</button>
 </div>
-<div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><div class="epbtn"><button id="eprl">Request leave</button><button id="eprp">Request permission</button></div></div><div id="eplist"></div></div>
+<div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><button id="eprn">New Request</button></div><div id="eplist"></div></div>
 <div class="leg" id="leg"></div>
 <div class="wrap"><div class="frow"><select id="flt" aria-label="فلتر الموظفين"></select></div><table id="tb"></table><div class="addrow"><button id="add">+ Add New Employee</button><button id="edt">Edit</button></div></div>
 <div id="lg"><div class="bx">
@@ -129,8 +150,27 @@ body.emp #ep{display:block}
 <div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lf" class="lnk">Forgot username or password?</button></div>
 <div id="lv3" class="v" hidden><p>Recover access with the admin Google account</p><p style="font-size:12px;color:var(--mut)">Employees: ask the admin for a new temporary password.</p><button id="lgg" class="pri">Sign in with Google</button><div class="err" id="lre"></div><button class="lnk bk">Back</button></div>
 </div></div>
-<div class="md" id="ctm"><div><h3>Notify me about requests</h3><p style="font-size:13px;color:var(--mut)">After an employee sends a leave or permission request, they get quick buttons to message you here.</p><input id="cte" type="email" placeholder="Email" dir="ltr"><input id="ctw" placeholder="WhatsApp number with country code, e.g. 201012345678" inputmode="numeric" dir="ltr"><div class="err" id="cter"></div><div class="r"><button id="cts">Save</button><button id="ctc">Cancel</button></div></div></div>
-<div class="md" id="rq"><div><h3 id="rqh">New request</h3><select id="rqt"></select><div id="rqbal" style="font-size:13px"></div><small style="color:var(--mut)" id="rqfl">Date</small><input id="rqf" type="date"><div id="rqtowrap"><small style="color:var(--mut)">Until</small><input id="rqto" type="date"></div><div id="rqtmw"><small style="color:var(--mut)" id="rqt1l">Time</small><input id="rqt1" type="time"><div id="rqt2w"><small style="color:var(--mut)">To</small><input id="rqt2" type="time"></div></div><textarea id="rqn" rows="3" placeholder="Note (optional)"></textarea><div class="err" id="rqe"></div><div id="rqnt" class="r" hidden></div><div class="r"><button id="rqs">Send</button><button id="rqc">Cancel</button></div></div></div>
+<div class="md" id="ctm"><div><h3>Settings</h3><p style="font-size:13px;color:var(--mut)">Where employees can notify you about their requests, and the shift shown in the request form.</p><input id="cte" type="email" placeholder="Email" dir="ltr"><input id="ctw" placeholder="WhatsApp number with country code, e.g. 201012345678" inputmode="numeric" dir="ltr"><input id="cth" placeholder="Shift (e.g. Morning)" dir="ltr"><div class="err" id="cter"></div><div class="r"><button id="cts">Save</button><button id="ctc">Cancel</button></div></div></div>
+<div class="md" id="rq"><div class="wide">
+<h3>Create New Request</h3>
+<div class="g3">
+<div><label>Employee Code</label><div class="dd"><button type="button" id="ddb" class="ddb"><span id="ddt" class="ph">Please select user code</span></button><div id="ddl" class="ddl" hidden></div></div></div>
+<div><label>Department Name</label><input id="rqdep" value="Modelist" readonly></div>
+<div><label>Job Title</label><input id="rqjob" readonly></div>
+<div><label>Shift Value</label><input id="rqsh" readonly></div>
+</div>
+<div><label>Vacation Type</label><div id="rqtypes" class="rad"></div></div>
+<div id="rqpw" hidden><label>Permission type</label><select id="rqpt"></select></div>
+<div class="g2"><div><label id="rqfl">Start Date</label><input id="rqf" type="date"></div><div id="rqtowrap"><label>Finish Date</label><input id="rqto" type="date"></div></div>
+<div id="rqtmw" class="g2" hidden><div><label id="rqt1l">Time</label><input id="rqt1" type="time"></div><div id="rqt2w"><label>To</label><input id="rqt2" type="time"></div></div>
+<div class="g2"><div><label>Total Vacation Day Request</label><input id="rqtot" readonly></div><div><label>Remaining annual vacation</label><input id="rqrem" readonly></div></div>
+<small id="rqdays" style="color:var(--mut)"></small>
+<div><label>Vacation Note (optional)</label><textarea id="rqn" rows="3"></textarea></div>
+<div class="err" id="rqe"></div>
+<div id="rqch" hidden><small style="color:var(--mut)">Send the notification to the manager via:</small><button id="rqnw">WhatsApp</button><button id="rqne">Email</button><button id="rqnn">Send to Manager without notify</button></div>
+<div class="r"><button id="rqc">Close</button><button id="rqclr">Clear</button><button id="rqsm">Send Manager</button><button id="rqsv">Save</button></div>
+</div></div>
+<div id="toast"></div>
 <div class="md" id="pwd"><div><h3>Choose a new password</h3><p>This is your first login. Please set your own password.</p><input id="pw1" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Repeat password"><div class="err" id="pwe"></div><div class="r"><button id="pws">Save</button><button id="pwo">Log out</button></div></div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
 <div class="md" id="ibx"><div><h3>Inbox</h3><div id="ibl" style="display:grid;gap:8px"></div><button id="ibc">Close</button></div></div>
@@ -145,7 +185,7 @@ body.emp #ep{display:block}
 <div id="menu"></div>
 <script>
 let EMP=[[1,'محمد عاطف عبدة عبدالعاطي',2622,'Marker'],[2,'جنة أشرف مراد جودة',2624,'Translator'],[3,'نوريهان نبيل محمود كامل',2743,'Designer'],[4,'محمد احمد محمد عبدالرحيم',2931,'Operator'],[5,'شهد خليل ابراهيم نصار',3106,'Translator'],[6,'أحمد سالمان عبدالظاهر احمد',3147,'Modelist'],[7,'ابانوب عوض الله ابراهيم',3710,'Modelist'],[8,'حسناء محمد حسن محمد',3729,'Translator'],[9,'Nouran Sadek Hafez El-Taher',3759,'Data Entry']];
-const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS'],T:['TRANSFER','TR'],N:['خارج العمل',''],W:['إصابة عمل','WI'],M:['مهمة رسمية','OM']};
+const ST={P:['حضور','X'],F:['يوم الجمعة','H'],S:['إجازة مرضي','R'],C:['إجازة اعتيادية','AL'],H:['إجازة رسمية','PH'],Q:['إستقالة','RS'],T:['TRANSFER','TR'],N:['خارج العمل',''],W:['إصابة عمل','WI'],M:['مهمة رسمية','OM'],K:['إجازة عارضة','CL'],U:['بدون مرتب','UL'],B:['بدل','RP']};
 const SUM=[];
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
@@ -167,7 +207,13 @@ let R=null,unsub2=null;
 function allEmp(){if(ROLE&&ROLE!=='admin')return PROFILE?[[1,PROFILE.name||'',ROLE,PROFILE.title||'-']]:[];const a=(R||baseRoster()).map(r=>r.slice()),num=c=>{const n=Number(c);return isNaN(n)?Infinity:n};a.sort((x,y)=>{const p=num(x[2]),q=num(y[2]);return p===q?String(x[2]).localeCompare(String(y[2])):p<q?-1:1});a.forEach((r,i)=>r[0]=i+1);return a}
 function loadRoster(){R=null;try{const s=JSON.parse(localStorage.getItem('roster'+key())||'null');if(Array.isArray(s))R=s}catch(e){}}
 function saveRoster(){try{localStorage.setItem('roster'+key(),JSON.stringify(R))}catch(e){}if(db){try{db.collection('meta').doc('roster-'+key()).set({list:JSON.stringify(R)}).catch(()=>{})}catch(e){}}syncProfiles()}
-function syncProfiles(){if(!db||ROLE!=='admin')return;allEmp().forEach(r=>{const o={name:r[1],title:r[3]};if(r[4]!==undefined&&r[4]!=='')o.leave=Number(r[4]);db.collection('profiles').doc(String(r[2])).set(o,{merge:true}).catch(()=>{})})}
+let _pt;function pubSoon(){clearTimeout(_pt);_pt=setTimeout(pubSync,8000)}
+async function pubSync(){if(!db||ROLE!=='admin')return;
+ try{const y=String(new Date().getFullYear()),q=await db.collection('att').get(),U={};
+  q.docs.forEach(d=>{const c=d.data().code,cs=d.data().cells||{};for(const k in cs){const v=cs[k];if(v==='C'||v==='S'||v==='K'){const i=k.indexOf('_')+1;if(k.slice(i,i+4)===y)U[c]=(U[c]||0)+1}}});
+  const list=allEmp().map(r=>({c:String(r[2]),n:r[1],t:r[3],l:(r[4]!==undefined&&r[4]!=='')?Number(r[4]):21,u:U[String(r[2])]||0}));
+  await db.collection('settings').doc('directory').set({list:JSON.stringify(list)})}catch(e){}}
+function syncProfiles(){if(!db||ROLE!=='admin')return;allEmp().forEach(r=>{const o={name:r[1],title:r[3]};if(r[4]!==undefined&&r[4]!=='')o.leave=Number(r[4]);db.collection('profiles').doc(String(r[2])).set(o,{merge:true}).catch(()=>{})});pubSoon()}
 function base(){const k=key();let st={};try{st=JSON.parse(localStorage.getItem('att'+k)||'{}')}catch(e){}
  if(OLD[k]){let seeded=null;try{seeded=localStorage.getItem('seed'+k)}catch(e){}
   if(!seeded){st=Object.assign({},OLD[k],st);try{localStorage.setItem('att'+k,JSON.stringify(st));localStorage.setItem('seed'+k,'1')}catch(e){}}}
@@ -207,7 +253,7 @@ function save(){
   if(db&&ROLE==='admin'){const k=key(),by={};
    for(const x in cells){const c=x.slice(0,x.indexOf('_'));(by[c]=by[c]||{})[x]=cells[x]}
    CLOUDCODES.forEach(c=>{if(!by[c])by[c]={}});
-   Object.keys(by).forEach(c=>{CLOUDCODES.add(c);db.collection('att').doc(c+'_'+k).set({month:k,code:c,cells:by[c]}).catch(()=>{})})}
+   Object.keys(by).forEach(c=>{CLOUDCODES.add(c);db.collection('att').doc(c+'_'+k).set({month:k,code:c,cells:by[c]}).catch(()=>{})});pubSoon()}
 }
 function render(){
   if(!ROLE){$('tb').innerHTML='';return}
@@ -341,7 +387,7 @@ async function makeXlsx(ExcelJS,ctx){
 }
 
 
-const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',W:'C026D3',M:'4F46E5',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
+const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',W:'C026D3',M:'4F46E5',K:'65A30D',U:'475569',B:'DB2777',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
 async function saveFile(fn,data){
  try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
@@ -363,16 +409,16 @@ $('pdf').onclick=async()=>{
 /* ---------- Firebase + accounts ---------- */
 const FIREBASE_CONFIG={apiKey:'AIzaSyDaH3KDpr6Qxa7WGSZcXb3ruR2Nf0U1uBU',authDomain:'modelist-2026.firebaseapp.com',projectId:'modelist-2026',storageBucket:'modelist-2026.firebasestorage.app',messagingSenderId:'1059486672648',appId:'1:1059486672648:web:1fac1ba4be2cd3ca4c2ebd'};
 const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='alkzaz38@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
-let ROLE=null,auth=null,CLOUD=false,CONTACT=null,unsubC=null,MSG=[],REQS=[],MYREQ=[],PROFILE=null,ECELLS={},unsubI=null,unsubE=null,unsubR=null,unsubP=[],RV=null,SYNCED=false;
+let ROLE=null,auth=null,CLOUD=false,CONTACT=null,unsubC=null,DIR=[],REQA=[],REQB=[],RQ={},MSG=[],REQS=[],MYREQ=[],PROFILE=null,ECELLS={},unsubI=null,unsubE=null,unsubR=null,unsubP=[],RV=null,SYNCED=false;
 try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
 try{if(typeof firebase!=='undefined'&&!/PASTE/.test(FIREBASE_CONFIG.apiKey)){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();CLOUD=true}}catch(e){}
 const FBP=p=>p+'#Modelist26';
 /* EmailJS: fill these 3 values to send the admin an e-mail automatically for every request */
 const EMAILJS={pub:'YKapVcbGp_GpS2N9Z',service:'service_4947l0d',template:'template_0rv10hk'};
 const emailOn=()=>!!(EMAILJS.pub&&EMAILJS.service&&EMAILJS.template);
-async function emailAdmin(d){if(!emailOn()||!CONTACT||!CONTACT.email)return;
+async function emailAdmin(d){if(!emailOn())return;
  try{await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:CONTACT.email,from_name:d.name+' ('+d.code+')',request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
+  body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:(CONTACT&&CONTACT.email)||'',from_name:d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):''),request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
 const V=n=>{['lv1','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lre'].forEach(i=>{$(i).className='err';$(i).textContent=''})};
 function applyHeader(){const a=document.querySelector('.adm');
  if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
@@ -396,9 +442,10 @@ async function migrate(){if(!db||SYNCED)return;SYNCED=true;
 function subMine(){if(!db||unsubP.length)return;const c=ROLE;
  try{unsubP.push(db.collection('profiles').doc(c).onSnapshot(s=>{if(s.exists){PROFILE=s.data();applyHeader();render();epRender();if(PROFILE.mustChange)$('pwd').style.display='flex'}},()=>{}))}catch(e){}
  try{unsubP.push(db.collection('att').where('code','==',c).onSnapshot(s=>{ECELLS={};s.docs.forEach(d=>Object.assign(ECELLS,d.data().cells||{}));cellsFromE();render();epRender()},()=>{}))}catch(e){}
- try{unsubP.push(db.collection('requests').where('code','==',c).onSnapshot(s=>{MYREQ=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);epRender()},()=>{}))}catch(e){}}
-function subContact(){if(!db||unsubC)return;try{unsubC=db.collection('settings').doc('contact').onSnapshot(s=>{CONTACT=s.exists?s.data():null},()=>{})}catch(e){}}
-function startCloud(){load();subContact();if(ROLE==='admin'){subEmp();applyPatch();subInbox();subReq();migrate()}else subMine()}
+ try{unsubP.push(db.collection('requests').where('code','==',c).onSnapshot(s=>{REQA=s.docs.map(d=>Object.assign({id:d.id},d.data()));mergeReq()},()=>{}))}catch(e){}
+ try{unsubP.push(db.collection('requests').where('by','==',c).onSnapshot(s=>{REQB=s.docs.map(d=>Object.assign({id:d.id},d.data()));mergeReq()},()=>{}))}catch(e){}}
+function subContact(){if(!db||unsubC)return;try{unsubC=db.collection('settings').onSnapshot(s=>{s.docs.forEach(d=>{if(d.id==='contact')CONTACT=d.data();else if(d.id==='directory'){try{DIR=JSON.parse(d.data().list)}catch(e){DIR=[]}}})},()=>{})}catch(e){}}
+function startCloud(){load();subContact();if(ROLE==='admin'){subEmp();applyPatch();subInbox();subReq();migrate().then(pubSoon)}else subMine()}
 function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r)startCloud()}
 $('lb').onclick=async()=>{const raw=$('lu').value.trim(),p=$('lp').value;$('le').textContent='';
  if(!raw||!p){$('le').textContent='Enter username and password';return}
@@ -418,58 +465,94 @@ $('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('
  catch(e){m('Google sign-in failed')}};
 $('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
  unsubP.forEach(f=>{try{f()}catch(e){}});
- unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
+ unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
 /* employee: leave balance + requests */
-const DED=['annual','sick','leave'],TL={annual:'Annual',sick:'Sick leave',injury:'Work injury',mission:'Official mission',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
-const rdesc=r=>(TL[r.type]||r.type)+' '+r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
+const DED=['annual','casual','sick','leave'],TL={annual:'Annual',casual:'Casual',sick:'Sick leave',injury:'Work injury',unpaid:'Unpaid',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
+const rdesc=r=>(TL[r.type]||r.type)+' '+(r.from||'')+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
 const wdays=(f,t)=>{let n=0;for(let d=new Date(f+'T00:00');ds(d)<=t;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))if(d.getDay()!==5)n++;return n};
 const totLeave=()=>PROFILE&&PROFILE.leave!==undefined?Number(PROFILE.leave):21;
-function usedLeave(){const y=String(new Date().getFullYear());let n=0;for(const k in ECELLS){const i=k.indexOf('_')+1;if((ECELLS[k]==='C'||ECELLS[k]==='S')&&k.slice(i,i+4)===y)n++}return n}
-const pendLeave=()=>MYREQ.filter(r=>r.status==='pending'&&DED.indexOf(r.type)>=0).reduce((a,r)=>a+(r.days||0),0);
+function usedLeave(){const y=String(new Date().getFullYear());let n=0;for(const k in ECELLS){const i=k.indexOf('_')+1;if((ECELLS[k]==='C'||ECELLS[k]==='S'||ECELLS[k]==='K')&&k.slice(i,i+4)===y)n++}return n}
+const pendLeave=()=>MYREQ.filter(r=>r.status==='pending'&&r.code===ROLE&&DED.indexOf(r.type)>=0).reduce((a,r)=>a+(r.days||0),0);
+function mergeReq(){const m={};REQA.concat(REQB).forEach(r=>{m[r.id]=r});MYREQ=Object.values(m).sort((a,b)=>b.ts-a.ts);epRender()}
 function epRender(){if(!ROLE||ROLE==='admin'||!PROFILE)return;
  const tot=totLeave(),u=usedLeave(),pd=pendLeave();
  $('eprem').textContent=(tot-u)+' days';$('epdet').textContent='Used '+u+' of '+tot+(pd?' · '+pd+' pending':'');
  const L=$('eplist');L.innerHTML='';
- MYREQ.slice(0,10).forEach(r=>{const d=document.createElement('div');d.className='rr';
-  const a=document.createElement('span');a.textContent=rdesc(r);
-  const c=document.createElement('span');c.className='chip '+r.status;c.textContent=r.status;d.append(a,c);L.appendChild(d)})}
-let RQMODE='leave';
-const LT=[['annual','Annual'],['sick','Sick leave'],['injury','Work injury'],['mission','Official mission']],PT=[['p_in','Entry permission'],['p_out','Exit permission'],['p_gf','Garment Factory']];
-function rqType(){const ty=$('rqt').value,pm=isPerm(ty),b=$('rqbal');
- $('rqtowrap').hidden=pm;$('rqtmw').hidden=!pm;$('rqt2w').hidden=ty!=='p_gf';
- $('rqfl').textContent=pm?'Date':'From';
+ MYREQ.slice(0,15).forEach(r=>{const d=document.createElement('div');d.className='rr';
+  const a=document.createElement('span');a.textContent=rdesc(r)+(r.code!==ROLE?' · for '+r.name:'')+(r.by&&r.by!==ROLE?' · by '+(r.byName||r.by):'');
+  const side=document.createElement('span'),c=document.createElement('span');c.className='chip '+r.status;c.textContent=r.status;side.appendChild(c);
+  if(r.status==='draft'&&r.by===ROLE){const o=document.createElement('button');o.textContent='Open';o.onclick=()=>openRq(r);
+   const x=document.createElement('button');x.textContent='Delete';x.onclick=()=>{db.collection('requests').doc(r.id).delete().catch(()=>{})};side.append(o,x)}
+  d.append(a,side);L.appendChild(d)})}
+function toast(x){const e=$('toast');e.textContent=x;e.style.display='block';setTimeout(()=>{e.style.display='none'},3200)}
+/* ---------- New request dialog ---------- */
+const VT=[['annual','Annual'],['casual','Casual'],['sick','Sick leave'],['injury','Work injury'],['unpaid','Unpaid'],['mission','Mission'],['permission','Permission'],['replacement','Replacement']],
+ PT=[['p_in','Entry permission'],['p_out','Exit permission'],['p_gf','Garment Factory']];
+$('rqtypes').innerHTML=VT.map((x,i)=>'<label class="rd"><input type="radio" name="vt" value="'+x[0]+'"'+(i?'':' checked')+'>'+x[1]+'</label>').join('');
+$('rqpt').innerHTML=PT.map(x=>'<option value="'+x[0]+'">'+x[1]+'</option>').join('');
+const vtVal=()=>document.querySelector('input[name=vt]:checked').value;
+const curType=()=>vtVal()==='permission'?$('rqpt').value:vtVal();
+function targetInfo(){const c=RQ.target;if(!c)return null;
+ if(c===ROLE)return{name:PROFILE?PROFILE.name||'':'',title:PROFILE?PROFILE.title||'':'',tot:totLeave(),used:usedLeave(),pend:pendLeave()};
+ const d=DIR.find(x=>x.c===c);return d?{name:d.n,title:d.t||'',tot:d.l,used:d.u,pend:0}:{name:c,title:'',tot:null,used:0,pend:0}}
+function rqCalc(){const ty=curType(),pm=isPerm(ty),ti=targetInfo(),f=$('rqf').value,to=pm?f:$('rqto').value;
+ $('rqtowrap').hidden=pm;$('rqtmw').hidden=!pm;$('rqpw').hidden=vtVal()!=='permission';$('rqt2w').hidden=ty!=='p_gf';
+ $('rqfl').textContent=pm?'Date':'Start Date';
  $('rqt1l').textContent=ty==='p_in'?'Arrival time':ty==='p_out'?'Leaving time':'From';
- const left=totLeave()-usedLeave()-pendLeave();
- if(pm){b.textContent=''}
- else if(DED.indexOf(ty)>=0){b.textContent='Your remaining annual leave: '+left+' days';b.style.color=left>0?'var(--P)':'var(--A)'}
- else{b.textContent='Not deducted from your annual leave (remaining: '+left+' days)';b.style.color='var(--mut)'}}
-function openRq(mode){RQMODE=mode;const L=mode==='leave'?LT:PT;
- $('rqh').textContent=mode==='leave'?'Leave request':'Permission request';
- $('rqt').innerHTML=L.map(x=>'<option value="'+x[0]+'">'+x[1]+'</option>').join('');
- ['rqf','rqto','rqt1','rqt2','rqn'].forEach(i=>{$(i).value=''});
- $('rqe').className='err';$('rqe').textContent='';$('rqs').hidden=false;$('rqnt').hidden=true;rqType();$('rq').style.display='flex'}
-$('rqt').onchange=rqType;
-$('eprl').onclick=()=>openRq('leave');$('eprp').onclick=()=>openRq('perm');
+ let days=0;if(!pm&&f&&to&&to>=f)days=wdays(f,to);
+ $('rqdays').textContent=pm?'':(days?days+' working day(s) requested':'');
+ if(!ti||ti.tot===null){$('rqtot').value=ti?'—':'';$('rqrem').value=ti?'—':''}
+ else{$('rqtot').value=ti.tot+' days';$('rqrem').value=(ti.tot-ti.used-ti.pend-(DED.indexOf(ty)>=0?days:0))+' days'}
+ return{ty,pm,ti,f,to,days}}
+function ddBuild(){const L=DIR.slice();if(PROFILE&&!L.some(x=>x.c===ROLE))L.unshift({c:ROLE,n:PROFILE.name||'',t:PROFILE.title||'',l:totLeave(),u:usedLeave()});
+ L.sort((a,b)=>String(a.n).localeCompare(String(b.n)));const box=$('ddl');box.innerHTML='';
+ L.forEach(x=>{const d=document.createElement('div');d.className='ddi';const b=document.createElement('b');b.textContent=x.n;const s=document.createElement('small');s.textContent=x.c;d.append(b,s);d.onclick=()=>{setTarget(x.c);box.hidden=true};box.appendChild(d)})}
+function setTarget(c){RQ.target=c?String(c):null;const ti=targetInfo(),el=$('ddt');el.innerHTML='';
+ if(!ti){el.textContent='Please select user code';el.className='ph'}
+ else{el.className='';const b=document.createElement('b');b.textContent=ti.name;const s=document.createElement('small');s.textContent=RQ.target;el.append(b,s)}
+ $('rqjob').value=ti?ti.title:'';rqCalc()}
+function openRq(r){RQ={id:r?r.id:null,target:null};ddBuild();$('ddl').hidden=true;
+ const v=r?(isPerm(r.type)?'permission':(r.type==='leave'?'annual':r.type)):'annual';
+ document.querySelectorAll('input[name=vt]').forEach(x=>{x.checked=x.value===v});
+ if(r&&isPerm(r.type))$('rqpt').value=r.type;
+ $('rqf').value=r&&r.from||'';$('rqto').value=r&&r.to||'';$('rqt1').value=r&&r.t1||'';$('rqt2').value=r&&r.t2||'';$('rqn').value=r&&r.note||'';
+ $('rqsh').value=(CONTACT&&CONTACT.shift)||'Morning';
+ $('rqch').hidden=true;$('rqe').className='err';$('rqe').textContent='';
+ setTarget(r?r.code:null);$('rq').style.display='flex'}
+const rqMsg=x=>{$('rqe').className='err';$('rqe').textContent=x};
+function rqDoc(status){const c=rqCalc();return{code:RQ.target,name:c.ti?c.ti.name:'',by:ROLE,byName:PROFILE?PROFILE.name||'':'',type:c.ty,from:c.f,to:c.to,days:c.days,t1:c.pm?$('rqt1').value:'',t2:c.ty==='p_gf'?$('rqt2').value:'',note:$('rqn').value.trim().slice(0,300),status,ts:Date.now()}}
+const wmsg=d=>'MODELIST request: '+d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):'')+' - '+rdesc(d)+(d.days?' ('+d.days+' days)':'');
+$('eprn').onclick=()=>openRq(null);
+$('ddb').onclick=e=>{e.stopPropagation();$('ddl').hidden=!$('ddl').hidden};
+document.addEventListener('click',e=>{if(!e.target.closest('.dd'))$('ddl').hidden=true});
+['rqf','rqto'].forEach(i=>$(i).addEventListener('input',rqCalc));
+$('rqtypes').addEventListener('change',rqCalc);$('rqpt').onchange=rqCalc;
 $('rqc').onclick=()=>{$('rq').style.display='none'};
-$('rqs').onclick=async()=>{const ty=$('rqt').value,pm=isPerm(ty),f=$('rqf').value,to=pm?f:$('rqto').value,t1=pm?$('rqt1').value:'',t2=ty==='p_gf'?$('rqt2').value:'',n=$('rqn').value.trim(),m=x=>{$('rqe').className='err';$('rqe').textContent=x};
- if(!f||!to||to<f){m('Choose valid dates');return}
- if(pm&&!t1){m('Choose the time');return}
- if(ty==='p_gf'&&t2&&t2<=t1){m('The end time must be after the start time');return}
- let days=0;
- if(!pm){days=wdays(f,to);if(days<1){m('There are no working days in this range');return}
-  if(ty==='annual'){const left=totLeave()-usedLeave()-pendLeave();if(days>left){m('Not enough balance ('+left+' days left)');return}}}
- if(!db||!PROFILE){m('Not connected. Please log in again');return}
- const doc={code:ROLE,name:PROFILE.name||'',type:ty,from:f,to,days,t1,t2,note:n.slice(0,300),status:'pending',ts:Date.now()};
- try{await db.collection('requests').doc(Date.now()+'_'+ROLE).set(doc);
-  $('rqe').className='ok';$('rqe').textContent='Sent to admin';$('rqs').hidden=true;showNotify(doc);emailAdmin(doc)}
- catch(e){m('Could not send. Please try again')}};
-function showNotify(d){const box=$('rqnt');box.innerHTML='';box.hidden=true;if(!CONTACT)return;
- const msg='MODELIST request: '+d.name+' ('+d.code+') - '+rdesc(d)+(d.days?' ('+d.days+' days)':'');
- const mk=(cls,txt,href)=>{const a=document.createElement('a');a.className='lk '+cls;a.textContent=txt;a.href=href;a.target='_blank';a.rel='noopener';box.appendChild(a)};
- const w=String(CONTACT.wa||'').replace(/\D/g,'');
- if(w)mk('wa','WhatsApp the admin','https://wa.me/'+w+'?text='+encodeURIComponent(msg));
- if(CONTACT.email&&!emailOn())mk('em','Email the admin','mailto:'+CONTACT.email+'?subject='+encodeURIComponent('MODELIST request')+'&body='+encodeURIComponent(msg));
- box.hidden=!box.children.length}
+$('rqclr').onclick=()=>{const id=RQ.id;openRq(null);RQ.id=id};
+$('rqsv').onclick=async()=>{
+ if(!RQ.target){rqMsg('Select the employee first');return}
+ if(!db||!PROFILE){rqMsg('Not connected. Please log in again');return}
+ const d=rqDoc('draft');RQ.id=RQ.id||Date.now()+'_'+ROLE;
+ try{await db.collection('requests').doc(RQ.id).set(d);$('rq').style.display='none';toast('Saved as a draft')}
+ catch(e){rqMsg('Could not save. Please try again')}};
+$('rqsm').onclick=()=>{const c=rqCalc();
+ if(!RQ.target){rqMsg('Select the employee first');return}
+ if(!c.f||!c.to||c.to<c.f){rqMsg('Choose valid dates');return}
+ if(c.pm&&!$('rqt1').value){rqMsg('Choose the time');return}
+ if(c.ty==='p_gf'){const t2=$('rqt2').value;if(t2&&t2<=$('rqt1').value){rqMsg('The end time must be after the start time');return}}
+ if(!c.pm){if(c.days<1){rqMsg('There are no working days in this range');return}
+  if((c.ty==='annual'||c.ty==='casual')&&c.ti&&c.ti.tot!==null){const left=c.ti.tot-c.ti.used-c.ti.pend;if(c.days>left){rqMsg('Not enough annual balance ('+left+' days left)');return}}}
+ rqMsg('');$('rqch').hidden=false};
+async function rqSend(mode){
+ if(!db||!PROFILE){rqMsg('Not connected. Please log in again');return}
+ const d=rqDoc('pending');RQ.id=RQ.id||Date.now()+'_'+ROLE;
+ try{await db.collection('requests').doc(RQ.id).set(d)}catch(e){rqMsg('Could not send. Please try again');return}
+ let note='Request sent to the manager';
+ if(mode==='email')emailAdmin(d);
+ if(mode==='wa'){const w=String(CONTACT&&CONTACT.wa||'').replace(/\D/g,'');
+  if(w)window.open('https://wa.me/'+w+'?text='+encodeURIComponent(wmsg(d)),'_blank');else note='Sent. The manager has not set a WhatsApp number yet'}
+ $('rq').style.display='none';toast(note)}
+$('rqnw').onclick=()=>rqSend('wa');$('rqne').onclick=()=>rqSend('email');$('rqnn').onclick=()=>rqSend('none');
 $('pws').onclick=async()=>{const a=$('pw1').value,b=$('pw2').value,m=x=>{$('pwe').textContent=x};
  if(a.length<6){m('At least 6 characters');return}if(a!==b){m('The passwords do not match');return}
  try{await auth.currentUser.updatePassword(FBP(a));await db.collection('profiles').doc(ROLE).update({mustChange:false});$('pwd').style.display='none';$('pw1').value='';$('pw2').value=''}
@@ -496,15 +579,16 @@ function subReq(){if(!db||unsubR)return;
 const periodKey=d=>{let m=d.getMonth();const y=d.getFullYear();if(d.getDate()<27)m--;const s=new Date(y,m,27);return s.getFullYear()+'-'+pad(s.getMonth()+1)};
 async function decide(r,ok){
  try{if(ok&&!isPerm(r.type)){const by={};
-   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',sick:'S',injury:'W',mission:'M'})[r.type]||'C'}
+   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',casual:'K',sick:'S',injury:'W',unpaid:'U',mission:'M',replacement:'B'})[r.type]||'C'}
    for(const k in by)await db.collection('att').doc(r.code+'_'+k).set({month:k,code:r.code,cells:by[k]},{merge:true})}
-  await db.collection('requests').doc(r.id).update({status:ok?'approved':'rejected',decidedAt:Date.now()})}
+  await db.collection('requests').doc(r.id).update({status:ok?'approved':'rejected',decidedAt:Date.now()});pubSoon()}
  catch(e){alert('Could not save the decision')}}
 function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.length){L.textContent='No messages yet';return}
- REQS.forEach(r=>{const d=document.createElement('div');d.className='msg'+(r.status==='pending'?' un':'');
+ REQS.filter(r=>r.status!=='draft').forEach(r=>{const d=document.createElement('div');d.className='msg'+(r.status==='pending'?' un':'');
   const h=document.createElement('b');h.textContent=r.name+' ('+r.code+') — '+((TL[r.type]||r.type)+' request');
   const s=document.createElement('div');s.textContent=r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.days?' ('+r.days+' days)':'')+(r.note?' — '+r.note:'');
   const st=document.createElement('div');st.textContent='Status: '+r.status;d.append(h,s,st);
+  if(r.by&&r.by!==r.code){const f=document.createElement('div');f.textContent='Requested by: '+(r.byName||r.by)+' ('+r.by+')';d.append(f)}
   const a=document.createElement('div');a.className='r';
   if(r.status==='pending'){
    const ok=document.createElement('button');ok.textContent='Approve';ok.onclick=()=>decide(r,true);
@@ -523,11 +607,11 @@ function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.lengt
   a.append(r,x);d.append(h,s,c,a);L.appendChild(d)})}
 $('inb').onclick=e=>{e.stopPropagation();showInbox();$('ibx').style.display='flex'};
 $('ibc').onclick=()=>{$('ibx').style.display='none'};
-$('ct').onclick=e=>{e.stopPropagation();$('cte').value=CONTACT&&CONTACT.email||'';$('ctw').value=CONTACT&&CONTACT.wa||'';$('cter').textContent='';$('ctm').style.display='flex'};
+$('ct').onclick=e=>{e.stopPropagation();$('cte').value=CONTACT&&CONTACT.email||'';$('ctw').value=CONTACT&&CONTACT.wa||'';$('cth').value=CONTACT&&CONTACT.shift||'Morning';$('cter').textContent='';$('ctm').style.display='flex'};
 $('ctc').onclick=()=>{$('ctm').style.display='none'};
 $('cts').onclick=async()=>{const e=$('cte').value.trim(),w=$('ctw').value.replace(/\D/g,'');
  if(e&&!/^\S+@\S+\.\S+$/.test(e)){$('cter').textContent='Enter a valid email';return}
- try{await db.collection('settings').doc('contact').set({email:e,wa:w});$('ctm').style.display='none'}
+ try{await db.collection('settings').doc('contact').set({email:e,wa:w,shift:$('cth').value.trim()||'Morning'});$('ctm').style.display='none'}
  catch(er){$('cter').textContent='Could not save. Please try again'}};
 $('bk').onclick=async()=>{if(ROLE!=='admin'||!db)return;const s=$('bk').querySelector('span');s.textContent='Saving...';
  try{const out={exportedAt:new Date().toISOString()};
