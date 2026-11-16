@@ -505,9 +505,13 @@ function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.lengt
   const h=document.createElement('b');h.textContent=r.name+' ('+r.code+') — '+((TL[r.type]||r.type)+' request');
   const s=document.createElement('div');s.textContent=r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.days?' ('+r.days+' days)':'')+(r.note?' — '+r.note:'');
   const st=document.createElement('div');st.textContent='Status: '+r.status;d.append(h,s,st);
-  if(r.status==='pending'){const a=document.createElement('div');a.className='r';
+  const a=document.createElement('div');a.className='r';
+  if(r.status==='pending'){
    const ok=document.createElement('button');ok.textContent='Approve';ok.onclick=()=>decide(r,true);
-   const no=document.createElement('button');no.textContent='Reject';no.onclick=()=>decide(r,false);a.append(ok,no);d.appendChild(a)}
+   const no=document.createElement('button');no.textContent='Reject';no.onclick=()=>decide(r,false);a.append(ok,no)}
+  const dl=document.createElement('button');dl.textContent='Delete';
+  dl.onclick=()=>{if(confirm('Delete this request? It will also disappear from the employee\'s list.')){try{db.collection('requests').doc(r.id).delete()}catch(e){}}};
+  a.append(dl);d.appendChild(a);
   L.appendChild(d)});
  MSG.forEach(m=>{const d=document.createElement('div');d.className='msg'+(m.read?'':' un');
   const h=document.createElement('b');h.textContent=m.name+' ('+m.code+') — '+m.date;
