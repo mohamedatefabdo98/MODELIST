@@ -368,7 +368,7 @@ try{ROLE=sessionStorage.getItem('role')||null}catch(e){}
 try{if(typeof firebase!=='undefined'&&!/PASTE/.test(FIREBASE_CONFIG.apiKey)){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();CLOUD=true}}catch(e){}
 const FBP=p=>p+'#Modelist26';
 /* EmailJS: fill these 3 values to send the admin an e-mail automatically for every request */
-const EMAILJS={pub:'',service:'',template:''};
+const EMAILJS={pub:'YKapVcbGp_GpS2N9Z',service:'service_4947l0d',template:'template_0rv10hk'};
 const emailOn=()=>!!(EMAILJS.pub&&EMAILJS.service&&EMAILJS.template);
 async function emailAdmin(d){if(!emailOn()||!CONTACT||!CONTACT.email)return;
  try{await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
