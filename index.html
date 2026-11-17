@@ -229,8 +229,7 @@ body.locked #lg{display:flex}
 <div id="rqpw" hidden><label>Permission type</label><select id="rqpt"></select></div>
 <div class="g2"><div><label id="rqfl">Start Date</label><input id="rqf" type="date"></div><div id="rqtowrap"><label>Finish Date</label><input id="rqto" type="date"></div></div>
 <div id="rqtmw" class="g2" hidden><div><label id="rqt1l">Time</label><input id="rqt1" type="time"></div><div id="rqt2w"><label>To</label><input id="rqt2" type="time"></div></div>
-<div class="g2"><div><label>Total Vacation Day Request</label><input id="rqtot" readonly></div><div><label>Remaining annual vacation</label><input id="rqrem" readonly></div></div>
-<small id="rqdays" style="color:var(--mut)"></small>
+<div class="g2"><div><label>Remaining Vacation Days</label><input id="rqleft" readonly></div><div><label>Requested Vacation Days</label><input id="rqreq" readonly></div></div>
 <div><label>Vacation Note (optional)</label><textarea id="rqn" rows="3"></textarea></div>
 <div class="err" id="rqe"></div>
 <div id="rqch" hidden><small style="color:var(--mut)">Send the notification to the manager via:</small><button id="rqnw">WhatsApp</button><button id="rqne">Email</button><button id="rqnn">Send to Manager without notify</button></div>
@@ -568,9 +567,9 @@ function rqCalc(){const ty=curType(),pm=isPerm(ty),ti=targetInfo(),f=$('rqf').va
  $('rqfl').textContent=pm?'Date':'Start Date';
  $('rqt1l').textContent=ty==='p_in'?'Arrival time':ty==='p_out'?'Leaving time':'From';
  let days=0;if(!pm&&f&&to&&to>=f)days=wdays(f,to);
- $('rqdays').textContent=pm?'':(days?days+' working day(s) requested':'');
- if(!ti||ti.tot===null){$('rqtot').value=ti?'—':'';$('rqrem').value=ti?'—':''}
- else{$('rqtot').value=ti.tot+' days';$('rqrem').value=(ti.tot-ti.used-ti.pend-(DED.indexOf(ty)>=0?days:0))+' days'}
+ $('rqreq').value=pm?'':(days?days+(days>1?' days':' day'):'');
+ if(!ti||ti.tot===null)$('rqleft').value=ti?'—':'';
+ else $('rqleft').value=(ti.tot-ti.used-ti.pend)+' days'
  return{ty,pm,ti,f,to,days}}
 function ddBuild(){const L=DIR.slice();if(PROFILE&&!L.some(x=>x.c===ROLE))L.unshift({c:ROLE,n:PROFILE.name||'',t:PROFILE.title||'',l:totLeave(),u:usedLeave()});
  L.sort((a,b)=>String(a.n).localeCompare(String(b.n)));const box=$('ddl');box.innerHTML='';
