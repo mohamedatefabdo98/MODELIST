@@ -119,10 +119,11 @@ body.locked #lg{display:flex}
 .rad{display:flex;flex-wrap:wrap;gap:8px 16px}
 .md label.rd{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--tx);font-weight:500;margin:0;cursor:pointer}
 .md input[type=radio]{width:auto;padding:0;accent-color:var(--gold)}
-.dd{position:relative}
+.dd{position:relative;width:360px;max-width:100%}
 .md .ddb{width:100%;text-align:left;background:var(--bg);color:var(--tx);border:1px solid var(--ln);font-weight:400;min-height:48px;display:block;padding:6px 12px}
-.ddb b,.ddi b{font-weight:600}.ddb small,.ddi small{color:var(--mut);white-space:nowrap;font-size:13px}
-#ddt,.ddi{display:flex;justify-content:flex-start;align-items:center;gap:1cm}
+.ddb b,.ddi b,.ddb small,.ddi small{font-weight:600;font-size:1em;color:var(--tx)}
+.ddb small,.ddi small{white-space:nowrap}
+#ddt:not(.ph),.ddi{display:grid;grid-template-columns:1fr 52px;column-gap:14px;align-items:center}
 .ddb .ph{color:var(--mut)}
 .ddl{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--ln);border-radius:10px;max-height:220px;overflow:auto;z-index:5;box-shadow:0 8px 28px rgba(0,0,0,.25)}
 .ddi{padding:8px 12px;cursor:pointer}.ddi:hover{background:var(--wk)}
