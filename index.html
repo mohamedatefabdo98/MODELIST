@@ -53,9 +53,9 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #menu{position:fixed;z-index:20;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.25);display:none;grid-template-columns:1fr 1fr;gap:4px;min-width:200px}
 #menu button{font:inherit;display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--tx);padding:6px 8px;border-radius:8px;cursor:pointer;text-align:left}
 #menu button:hover{background:var(--wk)}
-#ex,#pdf,#th,#inb,#lo,#bk,#ct{font:inherit;font-size:12px;font-weight:700;color:#fff;border:0;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+#ex,#pdf,#inb,#lo,#bk,#ct{font:inherit;font-size:12px;font-weight:700;color:#fff;border:0;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
 #ex{background:#1f9d62}#pdf{background:#d6384b}
-#th{background:var(--gold);color:#14213d}#inb{background:#2563eb}#bk{background:#0e9aa7}#ct{background:#7c3aed}#lo{background:#6b7280}
+#inb{background:#2563eb}#bk{background:#0e9aa7}#ct{background:#7c3aed}#lo{background:#6b7280}
 body.locked>*:not(#lg):not(script){display:none!important}
 body.emp #ex,body.emp #pdf,body.emp #inb,body.emp #bk,body.emp #ct,body.emp .addrow,body.emp .frow,body.emp .hint{display:none}
 #lg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:#1e2a44 var(--img) center/cover no-repeat}
@@ -74,11 +74,13 @@ body.locked #lg{display:flex}
 .md h3{margin:0}.md .r{display:flex;gap:8px}
 #rvb{background:var(--P);color:#fff;flex:1}#rvc,#ibc,.msg button{background:var(--wk);color:var(--tx)}
 .msg{border:1px solid var(--ln);border-radius:10px;padding:10px;display:grid;gap:4px;text-align:left}.msg.un{border-color:var(--gold);background:var(--today)}.msg button{padding:5px 10px}
-.adm{position:absolute;right:14px;top:12px;text-align:right;line-height:1.3;direction:ltr}
-.adm span{display:block;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:1px}
+.adm{position:absolute;right:14px;top:10px;display:flex;align-items:center;gap:10px;text-align:left;direction:ltr;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:7px 16px 7px 8px;backdrop-filter:blur(8px);max-width:340px}
+.adm .av{flex:none;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#4f8cff,#2563eb);color:#fff;font-style:normal;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;letter-spacing:1px}
+.adm .who{line-height:1.3;min-width:0}
 .adm b{display:block;color:#fff;font-weight:700;font-size:15px}
-.adm small{display:block;color:#cbd5e1;font-size:12px;letter-spacing:1px}
-@media(max-width:760px){.adm{position:static;text-align:center;margin-bottom:8px}}
+.adm span{display:block;color:#e5e7eb;font-size:12px}
+.adm small{display:block;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1px}
+@media(max-width:760px){.adm{position:static;margin:0 auto 8px;width:max-content;max-width:100%}}
 .tools{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
 .tools svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #pr{position:fixed;left:-30000px;top:0;width:max-content;background:#f4f6fa;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
@@ -120,7 +122,7 @@ body.locked #lg{display:flex}
 .dd{position:relative}
 .md .ddb{width:100%;text-align:left;background:var(--bg);color:var(--tx);border:1px solid var(--ln);font-weight:400;min-height:48px;display:block;padding:6px 12px}
 .ddb b,.ddi b{font-weight:600}.ddb small,.ddi small{color:var(--mut);white-space:nowrap;font-size:13px}
-#ddt,.ddi{display:flex;justify-content:space-between;align-items:center;gap:14px}
+#ddt,.ddi{display:flex;justify-content:flex-start;align-items:center;gap:1cm}
 .ddb .ph{color:var(--mut)}
 .ddl{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--ln);border-radius:10px;max-height:220px;overflow:auto;z-index:5;box-shadow:0 8px 28px rgba(0,0,0,.25)}
 .ddi{padding:8px 12px;cursor:pointer}.ddi:hover{background:var(--wk)}
@@ -170,12 +172,16 @@ body.locked #lg{display:flex}
 ::-webkit-scrollbar-thumb:hover{background:var(--mut);background-clip:padding-box}
 ::-webkit-scrollbar-button{display:none}
 ::-webkit-scrollbar-corner{background:transparent}
+.seg{display:inline-flex;background:rgba(255,255,255,.14);border-radius:12px;padding:3px;gap:2px}
+.seg button{background:transparent;border:0;color:#cbd5e1;border-radius:9px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center}
+.seg button.on{background:rgba(255,255,255,.3);color:#fff}
+.seg svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
 <body class="locked">
 <div id="app"><aside id="sb"><div class="sbh"><b>MODELIST</b><small>Attendance &amp; Leave</small></div><nav id="nav"></nav></aside><main id="mn">
-<header><button id="sbt" aria-label="Menu">☰</button><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
+<header><button id="sbt" aria-label="Menu">☰</button><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><div id="th" class="seg"><button data-m="light" title="Light mode" aria-label="Light mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button><button data-m="dark" title="Dark mode" aria-label="Dark mode"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/></svg></button></div><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
 <section id="v-att" class="view"><div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
@@ -357,13 +363,12 @@ document.addEventListener('click',()=>$('menu').style.display='none');
 $('pv').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()-1,27);load()};
 $('nx').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()+1,27);load()};
 $('td').onclick=()=>{setStart(new Date());load()};
-(function(){const r=document.documentElement,b=$('th');
- try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.setAttribute('data-theme',t)}catch(e){}
- const isDark=()=>{const t=r.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
- const SUN='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>',MOON='<svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/></svg>';
- const lab=()=>{b.innerHTML=isDark()?SUN+'<span>Light</span>':MOON+'<span>Dark</span>'};
- b.onclick=e=>{e.stopPropagation();const n=isDark()?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}lab()};
- lab()})();
+(function(){const r=document.documentElement,seg=$('th');
+ try{const x=localStorage.getItem('theme');if(x==='dark'||x==='light')r.setAttribute('data-theme',x)}catch(e){}
+ const isDark=()=>{const x=r.getAttribute('data-theme');return x?x==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
+ const paint=()=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',(b.dataset.m==='dark')===isDark()));
+ seg.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('button');if(!b)return;r.setAttribute('data-theme',b.dataset.m);try{localStorage.setItem('theme',b.dataset.m)}catch(er){}paint()});
+ paint()})();
 try{const s=JSON.parse(localStorage.getItem('emp')||'null');if(s&&s.length)EMP=s}catch(e){}
 try{const h=JSON.parse(localStorage.getItem('hid')||'null');if(h&&h.length)HID=h}catch(e){}
 function saveEmp(){try{localStorage.setItem('emp',JSON.stringify(EMP));localStorage.setItem('hid',JSON.stringify(HID))}catch(e){}if(db){try{db.collection('meta').doc('employees').set({list:JSON.stringify(EMP),hid:HID}).catch(()=>{})}catch(e){}}}
@@ -478,9 +483,12 @@ async function emailAdmin(d){if(!emailOn())return;
  try{await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
   body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:(CONTACT&&CONTACT.email)||'',from_name:d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):''),request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.hours?d.hours+' hour(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
 const V=n=>{['lv1','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lre'].forEach(i=>{$(i).className='err';$(i).textContent=''})};
+const initials=n=>{const p=String(n||'').trim().split(/\s+/).filter(Boolean);return(((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase()};
 function applyHeader(){const a=document.querySelector('.adm');
- if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
- else if(ROLE){a.innerHTML='<span></span><b></b><small></small>';a.querySelector('span').textContent=PROFILE&&PROFILE.title?PROFILE.title:'';a.querySelector('b').textContent=PROFILE&&PROFILE.name?PROFILE.name:'';a.querySelector('small').textContent=ROLE}}
+ const put=(name,l2,l3)=>{a.innerHTML='<i class="av"></i><div class="who"><b></b><span></span><small></small></div>';
+  a.querySelector('.av').textContent=initials(name)||'?';a.querySelector('b').textContent=name||'';a.querySelector('span').textContent=l2||'';a.querySelector('small').textContent=l3||''};
+ if(ROLE==='admin')put('Mohammed Atef','Administration','MODELIST');
+ else if(ROLE)put(PROFILE&&PROFILE.name?PROFILE.name:ROLE,PROFILE&&PROFILE.title?PROFILE.title:'',ROLE)}
 function applyRole(){const b=document.body;b.classList.toggle('locked',!ROLE);b.classList.toggle('emp',!!ROLE&&ROLE!=='admin');
  if(!ROLE){V('lv1');['lu','lp'].forEach(i=>{$(i).value=''})}
  applyHeader();buildNav();showTab('att');render();epRender()}
