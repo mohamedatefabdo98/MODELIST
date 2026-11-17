@@ -98,13 +98,12 @@ body.locked #lg{display:flex}
 #elist .er .del{background:#d6384b;color:#fff;padding:7px 0}
 @media(max-width:560px){#elist .er{grid-template-columns:22px 1fr 40px 40px}#elist .er .ec,#elist .er .ej,#elist .er .el{grid-column:2}}
 [hidden]{display:none!important}
-#ep{display:none;margin:0 12px 14px}
-body.emp #ep{display:block}
-#ep .epc{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-#ep .epc small{display:block;color:var(--mut)}#ep .epc b{font-size:26px}
+#ep{margin:0 12px 14px}
+.epc{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.epc small{display:block;color:var(--mut)}.epc b{font-size:26px}
 #eprn{font:inherit;font-weight:700;background:var(--gold);color:#14213d;border:0;border-radius:10px;padding:9px 20px;cursor:pointer}
-#eplist{margin-top:8px;display:grid;gap:6px}
-#eplist .rr{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:13px}
+#eplist,#otlist{margin:8px 12px 0;display:grid;gap:6px}#ep #eplist{margin:8px 0 0}
+#eplist .rr,#otlist .rr{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:13px}
 .chip{border-radius:20px;padding:1px 10px;font-weight:700;font-size:12px;color:#fff}.chip.pending{background:#e8830c}.chip.approved{background:#1f9d62}.chip.rejected{background:#d6384b}
 .md p{margin:0}.md select{font:inherit;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);width:100%}
 #rqs,#pws,#cts{background:var(--P);color:#fff;flex:1}#rqc,#pwo,#ctc{background:var(--wk);color:var(--tx)}
@@ -124,33 +123,85 @@ body.emp #ep{display:block}
 .ddb .ph{color:var(--mut)}
 .ddl{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--card);border:1px solid var(--ln);border-radius:10px;max-height:220px;overflow:auto;z-index:5;box-shadow:0 8px 28px rgba(0,0,0,.25)}
 .ddi{padding:8px 12px;cursor:pointer}.ddi:hover{background:var(--wk)}
-#rqch{display:grid;gap:8px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--wk)}
+#rqch,#otch{display:grid;gap:8px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--wk)}
 .md .r button{flex:1}
-#rqsm{background:#2563eb;color:#fff}#rqsv{background:var(--P);color:#fff}#rqclr,#rqnn{background:var(--wk);color:var(--tx)}#rqch #rqnn{border:1px solid var(--ln)}
-#rqnw{background:#25d366;color:#fff}#rqne{background:#2563eb;color:#fff}
-#eplist button{font:inherit;font-size:12px;font-weight:700;border:0;border-radius:8px;padding:3px 10px;margin-left:6px;background:var(--wk);color:var(--tx);cursor:pointer}
+#rqsm,#otsm{background:#2563eb;color:#fff}#rqsv,#otsv{background:var(--P);color:#fff}#rqclr,#rqnn,#otclr,#otnn,#otc{background:var(--wk);color:var(--tx)}#rqch #rqnn,#otch #otnn{border:1px solid var(--ln)}
+#rqnw,#otnw{background:#25d366;color:#fff}#rqne,#otne{background:#2563eb;color:#fff}
+#eplist button,#otlist button{font:inherit;font-size:12px;font-weight:700;border:0;border-radius:8px;padding:3px 10px;margin-left:6px;background:var(--wk);color:var(--tx);cursor:pointer}
 .chip.draft{background:#6b7280}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--tx);border:1px solid var(--ln);padding:10px 18px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.3);z-index:60;display:none}
+#app{display:flex;min-height:100vh}
+#sb{width:250px;flex:none;background:var(--band);color:#fff;position:sticky;top:0;height:100vh;overflow:auto;z-index:30}
+.sbh{padding:22px 18px 16px;border-bottom:1px solid rgba(255,255,255,.12)}.sbh b{display:block;letter-spacing:5px;font-size:20px}.sbh small{color:var(--gold);font-weight:600}
+#nav{padding:10px 0}
+#nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;border-left:3px solid transparent;color:#e5e7eb;font:inherit;font-size:14px;font-weight:600;padding:11px 16px;cursor:pointer}
+#nav button:hover{background:rgba(255,255,255,.07)}
+#nav button.on{background:rgba(255,255,255,.12);border-left-color:var(--gold);color:#fff}
+#nav .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none}
+#nav .nb{margin-left:auto;font-style:normal;background:#d6384b;color:#fff;border-radius:20px;font-size:11px;padding:0 7px;min-width:18px;text-align:center}
+#nav .nb:empty{display:none}
+#mn{flex:1;min-width:0}
+#sbt{display:none;position:absolute;left:12px;top:12px;background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:8px;font-size:18px;padding:2px 10px;cursor:pointer}
+@media(max-width:900px){#sb{position:fixed;left:-270px;transition:left .2s}#sb.open{left:0;box-shadow:0 0 40px rgba(0,0,0,.5)}#sbt{display:block}}
+#pr #sbt{display:none}
+.pt{text-align:center;font-size:24px;margin:18px 12px 12px;font-weight:700}
+.fl{background:var(--card);border:1px solid var(--ln);border-radius:14px;margin:0 12px 14px;overflow:hidden}
+.flh{padding:12px 16px;font-weight:700;border-bottom:1px solid var(--ln)}.flb{padding:14px 16px}
+.fl label{display:block;font-size:13px;color:var(--mut);font-weight:600;margin-bottom:4px}
+.fl input,.fl select{font:inherit;width:100%;padding:9px 12px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--tx)}
+.btnrow{display:flex;gap:12px;padding:0 16px 16px}
+.bp{font:inherit;font-weight:700;color:#fff;background:#2563eb;border:0;border-radius:8px;padding:9px 26px;cursor:pointer}
+.rt{border-collapse:collapse;width:100%;font-size:13px}
+.rt th{background:var(--hd);color:#fff;text-align:left;padding:10px 12px;white-space:nowrap;font-weight:600}
+.rt td{padding:9px 12px;border-bottom:1px solid var(--ln);text-align:left;height:auto;white-space:nowrap;border-right:0}
+.rt td.wr{white-space:normal;min-width:160px;max-width:300px}
+.rt tbody tr:nth-child(even){background:var(--wk)}
+.rt .ac button{font:inherit;font-size:12px;font-weight:700;border:0;border-radius:7px;padding:4px 10px;margin-right:5px;cursor:pointer;color:#fff}
+.rt .ac .ok{background:#1f9d62}.rt .ac .no{background:#d6384b}.rt .ac .dl{background:#6b7280}
+.rsum{margin:0 12px 24px;color:var(--mut);font-size:13px;font-weight:600}
+.cor{border:1px solid var(--ln);border-radius:10px;padding:10px 12px;display:grid;gap:4px;background:var(--card)}.cor.un{border-color:var(--gold)}
+.cor .r{display:flex;gap:8px;margin-top:4px}.cor button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:5px 12px;background:var(--wk);color:var(--tx);cursor:pointer}
+#corl{display:grid;gap:8px;margin:0 12px 24px}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
 <body class="locked">
-<header><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
-<div class="bar">
+<div id="app"><aside id="sb"><div class="sbh"><b>MODELIST</b><small>Attendance &amp; Leave</small></div><nav id="nav"></nav></aside><main id="mn">
+<header><button id="sbt" aria-label="Menu">☰</button><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>سجل الحضور والغياب والإجازات</p><div class="tools"><button id="th"></button><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
+<section id="v-att" class="view"><div class="bar">
   <button id="pv">◀ الشهر السابق</button>
   <div class="per" id="per"></div>
   <button id="nx">الشهر التالي ▶</button>
   <button id="td">اليوم</button>
 </div>
-<div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><button id="eprn">New Request</button></div><div id="eplist"></div></div>
 <div class="leg" id="leg"></div>
 <div class="wrap"><div class="frow"><select id="flt" aria-label="فلتر الموظفين"></select></div><table id="tb"></table><div class="addrow"><button id="add">+ Add New Employee</button><button id="edt">Edit</button></div></div>
+</section>
+<section id="v-vr" class="view" hidden><h2 class="pt">Vacation Request</h2><div id="ep"><div class="epc"><div><small>Annual leave remaining</small><b id="eprem">—</b><small id="epdet"></small></div><button id="eprn">New Request</button></div><div id="eplist"></div></div>
+</section>
+<section id="v-ot" class="view" hidden><h2 class="pt">Overtime Request</h2><div class="epc" style="margin:0 12px"><div><small>Overtime requests you send to the manager</small></div><button id="otn2">New Overtime Request</button></div><div id="otlist"></div></section>
+<section id="v-va" class="view" hidden></section>
+<section id="v-oa" class="view" hidden></section>
+<section id="v-orep" class="view" hidden></section>
+<section id="v-vrep" class="view" hidden></section>
+<section id="v-cor" class="view" hidden><h2 class="pt">Day Corrections</h2><div id="corl"></div></section>
+</main></div>
 <div id="lg"><div class="bx">
 <h2>MODELIST</h2><p class="sub">Attendance &amp; Leave System</p>
 <div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lf" class="lnk">Forgot username or password?</button></div>
 <div id="lv3" class="v" hidden><p>Recover access with the admin Google account</p><p style="font-size:12px;color:var(--mut)">Employees: ask the admin for a new temporary password.</p><button id="lgg" class="pri">Sign in with Google</button><div class="err" id="lre"></div><button class="lnk bk">Back</button></div>
 </div></div>
 <div class="md" id="ctm"><div><h3>Settings</h3><p style="font-size:13px;color:var(--mut)">Where employees can notify you about their requests, and the shift shown in the request form.</p><input id="cte" type="email" placeholder="Email" dir="ltr"><input id="ctw" placeholder="WhatsApp number with country code, e.g. 201012345678" inputmode="numeric" dir="ltr"><input id="cth" placeholder="Shift (e.g. Morning)" dir="ltr"><div class="err" id="cter"></div><div class="r"><button id="cts">Save</button><button id="ctc">Cancel</button></div></div></div>
+<div class="md" id="otm"><div class="wide">
+<h3>Create Overtime Request</h3>
+<div class="g3"><div><label>Employee</label><input id="otn" readonly></div><div><label>Department Name</label><input value="Modelist" readonly></div><div><label>Job Title</label><input id="otj" readonly></div><div><label>Shift Value</label><input id="ots" readonly></div></div>
+<div class="g3"><div><label>Date</label><input id="otd" type="date"></div><div><label>Start Time</label><input id="ot1" type="time"></div><div><label>End Time</label><input id="ot2" type="time"></div></div>
+<div><label>Total Hours</label><input id="oth" readonly></div>
+<div><label>Overtime Note (optional)</label><textarea id="otnote" rows="3"></textarea></div>
+<div class="err" id="ote"></div>
+<div id="otch" hidden><small style="color:var(--mut)">Send the notification to the manager via:</small><button id="otnw">WhatsApp</button><button id="otne">Email</button><button id="otnn">Send to Manager without notify</button></div>
+<div class="r"><button id="otc">Close</button><button id="otclr">Clear</button><button id="otsm">Send Manager</button><button id="otsv">Save</button></div>
+</div></div>
 <div class="md" id="rq"><div class="wide">
 <h3>Create New Request</h3>
 <div class="g3">
@@ -173,7 +224,6 @@ body.emp #ep{display:block}
 <div id="toast"></div>
 <div class="md" id="pwd"><div><h3>Choose a new password</h3><p>This is your first login. Please set your own password.</p><input id="pw1" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Repeat password"><div class="err" id="pwe"></div><div class="r"><button id="pws">Save</button><button id="pwo">Log out</button></div></div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
-<div class="md" id="ibx"><div><h3>Inbox</h3><div id="ibl" style="display:grid;gap:8px"></div><button id="ibc">Close</button></div></div>
 <div id="dlg"><div><h3>Add New Employee</h3><input id="f1" placeholder="Full Name" dir="ltr" lang="en"><input id="f2" placeholder="Code" inputmode="numeric" dir="ltr"><input id="f3" placeholder="Title" dir="ltr" lang="en"><div id="er"></div><div class="r"><button id="ds">Save</button><button id="dc">Cancel</button></div></div></div>
 <div id="edlg"><div><h3>Edit Employees</h3><div id="elist"></div><div id="eer"></div><div class="r"><button id="es">Save</button><button id="ec">Cancel</button></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
@@ -418,14 +468,14 @@ const EMAILJS={pub:'YKapVcbGp_GpS2N9Z',service:'service_4947l0d',template:'templ
 const emailOn=()=>!!(EMAILJS.pub&&EMAILJS.service&&EMAILJS.template);
 async function emailAdmin(d){if(!emailOn())return;
  try{await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:(CONTACT&&CONTACT.email)||'',from_name:d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):''),request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
+  body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.pub,template_params:{to_email:(CONTACT&&CONTACT.email)||'',from_name:d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):''),request_type:TL[d.type]||d.type,dates:d.from+(d.to!==d.from?' to '+d.to:''),details:(d.t1?'Time: '+d.t1+(d.t2?' - '+d.t2:'')+'. ':'')+(d.days?d.days+' day(s). ':'')+(d.hours?d.hours+' hour(s). ':'')+(d.note||''),site:location.href}})})}catch(e){}}
 const V=n=>{['lv1','lv3'].forEach(i=>{$(i).hidden=i!==n});['le','lre'].forEach(i=>{$(i).className='err';$(i).textContent=''})};
 function applyHeader(){const a=document.querySelector('.adm');
  if(ROLE==='admin'){a.innerHTML='<span>Administration</span><b>Mohammed Atef</b>'}
  else if(ROLE){a.innerHTML='<span></span><b></b><small></small>';a.querySelector('span').textContent=PROFILE&&PROFILE.title?PROFILE.title:'';a.querySelector('b').textContent=PROFILE&&PROFILE.name?PROFILE.name:'';a.querySelector('small').textContent=ROLE}}
 function applyRole(){const b=document.body;b.classList.toggle('locked',!ROLE);b.classList.toggle('emp',!!ROLE&&ROLE!=='admin');
  if(!ROLE){V('lv1');['lu','lp'].forEach(i=>{$(i).value=''})}
- applyHeader();render();epRender()}
+ applyHeader();buildNav();showTab('att');render();epRender()}
 function subEmp(){if(!db||unsubE)return;
  try{unsubE=db.collection('meta').doc('employees').onSnapshot(s=>{if(s.exists&&s.data().list){let l=s.data().list;try{if(typeof l==='string')l=JSON.parse(l)}catch(e){l=null}if(Array.isArray(l)){EMP=l;HID=s.data().hid||HID;render()}}},()=>{})}catch(e){}}
 /* admin: one-time move of old data into the per-employee structure */
@@ -467,8 +517,9 @@ $('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsu
  unsubP.forEach(f=>{try{f()}catch(e){}});
  unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
 /* employee: leave balance + requests */
-const DED=['annual','casual','sick','leave'],TL={annual:'Annual',casual:'Casual',sick:'Sick leave',injury:'Work injury',unpaid:'Unpaid',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
-const rdesc=r=>(TL[r.type]||r.type)+' '+(r.from||'')+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
+const fd=s=>{const p=String(s||'').split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:(s||'')};
+const DED=['annual','casual','sick','leave'],TL={overtime:'Overtime',annual:'Annual',casual:'Casual',sick:'Sick leave',injury:'Work injury',unpaid:'Unpaid',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
+const rdesc=r=>(TL[r.type]||r.type)+' '+fd(r.from)+(r.to&&r.to!==r.from?' → '+fd(r.to):'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
 const wdays=(f,t)=>{let n=0;for(let d=new Date(f+'T00:00');ds(d)<=t;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))if(d.getDay()!==5)n++;return n};
 const totLeave=()=>PROFILE&&PROFILE.leave!==undefined?Number(PROFILE.leave):21;
 function usedLeave(){const y=String(new Date().getFullYear());let n=0;for(const k in ECELLS){const i=k.indexOf('_')+1;if((ECELLS[k]==='C'||ECELLS[k]==='S'||ECELLS[k]==='K')&&k.slice(i,i+4)===y)n++}return n}
@@ -478,12 +529,12 @@ function epRender(){if(!ROLE||ROLE==='admin'||!PROFILE)return;
  const tot=totLeave(),u=usedLeave(),pd=pendLeave();
  $('eprem').textContent=(tot-u)+' days';$('epdet').textContent='Used '+u+' of '+tot+(pd?' · '+pd+' pending':'');
  const L=$('eplist');L.innerHTML='';
- MYREQ.slice(0,15).forEach(r=>{const d=document.createElement('div');d.className='rr';
+ MYREQ.filter(r=>r.type!=='overtime').slice(0,40).forEach(r=>{const d=document.createElement('div');d.className='rr';
   const a=document.createElement('span');a.textContent=rdesc(r)+(r.code!==ROLE?' · for '+r.name:'')+(r.by&&r.by!==ROLE?' · by '+(r.byName||r.by):'');
   const side=document.createElement('span'),c=document.createElement('span');c.className='chip '+r.status;c.textContent=r.status;side.appendChild(c);
   if(r.status==='draft'&&r.by===ROLE){const o=document.createElement('button');o.textContent='Open';o.onclick=()=>openRq(r);
    const x=document.createElement('button');x.textContent='Delete';x.onclick=()=>{db.collection('requests').doc(r.id).delete().catch(()=>{})};side.append(o,x)}
-  d.append(a,side);L.appendChild(d)})}
+  d.append(a,side);L.appendChild(d)});otRender()}
 function toast(x){const e=$('toast');e.textContent=x;e.style.display='block';setTimeout(()=>{e.style.display='none'},3200)}
 /* ---------- New request dialog ---------- */
 const VT=[['annual','Annual'],['casual','Casual'],['sick','Sick leave'],['injury','Work injury'],['unpaid','Unpaid'],['mission','Mission'],['permission','Permission'],['replacement','Replacement']],
@@ -521,11 +572,12 @@ function openRq(r){RQ={id:r?r.id:null,target:null};ddBuild();$('ddl').hidden=tru
  setTarget(r?r.code:null);$('rq').style.display='flex'}
 const rqMsg=x=>{$('rqe').className='err';$('rqe').textContent=x};
 function rqDoc(status){const c=rqCalc();return{code:RQ.target,name:c.ti?c.ti.name:'',by:ROLE,byName:PROFILE?PROFILE.name||'':'',type:c.ty,from:c.f,to:c.to,days:c.days,t1:c.pm?$('rqt1').value:'',t2:c.ty==='p_gf'?$('rqt2').value:'',note:$('rqn').value.trim().slice(0,300),status,ts:Date.now()}}
-const wmsg=d=>'MODELIST request: '+d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):'')+' - '+rdesc(d)+(d.days?' ('+d.days+' days)':'');
+const wmsg=d=>'MODELIST request: '+d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):'')+' - '+rdesc(d)+(d.days?' ('+d.days+' days)':'')+(d.hours?' ('+d.hours+' h)':'');
 $('eprn').onclick=()=>openRq(null);
 $('ddb').onclick=e=>{e.stopPropagation();$('ddl').hidden=!$('ddl').hidden};
 document.addEventListener('click',e=>{if(!e.target.closest('.dd'))$('ddl').hidden=true});
 ['rqf','rqto'].forEach(i=>$(i).addEventListener('input',rqCalc));
+$('rqf').addEventListener('input',()=>{if(!$('rqto').value||$('rqto').value<$('rqf').value)$('rqto').value=$('rqf').value;rqCalc()});
 $('rqtypes').addEventListener('change',rqCalc);$('rqpt').onchange=rqCalc;
 $('rqc').onclick=()=>{$('rq').style.display='none'};
 $('rqclr').onclick=()=>{const id=RQ.id;openRq(null);RQ.id=id};
@@ -569,44 +621,132 @@ $('rvb').onclick=async()=>{const t=$('rvt').value.trim(),m=(x,ok)=>{$('rve').cla
  try{await db.collection('inbox').doc(Date.now()+'_'+RV.code).set({code:RV.code,name:RV.name,date:RV.date,status:RV.status,text:t.slice(0,900),ts:Date.now(),read:false});
   m('Sent to admin',true);setTimeout(()=>{$('rv').style.display='none'},1200)}
  catch(e){m('Could not send. Please try again')}};
-/* admin: inbox (corrections) + requests */
-function badge(){const n=MSG.filter(m=>!m.read).length+REQS.filter(r=>r.status==='pending').length;$('inb').querySelector('span').textContent='Inbox'+(n?' ('+n+')':'')}
-const inboxOpen=()=>$('ibx').style.display==='flex';
+/* ---------- side menu ---------- */
+const NAV={att:'Attendance',vr:'Vacation Request',va:'Vacation Request Approval/Reject',ot:'Overtime Request',oa:'Overtime Request Approval/Reject',orep:'Overtime Report',vrep:'Vacations Report',cor:'Day Corrections'};
+const RPT={va:{kind:'vac',st:'pending',T:'Vacation Request Approval/Reject'},vrep:{kind:'vac',st:'',T:'Vacations Report'},oa:{kind:'ot',st:'pending',T:'Overtime Request Approval/Reject'},orep:{kind:'ot',st:'',T:'Overtime Report'}},FS={};
+let TAB='att';
+function buildNav(){const list=ROLE==='admin'?['att','va','oa','orep','vrep','cor']:ROLE?['att','vr','ot']:[];
+ $('nav').innerHTML=list.map(k=>'<button data-t="'+k+'"><span class="dot"></span>'+NAV[k]+'<i id="nb-'+k+'" class="nb"></i></button>').join('');
+ Object.keys(RPT).forEach(k=>{const v=$('v-'+k);v.innerHTML='';delete v.dataset.init});badge()}
+function showTab(k){TAB=k;document.querySelectorAll('.view').forEach(v=>{v.hidden=v.id!=='v-'+k});
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===k));
+ $('sb').classList.remove('open');
+ if(RPT[k]){const v=$('v-'+k);if(!v.dataset.init){initReport(k);v.dataset.init='1'}renderReport(k)}
+ if(k==='cor')renderCor();
+ if(k==='vr'||k==='ot')epRender()}
+$('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showTab(b.dataset.t)});
+$('sbt').onclick=e=>{e.stopPropagation();$('sb').classList.toggle('open')};
+document.addEventListener('click',e=>{if(!e.target.closest('#sb')&&!e.target.closest('#sbt'))$('sb').classList.remove('open')});
+/* ---------- admin: inbox data ---------- */
+function badge(){const pv=REQS.filter(r=>r.status==='pending'&&r.type!=='overtime').length,po=REQS.filter(r=>r.status==='pending'&&r.type==='overtime').length,pc=MSG.filter(m=>!m.read).length,n=pv+po+pc;
+ $('inb').querySelector('span').textContent='Inbox'+(n?' ('+n+')':'');
+ [['va',pv],['oa',po],['cor',pc]].forEach(([k,c])=>{const e=$('nb-'+k);if(e)e.textContent=c||''})}
+function renderAdmin(){badge();if(RPT[TAB])renderReport(TAB);if(TAB==='cor')renderCor()}
 function subInbox(){if(!db||unsubI)return;
- try{unsubI=db.collection('inbox').onSnapshot(s=>{MSG=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);badge();if(inboxOpen())showInbox()},()=>{})}catch(e){}}
+ try{unsubI=db.collection('inbox').onSnapshot(s=>{MSG=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);renderAdmin()},()=>{})}catch(e){}}
 function subReq(){if(!db||unsubR)return;
- try{unsubR=db.collection('requests').onSnapshot(s=>{REQS=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);badge();if(inboxOpen())showInbox()},()=>{})}catch(e){}}
+ try{unsubR=db.collection('requests').onSnapshot(s=>{REQS=s.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>b.ts-a.ts);renderAdmin()},()=>{})}catch(e){}}
 const periodKey=d=>{let m=d.getMonth();const y=d.getFullYear();if(d.getDate()<27)m--;const s=new Date(y,m,27);return s.getFullYear()+'-'+pad(s.getMonth()+1)};
 async function decide(r,ok){
- try{if(ok&&!isPerm(r.type)){const by={};
+ try{if(ok&&!isPerm(r.type)&&r.type!=='overtime'){const by={};
    for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',casual:'K',sick:'S',injury:'W',unpaid:'U',mission:'M',replacement:'B'})[r.type]||'C'}
    for(const k in by)await db.collection('att').doc(r.code+'_'+k).set({month:k,code:r.code,cells:by[k]},{merge:true})}
   await db.collection('requests').doc(r.id).update({status:ok?'approved':'rejected',decidedAt:Date.now()});pubSoon()}
  catch(e){alert('Could not save the decision')}}
-function showInbox(){const L=$('ibl');L.innerHTML='';if(!MSG.length&&!REQS.length){L.textContent='No messages yet';return}
- REQS.filter(r=>r.status!=='draft').forEach(r=>{const d=document.createElement('div');d.className='msg'+(r.status==='pending'?' un':'');
-  const h=document.createElement('b');h.textContent=r.name+' ('+r.code+') — '+((TL[r.type]||r.type)+' request');
-  const s=document.createElement('div');s.textContent=r.from+(r.to&&r.to!==r.from?' → '+r.to:'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.days?' ('+r.days+' days)':'')+(r.note?' — '+r.note:'');
-  const st=document.createElement('div');st.textContent='Status: '+r.status;d.append(h,s,st);
-  if(r.by&&r.by!==r.code){const f=document.createElement('div');f.textContent='Requested by: '+(r.byName||r.by)+' ('+r.by+')';d.append(f)}
-  const a=document.createElement('div');a.className='r';
-  if(r.status==='pending'){
-   const ok=document.createElement('button');ok.textContent='Approve';ok.onclick=()=>decide(r,true);
-   const no=document.createElement('button');no.textContent='Reject';no.onclick=()=>decide(r,false);a.append(ok,no)}
-  const dl=document.createElement('button');dl.textContent='Delete';
-  dl.onclick=()=>{if(confirm('Delete this request? It will also disappear from the employee\'s list.')){try{db.collection('requests').doc(r.id).delete()}catch(e){}}};
-  a.append(dl);d.appendChild(a);
-  L.appendChild(d)});
- MSG.forEach(m=>{const d=document.createElement('div');d.className='msg'+(m.read?'':' un');
-  const h=document.createElement('b');h.textContent=m.name+' ('+m.code+') — '+m.date;
+/* ---------- admin: wide pages with filter + table ---------- */
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fts=ts=>{const d=new Date(ts||0);return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear()};
+const reqNo=r=>Number(r.ts||0).toString(36).slice(-6).toUpperCase();
+function initReport(v){const c=RPT[v],ot=c.kind==='ot',box=$('v-'+v);FS[v]={type:'',start:'',end:'',status:c.st,emp:''};
+ const opts=(a,sel)=>a.map(x=>'<option value="'+x[0]+'"'+(x[0]===sel?' selected':'')+'>'+x[1]+'</option>').join('');
+ const types=[['','All']].concat(VT.filter(x=>x[0]!=='permission')).concat(PT);
+ box.innerHTML='<h2 class="pt">'+c.T+'</h2><div class="fl"><div class="flh">Filter</div><div class="flb g3">'
+  +(ot?'':'<div><label>Vacation Type</label><select class="f-type">'+opts(types,'')+'</select></div>')
+  +'<div><label>Start Date</label><input class="f-start" type="date"></div><div><label>End Date</label><input class="f-end" type="date"></div>'
+  +'<div><label>Status</label><select class="f-status">'+opts([['','All'],['pending','Pending'],['approved','Approved'],['rejected','Rejected']],c.st)+'</select></div>'
+  +'<div><label>Department</label><select class="f-dept"><option value="">All</option><option value="Modelist">Modelist</option></select></div>'
+  +'<div><label>Employee</label><select class="f-emp"></select></div></div>'
+  +'<div class="btnrow"><button class="bp fs">Search</button><button class="bp fc">Clear Filter</button></div></div>'
+  +'<div class="wrap"><table class="rt"></table></div><div class="rsum"></div>';
+ const q=s=>box.querySelector(s);
+ box.onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.classList.contains('fs')){const g=s=>{const x=q(s);return x?x.value:''};FS[v]={type:g('.f-type'),start:g('.f-start'),end:g('.f-end'),status:g('.f-status'),emp:g('.f-emp')};renderReport(v);return}
+  if(b.classList.contains('fc')){box.querySelectorAll('.fl input,.fl select').forEach(x=>{x.value=''});FS[v]={type:'',start:'',end:'',status:'',emp:''};renderReport(v);return}
+  const a=b.dataset.a,r=REQS.find(x=>x.id===b.dataset.id);if(!a||!r)return;
+  if(a==='ok')decide(r,true);else if(a==='no')decide(r,false);
+  else if(a==='del'&&confirm('Delete this request? It will also disappear from the employee.')){try{db.collection('requests').doc(r.id).delete()}catch(er){}}}}
+function renderReport(v){const box=$('v-'+v);if(!box||!box.dataset.init)return;const c=RPT[v],f=FS[v],ot=c.kind==='ot';
+ const em={};allEmp().forEach(r=>{em[String(r[2])]=r[1]});REQS.forEach(r=>{if(r.code)em[r.code]=r.name||em[r.code]||r.code});
+ const es=box.querySelector('.f-emp');
+ es.innerHTML='<option value="">All</option>'+Object.keys(em).sort((a,b)=>String(em[a]).localeCompare(String(em[b]))).map(k=>'<option value="'+esc(k)+'"'+(k===f.emp?' selected':'')+'>'+esc(em[k])+' ('+esc(k)+')</option>').join('');
+ const ty=r=>r.type==='leave'?'annual':r.type;
+ let L=REQS.filter(r=>r.status!=='draft'&&((r.type==='overtime')===ot));
+ if(f.type)L=L.filter(r=>ty(r)===f.type);
+ if(f.start)L=L.filter(r=>(r.to||r.from||'')>=f.start);
+ if(f.end)L=L.filter(r=>(r.from||'')<=f.end);
+ if(f.status)L=L.filter(r=>r.status===f.status);
+ if(f.emp)L=L.filter(r=>r.code===f.emp);
+ const H=ot?['Request Number','Create Date','CreationUser','Name of Employee','Date','Start Time','End Time','Total Hours','OvertimeNote','Department','Status','Action']
+  :['Request Number','Create Date','CreationUser','Name of Employee','Start Date','End Date','Start Time','End Time','Days','Vacation Type','VacationNote','Department','Status','Action'];
+ let h='<thead><tr>'+H.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>',tot=0;
+ L.forEach(r=>{const dt=(r.status==='approved')?(ot?(Number(r.hours)||0):(Number(r.days)||0)):0;tot+=dt;
+  const act=(c.st==='pending'&&r.status==='pending'?'<button class="ok" data-a="ok" data-id="'+esc(r.id)+'">Approve</button><button class="no" data-a="no" data-id="'+esc(r.id)+'">Reject</button>':'')+'<button class="dl" data-a="del" data-id="'+esc(r.id)+'">Delete</button>';
+  const by=r.byName||r.name||'',own=r.name+' ('+r.code+')';
+  h+='<tr><td>'+reqNo(r)+'</td><td>'+fts(r.ts)+'</td><td>'+esc(by)+(r.by&&r.by!==r.code?' ('+esc(r.by)+')':'')+'</td><td>'+esc(own)+'</td><td>'+fd(r.from)+'</td>'
+   +(ot?'':'<td>'+fd(r.to||r.from)+'</td>')+'<td>'+esc(r.t1||'')+'</td><td>'+esc(r.t2||'')+'</td>'
+   +(ot?'<td>'+esc(r.hours||'')+'</td>':'<td>'+esc(r.days||'')+'</td><td>'+esc(TL[ty(r)]||r.type)+'</td>')
+   +'<td class="wr">'+esc(r.note||'')+'</td><td>Modelist</td><td><span class="chip '+esc(r.status)+'">'+esc(r.status.charAt(0).toUpperCase()+r.status.slice(1))+'</span></td><td class="ac">'+act+'</td></tr>'});
+ if(!L.length)h+='<tr><td colspan="'+H.length+'" style="text-align:center;color:var(--mut)">No data</td></tr>';
+ box.querySelector('table').innerHTML=h+'</tbody>';
+ box.querySelector('.rsum').textContent=ot?'Approved overtime in this list: '+(Math.round(tot*100)/100)+' hour(s)':'Approved vacation days in this list: '+tot}
+function renderCor(){const L=$('corl');L.innerHTML='';if(!MSG.length){L.textContent='No corrections yet';return}
+ MSG.forEach(m=>{const d=document.createElement('div');d.className='cor'+(m.read?'':' un');
+  const h=document.createElement('b');h.textContent=m.name+' ('+m.code+') — '+fd(m.date);
   const s=document.createElement('div');s.textContent='Recorded: '+m.status;
   const c=document.createElement('div');c.textContent='Correction: '+m.text;
   const a=document.createElement('div');a.className='r';
   const r=document.createElement('button');r.textContent=m.read?'Mark unread':'Mark read';r.onclick=()=>{try{db.collection('inbox').doc(m.id).update({read:!m.read})}catch(e){}};
   const x=document.createElement('button');x.textContent='Delete';x.onclick=()=>{try{db.collection('inbox').doc(m.id).delete()}catch(e){}};
   a.append(r,x);d.append(h,s,c,a);L.appendChild(d)})}
-$('inb').onclick=e=>{e.stopPropagation();showInbox();$('ibx').style.display='flex'};
-$('ibc').onclick=()=>{$('ibx').style.display='none'};
+$('inb').onclick=e=>{e.stopPropagation();showTab('va')};
+/* ---------- employee: overtime request ---------- */
+let OT={};
+const tmin=s=>{const p=String(s).split(':');return(+p[0])*60+(+p[1])};
+const otHours=(a,b)=>{if(!a||!b)return 0;let d=tmin(b)-tmin(a);if(d<=0)d+=1440;return Math.round(d/60*100)/100};
+function otCalc(){const h=otHours($('ot1').value,$('ot2').value);$('oth').value=h?h+' hour(s)':'';return h}
+function openOt(r){OT={id:r?r.id:null};
+ $('otn').value=(PROFILE?PROFILE.name:'')+' ('+ROLE+')';$('otj').value=PROFILE?PROFILE.title||'':'';$('ots').value=(CONTACT&&CONTACT.shift)||'Morning';
+ $('otd').value=r&&r.from||'';$('ot1').value=r&&r.t1||'';$('ot2').value=r&&r.t2||'';$('otnote').value=r&&r.note||'';
+ $('otch').hidden=true;$('ote').className='err';$('ote').textContent='';otCalc();$('otm').style.display='flex'}
+const otMsg=x=>{$('ote').className='err';$('ote').textContent=x};
+function otDoc(status){return{code:ROLE,name:PROFILE?PROFILE.name||'':'',by:ROLE,byName:PROFILE?PROFILE.name||'':'',type:'overtime',from:$('otd').value,to:$('otd').value,t1:$('ot1').value,t2:$('ot2').value,hours:otCalc(),days:0,note:$('otnote').value.trim().slice(0,300),status,ts:Date.now()}}
+$('otn2').onclick=()=>openOt(null);
+['ot1','ot2'].forEach(i=>$(i).addEventListener('input',otCalc));
+$('otc').onclick=()=>{$('otm').style.display='none'};
+$('otclr').onclick=()=>{const id=OT.id;openOt(null);OT.id=id};
+$('otsv').onclick=async()=>{if(!db||!PROFILE){otMsg('Not connected. Please log in again');return}
+ const d=otDoc('draft');OT.id=OT.id||Date.now()+'_'+ROLE;
+ try{await db.collection('requests').doc(OT.id).set(d);$('otm').style.display='none';toast('Saved as a draft')}catch(e){otMsg('Could not save. Please try again')}};
+$('otsm').onclick=()=>{if(!$('otd').value){otMsg('Choose the date');return}
+ if(!$('ot1').value||!$('ot2').value){otMsg('Choose the start and end time');return}
+ if(!otCalc()){otMsg('The start and end time are the same');return}
+ otMsg('');$('otch').hidden=false};
+async function otSend(mode){if(!db||!PROFILE){otMsg('Not connected. Please log in again');return}
+ const d=otDoc('pending');OT.id=OT.id||Date.now()+'_'+ROLE;
+ try{await db.collection('requests').doc(OT.id).set(d)}catch(e){otMsg('Could not send. Please try again');return}
+ let note='Request sent to the manager';
+ if(mode==='email')emailAdmin(d);
+ if(mode==='wa'){const w=String(CONTACT&&CONTACT.wa||'').replace(/\D/g,'');
+  if(w)window.open('https://wa.me/'+w+'?text='+encodeURIComponent(wmsg(d)),'_blank');else note='Sent. The manager has not set a WhatsApp number yet'}
+ $('otm').style.display='none';toast(note)}
+$('otnw').onclick=()=>otSend('wa');$('otne').onclick=()=>otSend('email');$('otnn').onclick=()=>otSend('none');
+function otRender(){const L=$('otlist');if(!L)return;L.innerHTML='';
+ MYREQ.filter(r=>r.type==='overtime').slice(0,40).forEach(r=>{const d=document.createElement('div');d.className='rr';
+  const a=document.createElement('span');a.textContent=rdesc(r)+(r.hours?' · '+r.hours+' h':'');
+  const side=document.createElement('span'),c=document.createElement('span');c.className='chip '+r.status;c.textContent=r.status;side.appendChild(c);
+  if(r.status==='draft'&&r.by===ROLE){const o=document.createElement('button');o.textContent='Open';o.onclick=()=>openOt(r);
+   const x=document.createElement('button');x.textContent='Delete';x.onclick=()=>{db.collection('requests').doc(r.id).delete().catch(()=>{})};side.append(o,x)}
+  d.append(a,side);L.appendChild(d)})}
 $('ct').onclick=e=>{e.stopPropagation();$('cte').value=CONTACT&&CONTACT.email||'';$('ctw').value=CONTACT&&CONTACT.wa||'';$('cth').value=CONTACT&&CONTACT.shift||'Morning';$('cter').textContent='';$('ctm').style.display='flex'};
 $('ctc').onclick=()=>{$('ctm').style.display='none'};
 $('cts').onclick=async()=>{const e=$('cte').value.trim(),w=$('ctw').value.replace(/\D/g,'');
