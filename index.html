@@ -130,6 +130,7 @@ body.locked #lg{display:flex}
 #rqch,#otch{display:grid;gap:8px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--wk)}
 .md .r button{flex:1}
 #rqsm,#otsm{background:#2563eb;color:#fff}#rqsv,#otsv{background:var(--P);color:#fff}#rqclr,#rqnn,#otclr,#otnn,#otc{background:var(--wk);color:var(--tx)}#rqch #rqnn,#otch #otnn{border:1px solid var(--ln)}
+#frio{background:var(--gold);color:#14213d}
 #rqnw,#otnw{background:#25d366;color:#fff}#rqne,#otne{background:#2563eb;color:#fff}
 #eplist button,#otlist button{font:inherit;font-size:12px;font-weight:700;border:0;border-radius:8px;padding:3px 10px;margin-left:6px;background:var(--wk);color:var(--tx);cursor:pointer}
 .chip.draft{background:#6b7280}
@@ -237,6 +238,7 @@ body.locked #lg{display:flex}
 <div class="r"><button id="rqc">Close</button><button id="rqclr">Clear</button><button id="rqsm">Send Manager</button><button id="rqsv">Save</button></div>
 </div></div>
 <div id="toast"></div>
+<div class="md" id="fri" style="z-index:45"><div><h3>⚠ Day off</h3><p id="frim"></p><div class="r"><button id="frio">OK</button></div></div></div>
 <div class="md" id="pwd"><div><h3>Choose a new password</h3><p>This is your first login. Please set your own password.</p><input id="pw1" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Repeat password"><div class="err" id="pwe"></div><div class="r"><button id="pws">Save</button><button id="pwo">Log out</button></div></div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
 <div id="dlg"><div><h3>Add New Employee</h3><input id="f1" placeholder="Full Name" dir="ltr" lang="en"><input id="f2" placeholder="Code" inputmode="numeric" dir="ltr"><input id="f3" placeholder="Title" dir="ltr" lang="en"><div id="er"></div><div class="r"><button id="ds">Save</button><button id="dc">Cancel</button></div></div></div>
@@ -608,17 +610,25 @@ $('ddb').onclick=e=>{e.stopPropagation();$('ddl').hidden=!$('ddl').hidden};
 document.addEventListener('click',e=>{if(!e.target.closest('.dd'))$('ddl').hidden=true});
 ['rqf','rqto'].forEach(i=>$(i).addEventListener('input',rqCalc));
 $('rqf').addEventListener('input',()=>{if(!$('rqto').value||$('rqto').value<$('rqf').value)$('rqto').value=$('rqf').value;rqCalc()});
+const isFri=s=>!!s&&new Date(s+'T00:00').getDay()===5;
+let FRI='';
+function friWarn(s){FRI=s;$('frim').textContent='Friday ('+fd(s)+') is the weekly day off, so a request cannot be made for this day. Please choose another date.';$('fri').style.display='flex'}
+$('frio').onclick=()=>{$('fri').style.display='none';['rqf','rqto'].forEach(i=>{if($(i).value===FRI)$(i).value=''});rqCalc()};
+['rqf','rqto'].forEach(i=>$(i).addEventListener('change',()=>{const s=$(i).value;if(isFri(s)&&(i==='rqf'||!isPerm(curType())))friWarn(s)}));
+const friBad=()=>{const pm=isPerm(curType()),a=$('rqf').value,b=pm?'':$('rqto').value;return isFri(a)?a:(isFri(b)?b:'')};
 $('rqtypes').addEventListener('change',rqCalc);$('rqpt').onchange=rqCalc;
 $('rqc').onclick=()=>{$('rq').style.display='none'};
 $('rqclr').onclick=()=>{const id=RQ.id;openRq(null);RQ.id=id};
 $('rqsv').onclick=async()=>{
  if(!RQ.target){rqMsg('Select the employee first');return}
+ {const b=friBad();if(b){friWarn(b);return}}
  if(!db||!PROFILE){rqMsg('Not connected. Please log in again');return}
  const d=rqDoc('draft');RQ.id=RQ.id||Date.now()+'_'+ROLE;
  try{await db.collection('requests').doc(RQ.id).set(d);$('rq').style.display='none';toast('Saved as a draft')}
  catch(e){rqMsg('Could not save. Please try again')}};
 $('rqsm').onclick=()=>{const c=rqCalc();
  if(!RQ.target){rqMsg('Select the employee first');return}
+ {const b=friBad();if(b){friWarn(b);return}}
  if(!c.f||!c.to||c.to<c.f){rqMsg('Choose valid dates');return}
  if(c.pm&&!$('rqt1').value){rqMsg('Choose the time');return}
  if(c.ty==='p_gf'){const t2=$('rqt2').value;if(t2&&t2<=$('rqt1').value){rqMsg('The end time must be after the start time');return}}
