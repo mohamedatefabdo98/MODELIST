@@ -226,6 +226,7 @@ body.locked #lg{display:flex}
 <div><label>Shift Value</label><input id="rqsh" readonly></div>
 </div>
 <div><label>Vacation Type</label><div id="rqtypes" class="rad"></div></div>
+<small id="rqauto" hidden style="color:var(--mut)">An Annual leave for today or a past date is recorded as Casual.</small>
 <div id="rqpw" hidden><label>Permission type</label><select id="rqpt"></select></div>
 <div class="g2"><div><label id="rqfl">Start Date</label><input id="rqf" type="date"></div><div id="rqtowrap"><label>Finish Date</label><input id="rqto" type="date"></div></div>
 <div id="rqtmw" class="g2" hidden><div><label id="rqt1l">Time</label><input id="rqt1" type="time"></div><div id="rqt2w"><label>To</label><input id="rqt2" type="time"></div></div>
@@ -567,7 +568,10 @@ const curType=()=>vtVal()==='permission'?$('rqpt').value:vtVal();
 function targetInfo(){const c=RQ.target;if(!c)return null;
  if(c===ROLE)return{name:PROFILE?PROFILE.name||'':'',title:PROFILE?PROFILE.title||'':'',tot:totLeave(),used:usedLeave(),pend:0};
  const d=DIR.find(x=>x.c===c);return d?{name:d.n,title:d.t||'',tot:d.l,used:d.u,pend:0}:{name:c,title:'',tot:null,used:0,pend:0}}
-function rqCalc(){const ty=curType(),pm=isPerm(ty),ti=targetInfo(),f=$('rqf').value,to=pm?f:$('rqto').value;
+function rqCalc(){const f=$('rqf').value,today=ds(new Date());
+ if(vtVal()==='annual'&&f&&f<=today)document.querySelector('input[name=vt][value=casual]').checked=true;
+ $('rqauto').hidden=!(vtVal()==='casual'&&f&&f<=today);
+ const ty=curType(),pm=isPerm(ty),ti=targetInfo(),to=pm?f:$('rqto').value;
  $('rqtowrap').hidden=pm;$('rqtmw').hidden=!pm;$('rqpw').hidden=vtVal()!=='permission';$('rqt2w').hidden=ty!=='p_gf';
  $('rqfl').textContent=pm?'Date':'Start Date';
  $('rqt1l').textContent=ty==='p_in'?'Arrival time':ty==='p_out'?'Leaving time':'From';
