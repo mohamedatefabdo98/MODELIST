@@ -538,6 +538,11 @@ $('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('
 $('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
  unsubP.forEach(f=>{try{f()}catch(e){}});
  unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
+const ADMIN_CODE='2622';
+const isAdminAuth=()=>!!(auth&&auth.currentUser&&ADMINS.indexOf(auth.currentUser.email)>=0);
+function stopAll(){[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
+ unsubP.forEach(f=>{try{f()}catch(e){}});unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};CONTACT=null;flt=''}
+function viewAs(code){stopAll();setRole(code)}
 /* employee: leave balance + requests */
 const fd=s=>{const p=String(s||'').split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:(s||'')};
 const DED=['annual','casual','sick','leave'],TL={overtime:'Overtime',annual:'Annual',casual:'Casual',sick:'Sick leave',injury:'Work injury',unpaid:'Unpaid',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
@@ -594,7 +599,7 @@ function openRq(r){RQ={id:r?r.id:null,target:null};ddBuild();$('ddl').hidden=tru
  $('rqf').value=r&&r.from||'';$('rqto').value=r&&r.to||'';$('rqt1').value=r&&r.t1||'';$('rqt2').value=r&&r.t2||'';$('rqn').value=r&&r.note||'';
  $('rqsh').value=(CONTACT&&CONTACT.shift)||'Morning';
  $('rqch').hidden=true;$('rqe').className='err';$('rqe').textContent='';
- setTarget(r?r.code:null);$('rq').style.display='flex'}
+ setTarget(r?r.code:null);$('rqsm').textContent=isAdminAuth()?'Submit':'Send Manager';$('rq').style.display='flex'}
 const rqMsg=x=>{$('rqe').className='err';$('rqe').textContent=x};
 function rqDoc(status){const c=rqCalc();return{code:RQ.target,name:c.ti?c.ti.name:'',by:ROLE,byName:PROFILE?PROFILE.name||'':'',type:c.ty,from:c.f,to:c.to,days:c.days,t1:c.pm?$('rqt1').value:'',t2:c.ty==='p_gf'?$('rqt2').value:'',note:$('rqn').value.trim().slice(0,300),status,ts:Date.now()}}
 const wmsg=d=>'MODELIST request: '+d.name+' ('+d.code+')'+(d.by&&d.by!==d.code?' - requested by '+(d.byName||d.by):'')+' - '+rdesc(d)+(d.days?' ('+d.days+' days)':'')+(d.hours?' ('+d.hours+' h)':'');
@@ -619,12 +624,12 @@ $('rqsm').onclick=()=>{const c=rqCalc();
  if(c.ty==='p_gf'){const t2=$('rqt2').value;if(t2&&t2<=$('rqt1').value){rqMsg('The end time must be after the start time');return}}
  if(!c.pm){if(c.days<1){rqMsg('There are no working days in this range');return}
   if((c.ty==='annual'||c.ty==='casual')&&c.ti&&c.ti.tot!==null){const left=c.ti.tot-c.ti.used-c.ti.pend;if(c.days>left){rqMsg('Not enough annual balance ('+left+' days left)');return}}}
- rqMsg('');$('rqch').hidden=false};
+ rqMsg('');if(isAdminAuth()){rqSend('none');return}$('rqch').hidden=false};
 async function rqSend(mode){
  if(!db||!PROFILE){rqMsg('Not connected. Please log in again');return}
  const d=rqDoc('pending');RQ.id=RQ.id||Date.now()+'_'+ROLE;
  try{await db.collection('requests').doc(RQ.id).set(d)}catch(e){rqMsg('Could not send. Please try again');return}
- let note='Request sent to the manager';
+ let note='Request sent to the manager';if(isAdminAuth()){await decide(Object.assign({id:RQ.id},d),true);note='Saved and approved automatically'}
  if(mode==='email')emailAdmin(d);
  if(mode==='wa'){const w=String(CONTACT&&CONTACT.wa||'').replace(/\D/g,'');
   if(w)window.open('https://wa.me/'+w+'?text='+encodeURIComponent(wmsg(d)),'_blank');else note='Sent. The manager has not set a WhatsApp number yet'}
@@ -647,10 +652,10 @@ $('rvb').onclick=async()=>{const t=$('rvt').value.trim(),m=(x,ok)=>{$('rve').cla
   m('Sent to admin',true);setTimeout(()=>{$('rv').style.display='none'},1200)}
  catch(e){m('Could not send. Please try again')}};
 /* ---------- side menu ---------- */
-const NAV={att:'Attendance',vr:'Vacation Request',va:'Vacation Request Approval/Reject',ot:'Overtime Request',oa:'Overtime Request Approval/Reject',orep:'Overtime Report',vrep:'Vacations Report',cor:'Day Corrections'};
+const NAV={me:'My Leave & Overtime',back:'Back to Admin',att:'Attendance',vr:'Vacation Request',va:'Vacation Request Approval/Reject',ot:'Overtime Request',oa:'Overtime Request Approval/Reject',orep:'Overtime Report',vrep:'Vacations Report',cor:'Day Corrections'};
 const RPT={va:{kind:'vac',st:'pending',T:'Vacation Request Approval/Reject'},vrep:{kind:'vac',st:'',T:'Vacations Report'},oa:{kind:'ot',st:'pending',T:'Overtime Request Approval/Reject'},orep:{kind:'ot',st:'',T:'Overtime Report'}},FS={};
 let TAB='att';
-function buildNav(){const list=ROLE==='admin'?['att','va','oa','orep','vrep','cor']:ROLE?['att','vr','ot']:[];
+function buildNav(){const list=ROLE==='admin'?['att','va','oa','orep','vrep','cor','me']:ROLE?(isAdminAuth()?['back','att','vr','ot']:['att','vr','ot']):[];
  $('nav').innerHTML=list.map(k=>'<button data-t="'+k+'"><span class="dot"></span>'+NAV[k]+'<i id="nb-'+k+'" class="nb"></i></button>').join('');
  Object.keys(RPT).forEach(k=>{const v=$('v-'+k);v.innerHTML='';delete v.dataset.init});badge()}
 function showTab(k){TAB=k;document.querySelectorAll('.view').forEach(v=>{v.hidden=v.id!=='v-'+k});
@@ -659,7 +664,7 @@ function showTab(k){TAB=k;document.querySelectorAll('.view').forEach(v=>{v.hidde
  if(RPT[k]){const v=$('v-'+k);if(!v.dataset.init){initReport(k);v.dataset.init='1'}renderReport(k)}
  if(k==='cor')renderCor();
  if(k==='vr'||k==='ot')epRender()}
-$('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showTab(b.dataset.t)});
+$('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.t;if(k==='me')viewAs(ADMIN_CODE);else if(k==='back')viewAs('admin');else showTab(k)});
 $('sbt').onclick=e=>{e.stopPropagation();$('sb').classList.toggle('open')};
 document.addEventListener('click',e=>{if(!e.target.closest('#sb')&&!e.target.closest('#sbt'))$('sb').classList.remove('open')});
 /* ---------- admin: inbox data ---------- */
@@ -742,7 +747,7 @@ function otCalc(){const h=otHours($('ot1').value,$('ot2').value);$('oth').value=
 function openOt(r){OT={id:r?r.id:null};
  $('otn').value=(PROFILE?PROFILE.name:'')+' ('+ROLE+')';$('otj').value=PROFILE?PROFILE.title||'':'';$('ots').value=(CONTACT&&CONTACT.shift)||'Morning';
  $('otd').value=r&&r.from||'';$('ot1').value=r&&r.t1||'';$('ot2').value=r&&r.t2||'';$('otnote').value=r&&r.note||'';
- $('otch').hidden=true;$('ote').className='err';$('ote').textContent='';otCalc();$('otm').style.display='flex'}
+ $('otch').hidden=true;$('ote').className='err';$('ote').textContent='';otCalc();$('otsm').textContent=isAdminAuth()?'Submit':'Send Manager';$('otm').style.display='flex'}
 const otMsg=x=>{$('ote').className='err';$('ote').textContent=x};
 function otDoc(status){return{code:ROLE,name:PROFILE?PROFILE.name||'':'',by:ROLE,byName:PROFILE?PROFILE.name||'':'',type:'overtime',from:$('otd').value,to:$('otd').value,t1:$('ot1').value,t2:$('ot2').value,hours:otCalc(),days:0,note:$('otnote').value.trim().slice(0,300),status,ts:Date.now()}}
 $('otn2').onclick=()=>openOt(null);
@@ -755,11 +760,11 @@ $('otsv').onclick=async()=>{if(!db||!PROFILE){otMsg('Not connected. Please log i
 $('otsm').onclick=()=>{if(!$('otd').value){otMsg('Choose the date');return}
  if(!$('ot1').value||!$('ot2').value){otMsg('Choose the start and end time');return}
  if(!otCalc()){otMsg('The start and end time are the same');return}
- otMsg('');$('otch').hidden=false};
+ otMsg('');if(isAdminAuth()){otSend('none');return}$('otch').hidden=false};
 async function otSend(mode){if(!db||!PROFILE){otMsg('Not connected. Please log in again');return}
  const d=otDoc('pending');OT.id=OT.id||Date.now()+'_'+ROLE;
  try{await db.collection('requests').doc(OT.id).set(d)}catch(e){otMsg('Could not send. Please try again');return}
- let note='Request sent to the manager';
+ let note='Request sent to the manager';if(isAdminAuth()){await decide(Object.assign({id:OT.id},d),true);note='Saved and approved automatically'}
  if(mode==='email')emailAdmin(d);
  if(mode==='wa'){const w=String(CONTACT&&CONTACT.wa||'').replace(/\D/g,'');
   if(w)window.open('https://wa.me/'+w+'?text='+encodeURIComponent(wmsg(d)),'_blank');else note='Sent. The manager has not set a WhatsApp number yet'}
@@ -786,7 +791,7 @@ $('bk').onclick=async()=>{if(ROLE!=='admin'||!db)return;const s=$('bk').querySel
  s.textContent='Backup'};
 setStart(new Date());load();
 if(CLOUD){auth.onAuthStateChanged(u=>{if(!ROLE)return;
- const ok=ROLE==='admin'?(u&&ADMINS.indexOf(u.email)>=0):(u&&u.email&&u.email.indexOf(ROLE+'-')===0);
+ const ok=ROLE==='admin'?(u&&ADMINS.indexOf(u.email)>=0):(u&&u.email&&(u.email.indexOf(ROLE+'-')===0||ADMINS.indexOf(u.email)>=0));
  if(ok)startCloud();else setRole(null)})}
 else if(ROLE){ROLE=null;try{sessionStorage.removeItem('role')}catch(e){}}
 applyRole();
