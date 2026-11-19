@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---img:radial-gradient(ellipse 55% 60% at 2% 38%,#00a8d6 0,#0a6d9e 45%,transparent 100%),radial-gradient(ellipse 50% 28% at 92% 100%,#0a7cb8 0,transparent 100%),radial-gradient(ellipse 25% 50% at 100% 0,#22529a 0,transparent 100%),linear-gradient(#323649,#31364a);--band2:#374151;--sbth:#cbd5e1;color-scheme:light;--hdrbg:#f5f6f8;--hdrbd:#dfe2e8;--sbbg:#f5f6f8;--chtx:#111827;--chnav:#1f2937;--chmu:#6b7280;--chln:rgba(17,24,39,.10);--chhov:rgba(17,24,39,.05);--chon:#eff6ff;--cardbg:#eef0f4;--cardbd:#dde1e8;--seg:#e7eaef;--segon:#f7f8fa;--segtx:#64748b;--thbg:#e8ebf0;--thtx:#111827;--bg:#eceef2;--card:#f7f8fa;--tx:#1f2937;--ink:#000;--mut:#6b7280;--ln:#d9dde4;--band:#1f2937;--gold:#60a5fa;--hd:#334155;--wk:#e9ecf1;--today:#d6e4f7;--bgi:none;
+--img:radial-gradient(ellipse 55% 60% at 2% 38%,#00a8d6 0,#0a6d9e 45%,transparent 100%),radial-gradient(ellipse 50% 28% at 92% 100%,#0a7cb8 0,transparent 100%),radial-gradient(ellipse 25% 50% at 100% 0,#22529a 0,transparent 100%),linear-gradient(#323649,#31364a);--band2:#374151;--sbth:#cbd5e1;color-scheme:light;--hdrbg:#eceef2;--hdrbd:#d9dde4;--sbbg:#eceef2;--chtx:#111827;--chnav:#1f2937;--chmu:#6b7280;--chln:rgba(17,24,39,.10);--chhov:rgba(17,24,39,.05);--chon:#eff6ff;--cardbg:#e4e7ed;--cardbd:#d9dde4;--seg:#e0e4ea;--segon:#eceef2;--segtx:#64748b;--thbg:#e0e4ea;--thtx:#111827;--bg:#eceef2;--card:#eceef2;--tx:#1f2937;--ink:#000;--mut:#6b7280;--ln:#d9dde4;--band:#1f2937;--gold:#60a5fa;--hd:#334155;--wk:#e4e7ed;--today:#d6e4f7;--bgi:none;
 --P:#1f9d62;--A:#d6384b;--C:#3d9bff;--S:#e8830c;--X:#8a4fd1;--H:#0e9aa7;--F:#8a93a6;--O:#8a93a6;--L:#b99a00}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sbth:#5b6385;color-scheme:dark;--hdrbg:transparent;--hdrbd:transparent;--sbbg:#1c2030;--chtx:#fff;--chnav:#e5e7eb;--chmu:#e5e7eb;--chln:rgba(255,255,255,.12);--chhov:rgba(255,255,255,.07);--chon:rgba(255,255,255,.12);--cardbg:rgba(255,255,255,.12);--cardbd:rgba(255,255,255,.25);--seg:rgba(255,255,255,.14);--segon:rgba(255,255,255,.3);--segtx:#cbd5e1;--thbg:#1d5f91;--thtx:#fff;--bg:#262a3c;--card:#2f3449;--tx:#e8edf5;--ink:#fff;--mut:#9aa6bd;--ln:#454a66;--band:#1c2030;--band2:#1d5f91;--gold:#00a9d8;--hd:#1d5f91;--wk:#292e43;--today:#0f4c6b;--bgi:linear-gradient(rgba(18,22,38,.30),rgba(18,22,38,.30)),var(--img)}}
 :root[data-theme="dark"]{--sbth:#5b6385;color-scheme:dark;--hdrbg:transparent;--hdrbd:transparent;--sbbg:#1c2030;--chtx:#fff;--chnav:#e5e7eb;--chmu:#e5e7eb;--chln:rgba(255,255,255,.12);--chhov:rgba(255,255,255,.07);--chon:rgba(255,255,255,.12);--cardbg:rgba(255,255,255,.12);--cardbd:rgba(255,255,255,.25);--seg:rgba(255,255,255,.14);--segon:rgba(255,255,255,.3);--segtx:#cbd5e1;--thbg:#1d5f91;--thtx:#fff;--bg:#262a3c;--card:#2f3449;--tx:#e8edf5;--ink:#fff;--mut:#9aa6bd;--ln:#454a66;--band:#1c2030;--band2:#1d5f91;--gold:#00a9d8;--hd:#1d5f91;--wk:#292e43;--today:#0f4c6b;--bgi:linear-gradient(rgba(18,22,38,.30),rgba(18,22,38,.30)),var(--img)}
@@ -58,7 +58,7 @@ td.sum{min-width:52px;font-weight:800;padding:0 8px}
 #inb{background:#2563eb}#bk{background:#0e9aa7}#ct{background:#7c3aed}#lo{background:#6b7280}
 body.locked>*:not(#lg):not(script){display:none!important}
 body.emp #ex,body.emp #pdf,body.emp #inb,body.emp #bk,body.emp #ct,body.emp .addrow,body.emp .frow,body.emp .hint{display:none}
-#lg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:#1e2a44 var(--img) center/cover no-repeat}
+#lg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background-color:var(--bg);background-image:var(--bgi);background-repeat:no-repeat;background-size:cover;background-position:center}
 body.locked #lg{display:flex}
 #lg [hidden]{display:none!important}
 #lg .bx{background:var(--card);color:var(--tx);border-radius:18px;padding:26px 22px;width:100%;max-width:380px;display:grid;gap:10px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);border-top:5px solid var(--gold)}
@@ -83,8 +83,8 @@ body.locked #lg{display:flex}
 @media(max-width:760px){.adm{position:static;margin:0 auto 8px;width:max-content;max-width:100%}}
 .tools{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
 .tools svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#pr{position:fixed;left:-30000px;top:0;width:max-content;background:#eceff4;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
-#pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#f7f8fa}#pr.dk{background-color:#262a3c;background-image:var(--bgi);background-size:100% 100%;color:#e8edf5}#pr.dk .wrap2{background:var(--card);border-color:var(--ln)}#pr.dk .per small{color:#9aa6bd}#pdl{background:#e5e7eb;color:#111827}#pdd{background:#1c2030;color:#fff}#pdc{background:var(--wk);color:var(--tx)}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
+#pr{position:fixed;left:-30000px;top:0;width:max-content;background:#eceef2;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
+#pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#eceef2}#pr.dk{background-color:#262a3c;background-image:var(--bgi);background-size:100% 100%;color:#e8edf5}#pr.dk .wrap2{background:var(--card);border-color:var(--ln)}#pr.dk .per small{color:#9aa6bd}#pdl{background:#e5e7eb;color:#111827}#pdd{background:#1c2030;color:#fff}#pdc{background:var(--wk);color:var(--tx)}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
 .addrow{position:sticky;left:0;display:inline-flex;gap:8px;padding:12px}
 #add,#edt{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:10px;padding:8px 18px;cursor:pointer}
 #edt{background:var(--gold);color:#14213d}
@@ -179,9 +179,6 @@ body.locked #lg{display:flex}
 .seg button.on{background:var(--segon);color:var(--chtx);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .seg svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .home{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}.home h2{font-size:34px;margin:0 0 8px}.home p{color:var(--mut);margin:0;font-size:16px}
-html{background:var(--bg)}
-select option,select optgroup{background:var(--card);color:var(--tx)}
-input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 100px var(--bg) inset;-webkit-text-fill-color:var(--tx);caret-color:var(--tx)}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
@@ -450,7 +447,7 @@ async function makeXlsx(ExcelJS,ctx){
  const hd=['#','Full Name','Code','Title',...days.map(d=>d.getDate()+'\n'+WD[d.getDay()]),...SUM.map(s=>ST[s][0])];
  hd.forEach((h,i)=>{const x=ws.getCell(4,i+1);x.value=h;x.font=F({size:i>=4&&i<4+nd?10:11,bold:true,color:W_});x.fill=fl('263A63');x.alignment=mid;x.border={...bd,bottom:{style:'medium',color:{argb:'FFC9A227'}}}});
  ws.getRow(4).height=38;
- EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'ECEEF2':'F7F8FA',cnt={};
+ EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'F4F6FA':'FFFFFF',cnt={};
   [n,name,Number(code)||code,job].forEach((v,i)=>{const x=ws.getCell(row,i+1);x.value=v;x.font=F({bold:i===1||i>=2,color:i===0?{argb:'FF6B7691'}:i>=2?{argb:'FF000000'}:undefined});x.alignment=i===1?{horizontal:'left',vertical:'middle',indent:1}:mid;x.fill=fl(z);x.border=bd});
   days.forEach((d,i)=>{const[v,a]=eff(code,d);const x=ws.getCell(row,5+i);x.alignment=mid;x.border=bd;x.fill=fl(d.getDay()===5?'EEF0F6':z);
    if(v){x.value=ST[v][1];if(a){x.fill=fl('DDE1EA');x.font=F({size:9,color:{argb:'FF6B7691'}})}else{x.fill=fl(HEX[v]);x.font=F({size:10,bold:true,color:v==='P'?{argb:'FF000000'}:v==='Q'?{argb:'FFFF2D2D'}:W_});cnt[v]=(cnt[v]||0)+1}}});
@@ -481,7 +478,7 @@ async function mkPdf(dark){
  document.body.appendChild(box);
  try{
   await (document.fonts&&document.fonts.ready);
-  const cv=await html2canvas(box,{scale:2,backgroundColor:dark?'#262a3c':'#eceff4'}),w=cv.width/2,h=cv.height/2;
+  const cv=await html2canvas(box,{scale:2,backgroundColor:dark?'#262a3c':'#eceef2'}),w=cv.width/2,h=cv.height/2;
   const doc=new window.jspdf.jsPDF({orientation:w>h?'l':'p',unit:'px',format:[w,h],hotfixes:['px_scaling']});
   doc.addImage(cv.toDataURL('image/jpeg',0.95),'JPEG',0,0,w,h);
   await saveFile('MODELIST_attendance_'+key()+'.pdf',doc.output('arraybuffer'));
