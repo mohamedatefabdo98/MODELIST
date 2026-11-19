@@ -179,6 +179,9 @@ body.locked #lg{display:flex}
 .seg button.on{background:var(--segon);color:var(--chtx);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .seg svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .home{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}.home h2{font-size:34px;margin:0 0 8px}.home p{color:var(--mut);margin:0;font-size:16px}
+html{background:var(--bg)}
+select option,select optgroup{background:var(--card);color:var(--tx)}
+input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 100px var(--bg) inset;-webkit-text-fill-color:var(--tx);caret-color:var(--tx)}
 .hint{text-align:center;color:var(--mut);font-size:12px;padding:0 12px 20px}
 </style>
 </head>
@@ -447,7 +450,7 @@ async function makeXlsx(ExcelJS,ctx){
  const hd=['#','Full Name','Code','Title',...days.map(d=>d.getDate()+'\n'+WD[d.getDay()]),...SUM.map(s=>ST[s][0])];
  hd.forEach((h,i)=>{const x=ws.getCell(4,i+1);x.value=h;x.font=F({size:i>=4&&i<4+nd?10:11,bold:true,color:W_});x.fill=fl('263A63');x.alignment=mid;x.border={...bd,bottom:{style:'medium',color:{argb:'FFC9A227'}}}});
  ws.getRow(4).height=38;
- EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'F4F6FA':'FFFFFF',cnt={};
+ EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'ECEEF2':'F7F8FA',cnt={};
   [n,name,Number(code)||code,job].forEach((v,i)=>{const x=ws.getCell(row,i+1);x.value=v;x.font=F({bold:i===1||i>=2,color:i===0?{argb:'FF6B7691'}:i>=2?{argb:'FF000000'}:undefined});x.alignment=i===1?{horizontal:'left',vertical:'middle',indent:1}:mid;x.fill=fl(z);x.border=bd});
   days.forEach((d,i)=>{const[v,a]=eff(code,d);const x=ws.getCell(row,5+i);x.alignment=mid;x.border=bd;x.fill=fl(d.getDay()===5?'EEF0F6':z);
    if(v){x.value=ST[v][1];if(a){x.fill=fl('DDE1EA');x.font=F({size:9,color:{argb:'FF6B7691'}})}else{x.fill=fl(HEX[v]);x.font=F({size:10,bold:true,color:v==='P'?{argb:'FF000000'}:v==='Q'?{argb:'FFFF2D2D'}:W_});cnt[v]=(cnt[v]||0)+1}}});
