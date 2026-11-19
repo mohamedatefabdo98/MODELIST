@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---img:radial-gradient(ellipse 55% 60% at 2% 38%,#00a8d6 0,#0a6d9e 45%,transparent 100%),radial-gradient(ellipse 50% 28% at 92% 100%,#0a7cb8 0,transparent 100%),radial-gradient(ellipse 25% 50% at 100% 0,#22529a 0,transparent 100%),linear-gradient(#323649,#31364a);--band2:#374151;--sbth:#cbd5e1;color-scheme:light;--hdrbg:#ffffff;--hdrbd:#e5e7eb;--sbbg:#ffffff;--chtx:#111827;--chnav:#1f2937;--chmu:#6b7280;--chln:rgba(17,24,39,.10);--chhov:rgba(17,24,39,.05);--chon:#eff6ff;--cardbg:#f8fafc;--cardbd:#e2e8f0;--seg:#f1f5f9;--segon:#ffffff;--segtx:#64748b;--thbg:#f1f5f9;--thtx:#111827;--bg:#ffffff;--card:#fff;--tx:#1f2937;--ink:#000;--mut:#6b7280;--ln:#e5e7eb;--band:#1f2937;--gold:#60a5fa;--hd:#334155;--wk:#f1f5f9;--today:#dbeafe;--bgi:none;
+--img:radial-gradient(ellipse 55% 60% at 2% 38%,#00a8d6 0,#0a6d9e 45%,transparent 100%),radial-gradient(ellipse 50% 28% at 92% 100%,#0a7cb8 0,transparent 100%),radial-gradient(ellipse 25% 50% at 100% 0,#22529a 0,transparent 100%),linear-gradient(#323649,#31364a);--band2:#374151;--sbth:#cbd5e1;color-scheme:light;--hdrbg:#f5f6f8;--hdrbd:#dfe2e8;--sbbg:#f5f6f8;--chtx:#111827;--chnav:#1f2937;--chmu:#6b7280;--chln:rgba(17,24,39,.10);--chhov:rgba(17,24,39,.05);--chon:#eff6ff;--cardbg:#eef0f4;--cardbd:#dde1e8;--seg:#e7eaef;--segon:#f7f8fa;--segtx:#64748b;--thbg:#e8ebf0;--thtx:#111827;--bg:#eceef2;--card:#f7f8fa;--tx:#1f2937;--ink:#000;--mut:#6b7280;--ln:#d9dde4;--band:#1f2937;--gold:#60a5fa;--hd:#334155;--wk:#e9ecf1;--today:#d6e4f7;--bgi:none;
 --P:#1f9d62;--A:#d6384b;--C:#3d9bff;--S:#e8830c;--X:#8a4fd1;--H:#0e9aa7;--F:#8a93a6;--O:#8a93a6;--L:#b99a00}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sbth:#5b6385;color-scheme:dark;--hdrbg:transparent;--hdrbd:transparent;--sbbg:#1c2030;--chtx:#fff;--chnav:#e5e7eb;--chmu:#e5e7eb;--chln:rgba(255,255,255,.12);--chhov:rgba(255,255,255,.07);--chon:rgba(255,255,255,.12);--cardbg:rgba(255,255,255,.12);--cardbd:rgba(255,255,255,.25);--seg:rgba(255,255,255,.14);--segon:rgba(255,255,255,.3);--segtx:#cbd5e1;--thbg:#1d5f91;--thtx:#fff;--bg:#262a3c;--card:#2f3449;--tx:#e8edf5;--ink:#fff;--mut:#9aa6bd;--ln:#454a66;--band:#1c2030;--band2:#1d5f91;--gold:#00a9d8;--hd:#1d5f91;--wk:#292e43;--today:#0f4c6b;--bgi:linear-gradient(rgba(18,22,38,.30),rgba(18,22,38,.30)),var(--img)}}
 :root[data-theme="dark"]{--sbth:#5b6385;color-scheme:dark;--hdrbg:transparent;--hdrbd:transparent;--sbbg:#1c2030;--chtx:#fff;--chnav:#e5e7eb;--chmu:#e5e7eb;--chln:rgba(255,255,255,.12);--chhov:rgba(255,255,255,.07);--chon:rgba(255,255,255,.12);--cardbg:rgba(255,255,255,.12);--cardbd:rgba(255,255,255,.25);--seg:rgba(255,255,255,.14);--segon:rgba(255,255,255,.3);--segtx:#cbd5e1;--thbg:#1d5f91;--thtx:#fff;--bg:#262a3c;--card:#2f3449;--tx:#e8edf5;--ink:#fff;--mut:#9aa6bd;--ln:#454a66;--band:#1c2030;--band2:#1d5f91;--gold:#00a9d8;--hd:#1d5f91;--wk:#292e43;--today:#0f4c6b;--bgi:linear-gradient(rgba(18,22,38,.30),rgba(18,22,38,.30)),var(--img)}
@@ -83,8 +83,8 @@ body.locked #lg{display:flex}
 @media(max-width:760px){.adm{position:static;margin:0 auto 8px;width:max-content;max-width:100%}}
 .tools{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
 .tools svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#pr{position:fixed;left:-30000px;top:0;width:max-content;background:#f4f6fa;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
-#pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#fff}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
+#pr{position:fixed;left:-30000px;top:0;width:max-content;background:#eceff4;color:#14213d;direction:ltr;font-family:Cairo,Arial,sans-serif;padding-bottom:16px}
+#pr .tools{display:none}#pr .nm,#pr thead th{position:static}#pr .wrap2{margin:0 16px;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:#f7f8fa}#pr.dk{background-color:#262a3c;background-image:var(--bgi);background-size:100% 100%;color:#e8edf5}#pr.dk .wrap2{background:var(--card);border-color:var(--ln)}#pr.dk .per small{color:#9aa6bd}#pdl{background:#e5e7eb;color:#111827}#pdd{background:#1c2030;color:#fff}#pdc{background:var(--wk);color:var(--tx)}#pr .per{font-weight:800;font-size:17px;text-align:center;padding:14px}#pr .per small{display:block;color:#6b7691;font-weight:600;font-size:13px}#pr .leg{padding:0 12px 12px}
 .addrow{position:sticky;left:0;display:inline-flex;gap:8px;padding:12px}
 #add,#edt{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:10px;padding:8px 18px;cursor:pointer}
 #edt{background:var(--gold);color:#14213d}
@@ -240,6 +240,7 @@ body.locked #lg{display:flex}
 <div class="r"><button id="rqc">Close</button><button id="rqclr">Clear</button><button id="rqsm">Send Manager</button><button id="rqsv">Save</button></div>
 </div></div>
 <div id="toast"></div>
+<div class="md" id="pdm"><div><h3>Export PDF</h3><p>Choose how the PDF should look.</p><div class="r"><button id="pdl">Normal</button><button id="pdd">Dark</button></div><div class="r"><button id="pdc">Cancel</button></div></div></div>
 <div class="md" id="fri" style="z-index:45"><div><h3>⚠ Day off</h3><p id="frim"></p><div class="r"><button id="frio">OK</button></div></div></div>
 <div class="md" id="pwd"><div><h3>Choose a new password</h3><p>This is your first login. Please set your own password.</p><input id="pw1" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Repeat password"><div class="err" id="pwe"></div><div class="r"><button id="pws">Save</button><button id="pwo">Log out</button></div></div></div>
 <div class="md" id="rv"><div><h3>Review this day</h3><div id="rvd"></div><div id="rvs"></div><textarea id="rvt" rows="3" placeholder="Correction: what should this day be?"></textarea><div class="err" id="rve"></div><div class="r"><button id="rvb">Send to admin</button><button id="rvc">Cancel</button></div></div></div>
@@ -465,20 +466,24 @@ async function saveFile(fn,data){
  try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
 $('ex').onclick=async()=>{const b=await makeXlsx(ExcelJS,{EMP:allEmp(),days,eff,ST,SUM,WD,MN,start,HEX});await saveFile('MODELIST_attendance_'+key()+'.xlsx',b)};
-$('pdf').onclick=async()=>{
- const root=document.documentElement,prev=root.getAttribute('data-theme');root.setAttribute('data-theme','light');
- const box=document.createElement('div');box.id='pr';
- const hd=document.querySelector('header').cloneNode(true);hd.querySelector('.tools').remove();
+$('pdf').onclick=e=>{e.stopPropagation();$('pdm').style.display='flex'};
+$('pdc').onclick=()=>{$('pdm').style.display='none'};
+$('pdl').onclick=()=>mkPdf(false);$('pdd').onclick=()=>mkPdf(true);
+async function mkPdf(dark){
+ $('pdm').style.display='none';
+ const root=document.documentElement,prev=root.getAttribute('data-theme');root.setAttribute('data-theme',dark?'dark':'light');
+ const box=document.createElement('div');box.id='pr';if(dark)box.classList.add('dk');
+ const hd=document.querySelector('header').cloneNode(true);hd.querySelector('.tools').remove();{const a=hd.querySelector('.adm');if(a)a.remove()}
  box.innerHTML=hd.outerHTML+'<div class="per">'+$('per').innerHTML+'</div>'+$('leg').outerHTML.replace(' id="leg"','')+'<div class="wrap2">'+$('tb').outerHTML.replace(' id="tb"','')+'</div>';
  document.body.appendChild(box);
  try{
   await (document.fonts&&document.fonts.ready);
-  const cv=await html2canvas(box,{scale:2,backgroundColor:'#f4f6fa'}),w=cv.width/2,h=cv.height/2;
+  const cv=await html2canvas(box,{scale:2,backgroundColor:dark?'#262a3c':'#eceff4'}),w=cv.width/2,h=cv.height/2;
   const doc=new window.jspdf.jsPDF({orientation:w>h?'l':'p',unit:'px',format:[w,h],hotfixes:['px_scaling']});
   doc.addImage(cv.toDataURL('image/jpeg',0.95),'JPEG',0,0,w,h);
   await saveFile('MODELIST_attendance_'+key()+'.pdf',doc.output('arraybuffer'));
  }finally{box.remove();prev?root.setAttribute('data-theme',prev):root.removeAttribute('data-theme')}
-};
+}
 /* ---------- Firebase + accounts ---------- */
 const FIREBASE_CONFIG={apiKey:'AIzaSyDaH3KDpr6Qxa7WGSZcXb3ruR2Nf0U1uBU',authDomain:'modelist-2026.firebaseapp.com',projectId:'modelist-2026',storageBucket:'modelist-2026.firebasestorage.app',messagingSenderId:'1059486672648',appId:'1:1059486672648:web:1fac1ba4be2cd3ca4c2ebd'};
 const ADMIN_USER='matef',LOGIN_EMAIL='matef@modelist.app',ADMIN_EMAIL='alkzaz38@gmail.com',ADMINS=[LOGIN_EMAIL,ADMIN_EMAIL];
