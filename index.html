@@ -41,9 +41,9 @@ thead .nm{background:var(--thbg);z-index:4}
 td.inf{color:var(--ink);font-weight:700}
 td.cell{cursor:pointer;min-width:47px;height:38px}td.wk{background:var(--wk)}td.t{background:var(--today)}
 .c{width:28px;height:28px;border-radius:8px;font-size:12px}
-.c.F{background:var(--F)}.c.P{background:var(--P);color:#000}.c.A{background:var(--A)}.c.C{background:var(--C)}.c.S{background:var(--S)}.c.X{background:var(--X)}.c.H{background:var(--H)}.c.O{background:var(--O)}.c.L{background:var(--L)}
+.c.P{background:#c6efce;color:#111827}.c.F{background:#d9d9d9;color:#111827}.c.H{background:#d9d2e9;color:#111827}.c.A{background:#ffc7ce;color:#111827}.c.C{background:#bdd7ee;color:#111827}.c.S{background:#f8cbad;color:#111827}.c.U{background:#ffeb9c;color:#111827}.c.G{background:#f4b1c9;color:#111827}.c.K{background:#b4ebea;color:#111827}.c.O{background:#e4dfec;color:#111827}.c.W{background:#f68fc3;color:#111827}.c.D{background:#fb7c3c;color:#111827}
 .c.Q{background:#000;color:#ff2d2d}
-.c.T{background:#8b5e3c}.c.N{background:#d6384b}.c.W{background:#c026d3}.c.M{background:#4f46e5}.c.K{background:#65a30d}.c.U{background:#475569}.c.B{background:#db2777}
+.c.T{background:#8b5e3c}.c.N{background:#d6384b}.c.M{background:#4f46e5}.c.B{background:#db2777}
 .cell .c.Q{font-size:17px;min-width:44px;min-height:30px}
 .leg i.c.Q{font-size:15px}
 #menu i.c.Q{font-size:15px!important}
@@ -229,7 +229,7 @@ body.locked #lg{display:flex}
 <div><label>Shift Value</label><input id="rqsh" readonly></div>
 </div>
 <div><label>Vacation Type</label><div id="rqtypes" class="rad"></div></div>
-<small id="rqauto" hidden style="color:var(--mut)">An Annual leave for today or a past date is recorded as Casual.</small>
+<small id="rqauto" hidden style="color:var(--mut)">An Annual Leave for today or a past date is recorded as Casual Leave.</small>
 <div id="rqpw" hidden><label>Permission type</label><select id="rqpt"></select></div>
 <div class="g2"><div><label id="rqfl">Start Date</label><input id="rqf" type="date"></div><div id="rqtowrap"><label>Finish Date</label><input id="rqto" type="date"></div></div>
 <div id="rqtmw" class="g2" hidden><div><label id="rqt1l">Time</label><input id="rqt1" type="time"></div><div id="rqt2w"><label>To</label><input id="rqt2" type="time"></div></div>
@@ -255,7 +255,7 @@ body.locked #lg{display:flex}
 <div id="menu"></div>
 <script>
 let EMP=[[1,'محمد عاطف عبدة عبدالعاطي',2622,'Marker'],[2,'جنة أشرف مراد جودة',2624,'Translator'],[3,'نوريهان نبيل محمود كامل',2743,'Designer'],[4,'محمد احمد محمد عبدالرحيم',2931,'Operator'],[5,'شهد خليل ابراهيم نصار',3106,'Translator'],[6,'أحمد سالمان عبدالظاهر احمد',3147,'Modelist'],[7,'ابانوب عوض الله ابراهيم',3710,'Modelist'],[8,'حسناء محمد حسن محمد',3729,'Translator'],[9,'Nouran Sadek Hafez El-Taher',3759,'Data Entry']];
-const ST={P:['Present','X'],F:['Friday','H'],S:['Sick Leave','R'],C:['Annual Leave','AL'],H:['Public Holiday','PH'],Q:['Resignation','RS'],T:['TRANSFER','TR'],N:['Not Started',''],W:['Work Injury','WI'],M:['Mission','OM'],K:['Casual Leave','CL'],U:['Unpaid Leave','UL'],B:['Replacement','RP']};
+const ST={P:['Present','X'],F:['Weekly Rest','H'],H:['Public Holiday','PH'],A:['Absent','A'],C:['Annual Leave','AL'],S:['Sick Leave','SL'],U:['Unpaid Leave','UL'],G:['Marriage Leave','ML'],K:['Casual Leave','CL'],O:['Other Leave','OL'],W:['Work Injury','WI'],D:['Death Leave','DL'],Q:['Resignation','RS'],T:['TRANSFER','TR'],N:['Not Started',''],M:['Mission','OM'],B:['Replacement','RP']};
 const SUM=[];
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MN=['January','February','March','April','May','June','July','August','September','October','November','December'],MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -450,18 +450,18 @@ async function makeXlsx(ExcelJS,ctx){
  EMP.forEach(([n,name,code,job],r)=>{const row=5+r,z=r%2?'F4F6FA':'FFFFFF',cnt={};
   [n,name,Number(code)||code,job].forEach((v,i)=>{const x=ws.getCell(row,i+1);x.value=v;x.font=F({bold:i===1||i>=2,color:i===0?{argb:'FF6B7691'}:i>=2?{argb:'FF000000'}:undefined});x.alignment=i===1?{horizontal:'left',vertical:'middle',indent:1}:mid;x.fill=fl(z);x.border=bd});
   days.forEach((d,i)=>{const[v,a]=eff(code,d);const x=ws.getCell(row,5+i);x.alignment=mid;x.border=bd;x.fill=fl(d.getDay()===5?'EEF0F6':z);
-   if(v){x.value=ST[v][1];if(a){x.fill=fl('DDE1EA');x.font=F({size:9,color:{argb:'FF6B7691'}})}else{x.fill=fl(HEX[v]);x.font=F({size:10,bold:true,color:v==='P'?{argb:'FF000000'}:v==='Q'?{argb:'FFFF2D2D'}:W_});cnt[v]=(cnt[v]||0)+1}}});
+   if(v){x.value=ST[v][1];if(a){x.fill=fl('DDE1EA');x.font=F({size:9,color:{argb:'FF6B7691'}})}else{x.fill=fl(HEX[v]);x.font=F({size:10,bold:true,color:DARKTXT.indexOf(v)>=0?{argb:'FF000000'}:v==='Q'?{argb:'FFFF2D2D'}:W_});cnt[v]=(cnt[v]||0)+1}}});
   SUM.forEach((s,i)=>{const x=ws.getCell(row,5+nd+i);x.value=cnt[s]||0;x.font=F({size:12,bold:true,color:{argb:'FF'+HEX[s]}});x.alignment=mid;x.border=bd;x.fill=fl(z)});
   ws.getRow(row).height=26});
  const lr=7+EMP.length;ws.getCell(lr,2).value='Color Legend';ws.getCell(lr,2).font=F({bold:true});ws.getCell(lr,2).alignment={horizontal:'left'};
- Object.entries(ST).forEach(([k,v],i)=>{const a=ws.getCell(lr+1+i,1);a.value=v[1];a.font=F({size:10,bold:true,color:k==='P'?{argb:'FF000000'}:k==='Q'?{argb:'FFFF2D2D'}:W_});a.alignment=mid;a.fill=fl(HEX[k]);a.border=bd;const b=ws.getCell(lr+1+i,2);b.value=v[0];b.font=F();b.alignment={horizontal:'left',indent:1}});
+ Object.entries(ST).forEach(([k,v],i)=>{const a=ws.getCell(lr+1+i,1);a.value=v[1];a.font=F({size:10,bold:true,color:DARKTXT.indexOf(k)>=0?{argb:'FF000000'}:k==='Q'?{argb:'FFFF2D2D'}:W_});a.alignment=mid;a.fill=fl(HEX[k]);a.border=bd;const b=ws.getCell(lr+1+i,2);b.value=v[0];b.font=F();b.alignment={horizontal:'left',indent:1}});
  ws.getColumn(1).width=5;ws.getColumn(2).width=30;ws.getColumn(3).width=9;ws.getColumn(4).width=13;
  for(let i=5;i<=nc;i++)ws.getColumn(i).width=i<5+nd?7:9;
  return W.xlsx.writeBuffer();
 }
 
 
-const HEX={P:'1F9D62',A:'D6384B',C:'3D9BFF',S:'E8830C',X:'8A4FD1',L:'B99A00',Q:'000000',T:'8B5E3C',N:'D6384B',W:'C026D3',M:'4F46E5',K:'65A30D',U:'475569',B:'DB2777',H:'0E9AA7',F:'8A93A6',O:'8A93A6'};
+const HEX={P:'C6EFCE',F:'D9D9D9',H:'D9D2E9',A:'FFC7CE',C:'BDD7EE',S:'F8CBAD',U:'FFEB9C',G:'F4B1C9',K:'B4EBEA',O:'E4DFEC',W:'F68FC3',D:'FB7C3C',Q:'000000',T:'8B5E3C',N:'D6384B',M:'4F46E5',B:'DB2777'},DARKTXT='PFHACSUGKOWD';
 async function saveFile(fn,data){
  try{const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:fn,data});return}}catch(er){if(er&&er.code==='declined')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=fn;a.click()}
@@ -554,7 +554,7 @@ function stopAll(){[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR
 function viewAs(code){stopAll();setRole(code)}
 /* employee: leave balance + requests */
 const fd=s=>{const p=String(s||'').split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:(s||'')};
-const DED=['annual','casual','sick','leave'],TL={overtime:'Overtime',annual:'Annual',casual:'Casual',sick:'Sick leave',injury:'Work injury',unpaid:'Unpaid',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
+const DED=['annual','casual','sick','leave'],TL={overtime:'Overtime',annual:'Annual Leave',casual:'Casual Leave',sick:'Sick Leave',injury:'Work Injury',unpaid:'Unpaid Leave',marriage:'Marriage Leave',death:'Death Leave',other:'Other Leave',mission:'Mission',replacement:'Replacement',permission:'Permission',p_in:'Entry permission',p_out:'Exit permission',p_gf:'Garment Factory',leave:'Annual Leave'},isPerm=x=>x==='permission'||String(x).indexOf('p_')===0;
 const rdesc=r=>(TL[r.type]||r.type)+' '+fd(r.from)+(r.to&&r.to!==r.from?' → '+fd(r.to):'')+(r.t1?' '+r.t1+(r.t2?'–'+r.t2:''):'')+(r.note?' — '+r.note:'');
 const wdays=(f,t)=>{let n=0;for(let d=new Date(f+'T00:00');ds(d)<=t;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))if(d.getDay()!==5)n++;return n};
 const totLeave=()=>PROFILE&&PROFILE.leave!==undefined?Number(PROFILE.leave):21;
@@ -573,7 +573,7 @@ function epRender(){if(!ROLE||ROLE==='admin'||!PROFILE)return;
   d.append(a,side);L.appendChild(d)});otRender()}
 function toast(x){const e=$('toast');e.textContent=x;e.style.display='block';setTimeout(()=>{e.style.display='none'},3200)}
 /* ---------- New request dialog ---------- */
-const VT=[['annual','Annual'],['casual','Casual'],['sick','Sick leave'],['injury','Work injury'],['unpaid','Unpaid'],['mission','Mission'],['permission','Permission'],['replacement','Replacement']],
+const VT=[['annual','Annual Leave'],['casual','Casual Leave'],['sick','Sick Leave'],['injury','Work Injury'],['unpaid','Unpaid Leave'],['marriage','Marriage Leave'],['death','Death Leave'],['other','Other Leave'],['mission','Mission'],['permission','Permission'],['replacement','Replacement']],
  PT=[['p_in','Entry permission'],['p_out','Exit permission'],['p_gf','Garment Factory']];
 $('rqtypes').innerHTML=VT.map((x,i)=>'<label class="rd"><input type="radio" name="vt" value="'+x[0]+'"'+(i?'':' checked')+'>'+x[1]+'</label>').join('');
 $('rqpt').innerHTML=PT.map(x=>'<option value="'+x[0]+'">'+x[1]+'</option>').join('');
@@ -696,7 +696,7 @@ function subReq(){if(!db||unsubR)return;
 const periodKey=d=>{let m=d.getMonth();const y=d.getFullYear();if(d.getDate()<27)m--;const s=new Date(y,m,27);return s.getFullYear()+'-'+pad(s.getMonth()+1)};
 async function decide(r,ok){
  try{if(ok&&!isPerm(r.type)&&r.type!=='overtime'){const by={};
-   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',casual:'K',sick:'S',injury:'W',unpaid:'U',mission:'M',replacement:'B'})[r.type]||'C'}
+   for(let d=new Date(r.from+'T00:00');ds(d)<=r.to;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){if(d.getDay()===5)continue;const k=periodKey(d);(by[k]=by[k]||{})[r.code+'_'+ds(d)]=({annual:'C',leave:'C',casual:'K',sick:'S',injury:'W',unpaid:'U',marriage:'G',death:'D',other:'O',mission:'M',replacement:'B'})[r.type]||'C'}
    for(const k in by)await db.collection('att').doc(r.code+'_'+k).set({month:k,code:r.code,cells:by[k]},{merge:true})}
   await db.collection('requests').doc(r.id).update({status:ok?'approved':'rejected',decidedAt:Date.now()});pubSoon()}
  catch(e){alert('Could not save the decision')}}
