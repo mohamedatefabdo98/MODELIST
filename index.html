@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MODELIST - Attendance & Leave</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAYFBMVEXm4NRedIaNnaBSZ3MuYW660NHXyrttjJiQcGeJgXK1xr75+PTu7OPR1tbt6NrEycuutrm5xMaWpq7c5OOLmqayvcJwh5Woq68AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8LCuDAAAAGHRSTlP///////////////7+//3///////////+i14SwAAABUklEQVR42n2UgZqDIAiAsdp2OyAQNd//TQ+ra2tzI/3S+EFRCBBx3oQO8W/HAFyPH2VuwBe9O3oF1EzPCCA9Gywu9BnggRFuA3wCLoMq58l07gMXE45inORB0BMAxnOMPAOyKHSAqBwj/iIOM/UAcj1z5jnwjKDvQDLzIGQck/7E/L+LVyDiYFT7QFtC0hXvQwk5aW+Thcs1Wb3fptGuHYCNQROjjtOUe2H6QTFjVRynG/QOqhGFl+oNqA8gF7Var3DOh/PtpveEWQGh5OZkQircLiMan4AlhGA6moWgGT1rZKQTUIfBcs6L5aCOaGA7L5EYSISEEzMLtzdtab0DoBqjN1dp9F60wFNWN6OtxdWNNB+ssnloQCxaJbqpD7xHVRUpD2CPmXcBoUdp7UDLJo/eH/fv4hM6Aas1gXfyIoZ1dkTxrXhbFEf57z+Btf1PEP8A0n8wgFdJZWgAAAAASUVORK5CYII=">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#323649">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MODELIST">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
@@ -177,7 +185,31 @@ body.locked #lg{display:flex}
 .seg button.on{background:var(--segon);color:var(--chtx);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .seg.lgs button{font-size:13px;font-weight:700;min-width:34px;justify-content:center}#lg .seg button{padding:5px 11px;border-radius:9px}.seg svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .home{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}.home h2{font-size:34px;margin:0 0 8px}.home p{color:var(--mut);margin:0;font-size:16px}
-html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}</style>
+html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
+/* neumorphic login (site colors) */
+#lg{--sd:rgba(150,158,175,.55);--sl:#fff;--ac:rgba(120,128,145,.6);overflow:auto}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) #lg{--sd:rgba(8,10,22,.6);--sl:rgba(255,255,255,.07);--ac:rgba(208,214,226,.6)}}
+:root[data-theme=dark] #lg{--sd:rgba(8,10,22,.6);--sl:rgba(255,255,255,.07);--ac:rgba(208,214,226,.6)}
+#lg .bx{position:relative;margin:auto;width:min(88vw,400px);max-width:none;aspect-ratio:1/1;box-sizing:border-box;border:0;border-radius:50%;background:var(--card);color:var(--tx);padding:0 calc(min(88vw,400px)*.14);align-content:center;gap:9px;
+ box-shadow:14px 14px 30px var(--sd),-12px -12px 26px var(--sl),inset 5px 5px 12px var(--sl),inset -5px -5px 12px var(--sd)}
+#lg .bx::before{content:'';position:absolute;inset:-22px;border-radius:50%;z-index:-1;box-shadow:12px 12px 26px var(--sd),-10px -10px 24px var(--sl)}
+#lg h2{font-family:Poppins,Cairo,sans-serif;font-size:27px;letter-spacing:4px;color:var(--tx);margin:0}
+#lg .sub,#lg .bx p{color:var(--mut)}
+#lg .sub{font-size:12px;margin:0 0 4px}
+#lg input{border:0;border-radius:8px;background:var(--card) no-repeat 11px center/16px;color:var(--tx);padding:10px 12px 10px 36px;font-size:13px;box-shadow:inset 3px 3px 6px var(--sd),inset -3px -3px 6px var(--sl);outline:2px solid transparent;transition:outline-color .2s}
+#lg input::placeholder{color:var(--mut)}
+#lg #lu{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b93a7'><path d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5.5V21h16v-1.5C20 16 16 14 12 14z'/></svg>")}#lg #lp{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b93a7'><path d='M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zm-8-2a3 3 0 0 1 6 0v2H9V7z'/></svg>")}
+#lg input:focus{outline-color:var(--ac)}
+#lg #lu:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234b5563'><path d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5.5V21h16v-1.5C20 16 16 14 12 14z'/></svg>")}#lg #lp:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234b5563'><path d='M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zm-8-2a3 3 0 0 1 6 0v2H9V7z'/></svg>")}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) #lg #lu:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23dfe4ee'><path d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5.5V21h16v-1.5C20 16 16 14 12 14z'/></svg>")}:root:not([data-theme=light]) #lg #lp:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23dfe4ee'><path d='M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zm-8-2a3 3 0 0 1 6 0v2H9V7z'/></svg>")}}
+:root[data-theme=dark] #lg #lu:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23dfe4ee'><path d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5.5V21h16v-1.5C20 16 16 14 12 14z'/></svg>")}:root[data-theme=dark] #lg #lp:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23dfe4ee'><path d='M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zm-8-2a3 3 0 0 1 6 0v2H9V7z'/></svg>")}
+#lg .pri{font-family:Poppins,Cairo,sans-serif;background:var(--card);color:var(--tx);letter-spacing:2px;text-transform:uppercase;font-size:13px;border-radius:8px;box-shadow:5px 5px 11px var(--sd),-5px -5px 11px var(--sl);transition:all .25s}
+#lg .pri:hover,#lg .pri:active,#lg .pri:focus-visible{background:linear-gradient(#d6dbe5,#a7aebd);color:#1f2937;box-shadow:0 7px 16px rgba(0,0,0,.3)}
+#lg .lnk{color:var(--mut);font-size:12px;text-decoration:none;font-weight:600}#lg .lnk:hover{color:var(--tx)}
+#lg .seg{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;background:var(--card);border:0;box-shadow:inset 2px 2px 5px var(--sd),inset -2px -2px 5px var(--sl)}
+#lg .seg button{background:transparent;color:var(--mut)}
+#lg .seg button.on{background:var(--card);color:var(--tx);box-shadow:3px 3px 6px var(--sd),-3px -3px 6px var(--sl)}
+</style>
 </head>
 <body class="locked">
 <div id="app"><aside id="sb"><div class="sbh"><b>MODELIST</b><small>Attendance &amp; Leave</small></div><nav id="nav"></nav></aside><main id="mn">
@@ -837,5 +869,6 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 if(ar)apply();else paint();
 })();
 </script>
+<script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})</script>
 </body>
 </html>
