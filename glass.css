@@ -1,0 +1,56 @@
+/* MODELIST - full glass skin. Linked AFTER the main <style> in index.html */
+:root{--gl-edge:rgba(255,255,255,.42);--gl-ring:0 0 0 1px rgba(90,110,140,.20)}
+
+/* ===== 1) ALL BUTTONS ===== */
+.bar button,#add,#edt,#eprn,#otn2,.bp,.rt .ac button,#eplist button,#otlist button,.cor button,.md button,#dlg button,#edlg button,#menu button,.ddb,#ex,#pdf,#inb,#lo,#bk,#ct,#sbt,#lg .pri{
+ background:linear-gradient(180deg,rgba(255,255,255,.42) 0,rgba(255,255,255,.10) 46%,rgba(255,255,255,0) 54%,rgba(255,255,255,.16) 100%),color-mix(in srgb,var(--bc,rgba(255,255,255,.55)) var(--ba,62%),transparent)!important;
+ border:1px solid var(--gl-edge)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 1px rgba(255,255,255,.14),0 6px 16px rgba(0,0,0,.2),var(--gl-ring)!important;
+ -webkit-backdrop-filter:blur(14px) saturate(1.7);backdrop-filter:blur(14px) saturate(1.7)}
+button:not(:disabled):hover{filter:brightness(1.12) saturate(1.12)}
+button:not(:disabled):active{filter:brightness(.92)}
+/* tints */
+#ex,#rvb,#ds,#es,#rqs,#pws,#cts,#rqsv,#otsv,.rt .ac .ok{--bc:#1f9d62}
+#pdf,.rt .ac .no,#elist .er .del{--bc:#d6384b}
+#inb,.bp,#rqsm,#otsm,#rqne,#otne{--bc:#2563eb}
+#rqnw,#otnw{--bc:#25d366}
+#bk,#elist .er .key{--bc:#0e9aa7}
+#ct{--bc:#7c3aed}
+#lo,.rt .ac .dl{--bc:#6b7280}
+#add{--bc:var(--hd)}
+#edt,#eprn,#otn2,#frio{--bc:var(--gold)}
+#lg .pri{--bc:#3aa7ea;--ba:55%}
+
+/* ===== 2) LISTS / CARDS / MENUS ===== */
+.epc,#eplist .rr,#otlist .rr,.cor,.ddl,#menu,.md>div,#dlg>div,#edlg>div,#toast{
+ background:linear-gradient(180deg,rgba(255,255,255,.26),rgba(255,255,255,.05)),color-mix(in srgb,var(--card) 42%,transparent)!important;
+ border:1px solid var(--gl-edge)!important;border-radius:18px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 30px rgba(0,0,0,.25)!important;
+ -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6)}
+#eplist .rr,#otlist .rr,.cor{border-radius:14px}
+.ddi:hover{background:rgba(255,255,255,.18)}
+.chip.pending,.chip.approved,.chip.rejected,.chip.draft{background-image:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0));border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+
+/* request tables (vacation / overtime / approvals / reports): every row is a glass card */
+.rt{border-collapse:separate!important;border-spacing:0 8px;background:transparent}
+.rt th{background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.06)),color-mix(in srgb,var(--thbg) 60%,transparent)!important;border:0;border-top:1px solid var(--gl-edge);border-bottom:1px solid var(--gl-edge)}
+.rt th:first-child{border-start-start-radius:14px;border-end-start-radius:14px;border-inline-start:1px solid var(--gl-edge)}
+.rt th:last-child{border-start-end-radius:14px;border-end-end-radius:14px;border-inline-end:1px solid var(--gl-edge)}
+.rt tbody tr,.rt tbody tr:nth-child(even){background:transparent!important}
+.rt td{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.04)),color-mix(in srgb,var(--card) 40%,transparent);border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.12);border-right:0}
+.rt td:first-child{border-start-start-radius:14px;border-end-start-radius:14px;border-inline-start:1px solid rgba(255,255,255,.3)}
+.rt td:last-child{border-start-end-radius:14px;border-end-end-radius:14px;border-inline-end:1px solid rgba(255,255,255,.3)}
+.rt tbody tr:hover td{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.1)),color-mix(in srgb,var(--card) 40%,transparent)}
+
+/* ===== 3) LOGIN CIRCLE: glassier + 3D ===== */
+#lg .bx{
+ background:radial-gradient(120% 85% at 28% 10%,rgba(255,255,255,.38),rgba(255,255,255,.08) 40%,transparent 62%),radial-gradient(80% 60% at 72% 104%,rgba(130,215,255,.30),transparent 65%),radial-gradient(circle at 50% 50%,rgba(35,115,185,.18),rgba(6,36,76,.42) 100%)!important;
+ -webkit-backdrop-filter:blur(28px) saturate(2) brightness(1.1);backdrop-filter:blur(28px) saturate(2) brightness(1.1);
+ border:1.5px solid rgba(255,255,255,.55)!important;
+ box-shadow:0 40px 60px -14px rgba(2,12,30,.65),0 14px 28px rgba(2,12,30,.38),0 0 80px 6px rgba(120,205,255,.25),inset 0 4px 4px rgba(255,255,255,.7),inset 0 -5px 10px rgba(255,255,255,.2),inset 14px 18px 36px rgba(255,255,255,.16),inset -18px -26px 44px rgba(2,18,44,.55)!important;
+ animation:lgfl 7s ease-in-out infinite}
+@keyframes lgfl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#lg .bx::before{display:block!important;content:'';position:absolute;inset:auto;left:13%;right:13%;top:2.5%;height:38%;border-radius:50% 50% 48% 48%/70% 70% 40% 40%;background:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.08) 75%,rgba(255,255,255,0));border:0;box-shadow:none;opacity:.55;pointer-events:none;z-index:0}
+#lg .bx::after{content:'';position:absolute;left:14%;right:14%;bottom:-34px;height:26px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,8,24,.6),transparent 70%);filter:blur(7px);z-index:-1;pointer-events:none}
+#lg h2{text-shadow:0 2px 10px rgba(0,30,70,.5)}
+@media(prefers-reduced-motion:reduce){#lg .bx{animation:none}}
