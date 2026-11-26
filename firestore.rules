@@ -2,23 +2,109 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function signedIn() { return request.auth != null; }
+    // NOTE: for even stronger protection, replace the emails below with the
+    // admins' UIDs (Firebase Console > Authentication > Users):
+    //   request.auth.uid in ['UID_1', 'UID_2']
     function isAdmin() {
       return request.auth != null &&
         (request.auth.token.email == 'matef@modelist.app' ||
          request.auth.token.email == 'alkzaz38@gmail.com');
     }
+    // true when the signed-in user is the employee that owns this code
+    function isEmp(code) {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/profiles/$(code)) &&
+        get(/databases/$(database)/documents/profiles/$(code)).data.authEmail == request.auth.token.email;
+    }
+    // true for ANY real employee account (login e-mail looks like code-ver@modelist.app)
+    function isAnyEmp() {
+      return request.auth != null
+        && request.auth.token.email.matches('^[A-Za-z0-9]+-[0-9]+@modelist\\.app$')
+        && isEmp(request.auth.token.email.split('-')[0]);
+    }
+    // a date field must be empty or yyyy-mm-dd (blocks HTML/script injection)
+    function okDate(v) { return v is string && v.matches('^(\\d{4}-\\d{2}-\\d{2})?$'); }
+    function okReq(d) {
+      return okDate(d.from)
+          && (!('to' in d) || okDate(d.to))
+          && (!('note' in d) || (d.note is string && d.note.size() <= 300));
+    }
 
-    // attendance + employee lists: everyone signed in can read, only admin can change
-    match /attendance/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
-    match /meta/{id}       { allow read: if signedIn(); allow write: if isAdmin(); }
+    // code -> login e-mail (needed before the employee signs in)
+    match /login/{code} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow write: if isAdmin();
+    }
 
-    // correction requests: employees can only send, only admin can read / manage
+    // employee profile: employee can only read it and mark first password change as done
+    match /profiles/{code} {
+      allow read: if isAdmin() || isEmp(code);
+      allow write: if isAdmin();
+      allow update: if isEmp(code)
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['mustChange'])
+                    && request.resource.data.mustChange == false;
+    }
+
+    // attendance, one document per employee per month
+    match /att/{id} {
+      allow read: if isAdmin() || isEmp(resource.data.code);
+      allow write: if isAdmin();
+    }
+
+    // requests: employee can create/edit own drafts and send them; only admin decides.
+    match /requests/{id} {
+      allow read: if isAdmin() || isEmp(resource.data.code) || isEmp(resource.data.by);
+      allow create: if isAdmin()
+                    || (isEmp(request.resource.data.by)
+                        && request.resource.data.status in ['pending', 'draft']
+                        && okReq(request.resource.data));
+      allow update: if isAdmin()
+                    || (isEmp(resource.data.by)
+                        && resource.data.status == 'draft'
+                        && request.resource.data.by == resource.data.by
+                        && request.resource.data.status in ['draft', 'pending']
+                        && okReq(request.resource.data));
+      allow delete: if isAdmin()
+                    || (isEmp(resource.data.by) && resource.data.status == 'draft');
+    }
+
+    // corrections sent by employees
     match /inbox/{id} {
-      allow create: if signedIn()
+      allow create: if isEmp(request.resource.data.code)
                     && request.resource.data.text is string
                     && request.resource.data.text.size() < 1000;
       allow read, update, delete: if isAdmin();
     }
+
+    // admin contact + employee directory: employees and admin only (no anonymous / self-registered accounts)
+    match /settings/{id} {
+      allow read: if isAdmin() || isAnyEmp();
+      allow write: if isAdmin();
+    }
+
+    // audit log: admin can add and read entries, nobody can edit or delete them
+    match /audit/{id} {
+      allow create, read: if isAdmin();
+    }
+
+    // request attachments: one compressed JPEG per request (stored as text, < 500 KB)
+    match /attach/{id} {
+      allow read: if isAdmin()
+                  || isEmp(get(/databases/$(database)/documents/requests/$(id)).data.by)
+                  || isEmp(get(/databases/$(database)/documents/requests/$(id)).data.code);
+      allow create, update: if isAdmin()
+                  || (isEmp(get(/databases/$(database)/documents/requests/$(id)).data.by)
+                      && get(/databases/$(database)/documents/requests/$(id)).data.status in ['draft', 'pending']
+                      && request.resource.data.by == get(/databases/$(database)/documents/requests/$(id)).data.by
+                      && request.resource.data.data is string
+                      && request.resource.data.data.size() < 500000
+                      && request.resource.data.data.matches('data:image/jpeg;base64,.*'));
+      allow delete: if isAdmin();
+    }
+
+    // everything else: admin only
+    match /meta/{id}       { allow read, write: if isAdmin(); }
+    match /attendance/{id} { allow read, write: if isAdmin(); }
   }
 }

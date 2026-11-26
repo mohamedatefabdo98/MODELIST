@@ -273,7 +273,12 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 #lg .bx{border:1px solid rgba(255,255,255,.22);box-shadow:0 0 80px 6px rgba(255,255,255,.16),0 0 26px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -14px 34px rgba(255,255,255,.05);z-index:1}
 #lg .wv{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none;z-index:0}
 #lg .bx>:not(.wv){position:relative;z-index:1}
-#lg .wv b{position:absolute;inset:0;background:radial-gradient(ellipse 60% 34% at 30% 12%,rgba(255,255,255,.2),transparent 70%)}
+#lg .wv{background:radial-gradient(circle at 50% 40%,#1d5f91,#0a2a4a)}
+#lg .wv video,#lg .wv canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#lg .wv video{opacity:0}
+#lg .wv b{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(6,24,48,.5),transparent 82%),radial-gradient(ellipse 60% 34% at 30% 12%,rgba(255,255,255,.2),transparent 70%)}
+#lg h2,#lg .sub,#lg .lnk,#lg .bx p{text-shadow:0 1px 7px rgba(0,18,46,.8)}
+#lg input{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .dw{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.9) 0 11%,rgba(255,255,255,.14) 30%,transparent 52%),radial-gradient(circle at 50% 58%,rgba(150,205,255,.1),rgba(8,40,80,.28) 85%);border:1px solid rgba(255,255,255,.2);box-shadow:0 2px 4px rgba(0,0,0,.28),inset 0 -2px 3px rgba(255,255,255,.2);animation:dw 6s ease-in-out infinite}
 @keyframes dw{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}
 .dw.rn{animation:dr 9s ease-in infinite}
@@ -315,7 +320,7 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 <div id="lg">
 <div class="seg lgs" style="justify-self:center" role="group" aria-label="Language"><button data-l="en" title="English">EN</button><button data-l="ar" title="العربية">ع</button></div>
 <div class="bx">
-<div class="wv"><b></b></div>
+<div class="wv"><video id="wvd" muted loop playsinline autoplay preload="auto" disablepictureinpicture><source src="water.mp4" type="video/mp4"><source src="water.webm" type="video/webm"></video><canvas id="wcv"></canvas><b></b></div>
 <h2>MODELIST</h2><p class="sub">Attendance &amp; Leave System</p>
 <div id="lv1" class="v"><input id="lu" placeholder="Username" autocomplete="username" dir="ltr"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr"><button id="lb" class="pri">Login</button><div class="err" id="le"></div><button id="lf" class="lnk">Forgot username or password?</button></div>
 <div id="lv3" class="v" hidden><p>Recover access with the admin Google account</p><p style="font-size:12px;color:var(--mut)">Employees: ask the admin for a new temporary password.</p><button id="lgg" class="pri">Sign in with Google</button><div class="err" id="lre"></div><button class="lnk bk">Back</button></div>
@@ -966,14 +971,35 @@ new MutationObserver(function(){if(document.body.classList.contains('locked'))of
 <script>
 (function(){var lg=document.getElementById('lg'),w=lg&&lg.querySelector('.wv');if(!lg||!w)return;
 function R(a,b){return a+Math.random()*(b-a)}
-function drop(par,x,y,sz,cls,dur,del){var d=document.createElement('s');d.className='dw'+(cls?' '+cls:'');d.style.cssText='left:'+x+'%;top:'+y+'%;width:'+sz+'px;height:'+sz+'px;animation-duration:'+dur+'s;animation-delay:'+del+'s';par.appendChild(d)}
-var P=[],i,t,r,a,x,y,s,ok,j,n=0;
-for(i=0;i<420&&n<62;i++){t=Math.random();s=t<.62?R(3,6):t<.92?R(7,12):R(13,21);r=Math.sqrt(Math.random())*(48-s/4);a=Math.random()*6.283;x=50+r*Math.cos(a);y=50+r*Math.sin(a);ok=true;
- for(j=0;j<P.length;j++){var dx=(P[j][0]-x)*3.8,dy=(P[j][1]-y)*3.8;if(Math.sqrt(dx*dx+dy*dy)<(P[j][2]+s)/2+2){ok=false;break}}
- if(!ok)continue;P.push([x,y,s]);n++;drop(w,x-s/7.6,y-s/7.6,s,(s>7&&n%5===0)?'rn':'',R(4,9),-R(0,9))}
+function drop(par,x,sz,dur,del){var d=document.createElement('s');d.className='dw';d.style.cssText='left:'+x+'%;top:auto;width:'+sz+'px;height:'+sz+'px;animation-duration:'+dur+'s;animation-delay:'+del+'s';par.appendChild(d)}
 var f=document.createElement('div');f.className='fx';f.innerHTML='<span class="rp"></span><span class="rp"></span><span class="rp"></span>';
-for(i=0;i<22;i++){s=R(6,22);drop(f,R(2,96),0,s,'',R(6,13),-R(0,13));f.lastChild.style.top='auto';f.lastChild.style.left=R(2,96)+'%'}
-lg.insertBefore(f,lg.firstChild)})();
+for(var i=0;i<22;i++)drop(f,R(2,96),R(6,22),R(6,13),-R(0,13));
+lg.insertBefore(f,lg.firstChild);
+/* interactive ocean: the video is tinted to the site blues and rippled by the pointer */
+var cv=document.getElementById('wcv'),vd=document.getElementById('wvd'),N=200,ctx,oc,src,ok=true;
+try{cv.width=cv.height=N;ctx=cv.getContext('2d',{willReadFrequently:true});var off=document.createElement('canvas');off.width=off.height=N;oc=off.getContext('2d',{willReadFrequently:true})}catch(e){ok=false}
+if(!ok||!ctx){vd.style.opacity=1;cv.style.display='none';return}
+var A=new Float32Array(N*N),B=new Float32Array(N*N),out=ctx.createImageData(N,N),LUT=new Uint8Array(768),k,t,c0=[5,26,52],c1=[29,95,145],c2=[165,212,244];
+for(k=0;k<256;k++){t=k/255;t=Math.min(1,Math.pow(t*1.55,.9));var u=t<.55?t/.55:(t-.55)/.45,a0=t<.55?c0:c1,a1=t<.55?c1:c2;for(var q=0;q<3;q++)LUT[k*3+q]=a0[q]+(a1[q]-a0[q])*u}
+var px=-1,py=-1,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function poke(x,y,amp,r){var cx=Math.round(x),cy=Math.round(y),dx,dy,d;for(dy=-r;dy<=r;dy++)for(dx=-r;dx<=r;dx++){d=Math.sqrt(dx*dx+dy*dy);if(d>r)continue;var X=cx+dx,Y=cy+dy;if(X>1&&Y>1&&X<N-2&&Y<N-2)A[Y*N+X]+=amp*(1-d/r)}}
+function move(e){if(reduce)return;var r=cv.getBoundingClientRect();if(!r.width)return;var x=(e.clientX-r.left)/r.width*N,y=(e.clientY-r.top)/r.height*N;
+ if(x<0||y<0||x>=N||y>=N||(x-N/2)*(x-N/2)+(y-N/2)*(y-N/2)>N*N/4){px=-1;return}
+ if(px>=0){var sp=Math.sqrt((x-px)*(x-px)+(y-py)*(y-py));if(sp>.3)poke(x,y,Math.min(sp,14)*9,5)}px=x;py=y}
+document.addEventListener('pointermove',move,{passive:true});
+document.addEventListener('pointerdown',function(e){var r=cv.getBoundingClientRect();if(!r.width||reduce)return;poke((e.clientX-r.left)/r.width*N,(e.clientY-r.top)/r.height*N,260,7)},{passive:true});
+function frame(){requestAnimationFrame(frame);if(!lg.offsetWidth){if(!vd.paused)vd.pause();return}if(vd.paused&&!reduce)vd.play().catch(function(){});
+ if(vd.readyState<2)return;
+ var i,x,y,n=N*N,d=.985,tmp;
+ for(y=1;y<N-1;y++)for(x=1;x<N-1;x++){i=y*N+x;B[i]=((A[i-1]+A[i+1]+A[i-N]+A[i+N])*.5-B[i])*d}
+ tmp=A;A=B;B=tmp;
+ oc.drawImage(vd,0,0,N,N);var sd;try{sd=oc.getImageData(0,0,N,N).data}catch(e){vd.style.opacity=1;cv.style.display='none';ok=false;return}
+ var o=out.data;
+ for(y=0;y<N;y++)for(x=0;x<N;x++){i=y*N+x;var gx=0,gy=0;if(x>0&&y>0&&x<N-1&&y<N-1){gx=A[i+1]-A[i-1];gy=A[i+N]-A[i-N]}
+  var sx=x+gx*.55,sy=y+gy*.55;sx=sx<0?0:sx>N-1?N-1:sx;sy=sy<0?0:sy>N-1?N-1:sy;var si=((sy|0)*N+(sx|0))*4,l=(sd[si]*.3+sd[si+1]*.59+sd[si+2]*.11)|0,sp=-(gx+gy)*.9;sp=sp>0?sp:0;
+  var j=i*4,c=l*3,rr=LUT[c]+sp,gg=LUT[c+1]+sp,bb=LUT[c+2]+sp;o[j]=rr>255?255:rr;o[j+1]=gg>255?255:gg;o[j+2]=bb>255?255:bb;o[j+3]=255}
+ ctx.putImageData(out,0,0)}
+frame()})();
 </script>
 </body>
 </html>
