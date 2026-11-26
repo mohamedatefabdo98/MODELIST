@@ -242,6 +242,27 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
  #sb{position:fixed;top:12px;bottom:12px;height:auto;width:250px;left:-290px;z-index:60}
  #sb.open{left:12px}
 }
+
+/* glass everywhere (colors unchanged) */
+:root{--gb:color-mix(in srgb,#fff 30%,transparent);--gs:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.18);--gf:blur(14px) saturate(1.5)}
+.adm,.tools .seg,.bar button,.bar select,.frow select,.leg span,.wrap,.fl,#ex,#pdf,#inb,#lo,#bk,#ct{-webkit-backdrop-filter:var(--gf);backdrop-filter:var(--gf);border:1px solid var(--gb);box-shadow:var(--gs)}
+.adm{background:color-mix(in srgb,var(--card) 42%,transparent);border-radius:18px}
+.tools .seg{background:color-mix(in srgb,var(--seg) 55%,transparent)}
+.tools .seg button.on{background:color-mix(in srgb,#fff 24%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+#ex{background:color-mix(in srgb,#1f9d62 78%,transparent)}#pdf{background:color-mix(in srgb,#d6384b 78%,transparent)}#inb{background:color-mix(in srgb,#2563eb 78%,transparent)}
+#bk{background:color-mix(in srgb,#0e9aa7 78%,transparent)}#ct{background:color-mix(in srgb,#7c3aed 78%,transparent)}#lo{background:color-mix(in srgb,#6b7280 78%,transparent)}
+.bar button,.bar select,.leg span{background:color-mix(in srgb,var(--card) 42%,transparent)}
+.frow select{background:color-mix(in srgb,var(--card) 42%,transparent);border-color:color-mix(in srgb,var(--gold) 70%,transparent)}
+.wrap,.fl{background:color-mix(in srgb,var(--card) 40%,transparent);border-radius:20px}
+.wrap{-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
+/* glass login */
+#lg .bx{background:color-mix(in srgb,#1d5f91 60%,transparent);-webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);border:1px solid rgba(255,255,255,.34);
+ box-shadow:0 20px 55px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -14px 34px rgba(255,255,255,.05)}
+#lg .bx::before{inset:-20px;background:color-mix(in srgb,#1d5f91 14%,transparent);border:1px solid rgba(255,255,255,.18);box-shadow:0 0 50px rgba(29,95,145,.3)}
+#lg input{background-color:color-mix(in srgb,#fff 11%,transparent);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 2px 7px rgba(0,0,0,.22),inset 0 -1px 0 rgba(255,255,255,.14)}
+#lg .pri{background:color-mix(in srgb,#fff 15%,transparent);border:1px solid rgba(255,255,255,.34);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 16px rgba(0,0,0,.22)}
+#lg .seg{background:color-mix(in srgb,#fff 12%,transparent);border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+#lg .seg button.on{background:color-mix(in srgb,#fff 24%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
 </style>
 </head>
 <body class="locked">
