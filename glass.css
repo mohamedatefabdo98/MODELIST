@@ -5,32 +5,30 @@
    One generic rule instead of a list of ids, so new/dynamic buttons are glass too.
    Only the sidebar items and the language/theme switches keep their own segmented style (section 1b). */
 button:not([data-l]):not([data-m]):not([data-t]){
- background:linear-gradient(180deg,rgba(255,255,255,.26) 0,rgba(255,255,255,.05) 100%),color-mix(in srgb,var(--bc,rgba(255,255,255,.55)) var(--ba,58%),transparent)!important;
- border:1px solid rgba(255,255,255,.26)!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.03)),color-mix(in srgb,var(--bc,#fff) var(--ba,10%),transparent)!important;
+ border:1px solid rgba(255,255,255,.30)!important;
  border-radius:12px!important;
  letter-spacing:.2px;
- text-shadow:0 1px 2px rgba(0,0,0,.25);
- box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 4px 14px rgba(0,0,0,.16)!important;
- -webkit-backdrop-filter:blur(12px) saturate(1.5);backdrop-filter:blur(12px) saturate(1.5);
- transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
-button:not(:disabled):hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 20px rgba(0,0,0,.22)!important}
-button:not(:disabled):active{filter:brightness(.95);transform:translateY(0)}
+ text-shadow:0 1px 2px rgba(0,0,0,.35);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 4px 12px rgba(0,0,0,.12)!important;
+ -webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4);
+ transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+button:not(:disabled):hover{background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.07)),color-mix(in srgb,var(--bc,#fff) calc(var(--ba,10%) + 8%),transparent)!important;transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 18px rgba(0,0,0,.18)!important}
+button:not(:disabled):active{transform:translateY(0)}
 button:disabled{opacity:.55;cursor:not-allowed}
-/* tints */
-#ex,#rvb,#ds,#es,#rqs,#pws,#cts,#rqsv,#otsv,.rt .ac .ok,.bp.ba{--bc:#1f9d62}
-#pdf,.rt .ac .no,#elist .er .del,#menu button[data-s=""]{--bc:#d6384b}
-#inb,.bp,#rqsm,#otsm,#rqne,#otne{--bc:#2563eb}
-.bp.fc,.bp.al{--bc:#6b7280}
-#rqnw,#otnw{--bc:#25d366}
-#bk,#elist .er .key{--bc:#0e9aa7}
-#ct{--bc:#7c3aed}
-#lo,.rt .ac .dl{--bc:#6b7280}
-#pdd{--bc:#1c2030;--ba:78%}
-#add{--bc:var(--hd)}
-#edt,#eprn,#otn2,#frio{--bc:var(--gold)}
-#lg .pri{--bc:#3aa7ea;--ba:55%}
-/* the "forgot / back" links become small, quiet glass pills */
-#lg .lnk{--ba:34%;font-size:12px;padding:5px 14px;text-decoration:none;justify-self:center}
+/* very light tints: only a hint of color */
+#ex,#rvb,#ds,#es,#rqs,#pws,#cts,#rqsv,#otsv,.rt .ac .ok,.bp.ba{--bc:#1f9d62;--ba:20%}
+#pdf,.rt .ac .no,#elist .er .del,#menu button[data-s=""]{--bc:#d6384b;--ba:20%}
+#inb,.bp,#rqsm,#otsm,#rqne,#otne{--bc:#3b82f6;--ba:20%}
+.bp.fc,.bp.al{--bc:#fff;--ba:8%}
+#rqnw,#otnw{--bc:#25d366;--ba:20%}
+#bk,#elist .er .key{--bc:#0e9aa7;--ba:20%}
+#ct{--bc:#8b5cf6;--ba:20%}
+#lo,.rt .ac .dl,#pdd{--bc:#fff;--ba:8%}
+#add{--bc:#3b82f6;--ba:18%}
+#edt,#eprn,#otn2,#frio{--bc:#38bdf8;--ba:20%}
+#lg .pri{--bc:#fff;--ba:12%}
+#lg .lnk{--ba:5%;font-size:12px;padding:5px 14px;text-decoration:none;justify-self:center}
 
 /* ===== 1b) SEGMENTED SWITCHES + SIDEBAR (kept as segments, glass highlight on the active one) ===== */
 .seg button.on,#nav button.on{
@@ -69,53 +67,37 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .rt td:last-child{border-start-end-radius:14px;border-end-end-radius:14px;border-inline-end:1px solid rgba(255,255,255,.3)}
 .rt tbody tr:hover td{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.1)),color-mix(in srgb,var(--card) 40%,transparent)}
 
-/* ===== 3) LOGIN CIRCLE: very glassy, 3D glass ball =====
-   - tilts toward the pointer / gently sways on its own (JS sets --rx --ry --sx --sy)
-   - thick refractive rim, glossy cap, fresnel edge, caustic glow at the bottom
-   - "forgot password" / "back": the circle turns sideways (right / left) like a coin, no more in-plane spin */
+/* ===== 3) LOGIN CIRCLE: clear frosted glass, soft 3D (light tilt + soft depth) ===== */
 #lg .bx{
  --rx:0deg;--ry:0deg;--sx:0px;--sy:0px;
  transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
  will-change:transform;transition:transform .25s ease-out;
  background:
-  radial-gradient(125% 90% at 26% 8%,rgba(255,255,255,.34),rgba(255,255,255,.07) 40%,transparent 62%),
-  radial-gradient(85% 65% at 72% 108%,rgba(140,225,255,.36),transparent 64%),
-  radial-gradient(circle at 50% 46%,rgba(130,205,255,.07),rgba(18,88,158,.20) 60%,rgba(4,30,68,.46) 100%)!important;
- -webkit-backdrop-filter:blur(32px) saturate(2.2) brightness(1.14);backdrop-filter:blur(32px) saturate(2.2) brightness(1.14);
- border:1.5px solid rgba(255,255,255,.5)!important;
+  radial-gradient(120% 80% at 25% 6%,rgba(255,255,255,.20),rgba(255,255,255,.03) 45%,transparent 65%),
+  linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 55%,rgba(255,255,255,.06))!important;
+ -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+ border:1px solid rgba(255,255,255,.38)!important;
  box-shadow:
-  0 46px 64px -18px rgba(2,12,30,.62),
-  0 16px 30px rgba(2,12,30,.34),
-  0 0 90px 8px rgba(120,205,255,.26),
-  inset 0 3px 3px rgba(255,255,255,.8),
-  inset 0 -5px 10px rgba(190,240,255,.38),
-  inset 16px 22px 40px rgba(255,255,255,.15),
-  inset -20px -28px 50px rgba(2,18,44,.52)!important;
+  0 34px 60px -20px rgba(0,0,0,.45),
+  0 10px 24px rgba(0,0,0,.18),
+  inset 0 1px 1px rgba(255,255,255,.7),
+  inset 0 -18px 36px rgba(255,255,255,.05),
+  inset 10px 14px 30px rgba(255,255,255,.06)!important;
  animation:lgfl 7s ease-in-out infinite}
-@keyframes lgfl{0%,100%{translate:0 0}50%{translate:0 -8px}}
-
-/* thick refractive glass rim (conic highlight ring) */
-#lg .bx::before{display:block!important;content:'';position:absolute;inset:0;border-radius:50%;padding:3px;z-index:2;pointer-events:none;
- background:conic-gradient(from 205deg,rgba(255,255,255,.95),rgba(255,255,255,.12) 16%,rgba(150,222,255,.55) 36%,rgba(255,255,255,.08) 54%,rgba(255,255,255,.78) 72%,rgba(255,255,255,.14) 88%,rgba(255,255,255,.95));
- -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask-composite:exclude;
- opacity:.9}
-/* soft contact shadow under the ball */
-#lg .bx::after{content:'';position:absolute;left:14%;right:14%;bottom:-36px;height:26px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,8,24,.6),transparent 70%);filter:blur(7px);z-index:-1;pointer-events:none}
-
-/* inner layers (the .wv element already exists in the markup) */
-#lg .wv b{inset:2.5% 13% auto 13%;height:38%;border-radius:50% 50% 48% 48%/70% 70% 40% 40%;
- background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.08) 75%,rgba(255,255,255,0));opacity:.55;
+@keyframes lgfl{0%,100%{translate:0 0}50%{translate:0 -6px}}
+#lg .bx::before{display:none!important}
+#lg .bx::after{content:'';position:absolute;left:16%;right:16%;bottom:-34px;height:22px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.4),transparent 70%);filter:blur(8px);z-index:-1;pointer-events:none}
+/* inner glints: one soft highlight on top, faint light on the lower edge */
+#lg .wv b{inset:3% 14% auto 14%;height:30%;border-radius:50% 50% 45% 45%/80% 80% 30% 30%;
+ background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0));opacity:.7;
  transform:translate(var(--sx),var(--sy));transition:transform .15s linear}
 #lg .wv::before{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;
- background:radial-gradient(circle at 50% 50%,transparent 56%,rgba(255,255,255,.10) 78%,rgba(255,255,255,.34) 100%),radial-gradient(ellipse 52% 22% at 50% 98%,rgba(170,235,255,.5),transparent 72%)}
-#lg .wv::after{content:'';position:absolute;left:21%;top:8%;width:30%;height:9%;border-radius:50%;pointer-events:none;
- background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.95),rgba(255,255,255,0) 72%);transform:rotate(-24deg) translate(var(--sx),var(--sy));filter:blur(.6px)}
-#lg h2{text-shadow:0 1px 0 rgba(255,255,255,.35),0 3px 10px rgba(0,30,70,.55)}
-
-/* inputs inside the ball: inset glass wells; focus = frosted light glass (dark icon/text stay readable) */
-#lg input{background-color:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.3);
- box-shadow:inset 0 3px 8px rgba(0,20,50,.38),inset 0 -1px 0 rgba(255,255,255,.3),0 1px 0 rgba(255,255,255,.22)}
-#lg input:focus{background-color:rgba(238,245,252,.84);color:#1f2937}
+ background:radial-gradient(circle at 50% 50%,transparent 70%,rgba(255,255,255,.10) 100%)}
+#lg .wv::after{display:none}
+#lg h2{text-shadow:0 2px 8px rgba(0,0,0,.35)}
+#lg input{background-color:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);
+ box-shadow:inset 0 2px 6px rgba(0,0,0,.18),inset 0 -1px 0 rgba(255,255,255,.18)}
+#lg input:focus{background-color:rgba(238,245,252,.80);color:#1f2937}
 
 /* "forgot password" / "back": turn sideways. JS adds .spin + .toL (forward) or .toR (back).
    The face swaps while the circle is edge-on (44%-50%), then the new face comes round from the other side. */
