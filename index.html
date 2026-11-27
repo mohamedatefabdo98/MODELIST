@@ -290,6 +290,7 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 @keyframes fxu{0%{transform:translateY(0) scale(.7);opacity:0}10%{opacity:1}100%{transform:translateY(-115vh) scale(1.1);opacity:0}}
 @media(prefers-reduced-motion:reduce){.dw,#lg .fx::before,#lg .fx .rp{animation:none}}
 </style>
+<link rel="stylesheet" href="glass.css">
 </head>
 <body class="locked">
 <div id="app"><aside id="sb"><div class="sbh"><span class="mk">M</span><div class="bt"><b>MODELIST</b><small>Attendance &amp; Leave</small></div></div><nav id="nav"></nav></aside><main id="mn">
@@ -959,7 +960,15 @@ document.addEventListener('click',function(e){var t=e.target.closest&&e.target.c
  if(t.id==='lb'){lb.classList.add('go');g('lg').classList.add('busy');clearTimeout(T);T=setTimeout(off,15000);return}
  if(t._pass){t._pass=false;return}
  e.stopImmediatePropagation();e.preventDefault();var bx=g('lg').querySelector('.bx');if(bx.classList.contains('spin'))return;
- bx.classList.add('spin');setTimeout(function(){t._pass=true;t.click()},380);setTimeout(function(){bx.classList.remove('spin')},800)},true);
+ var back=t.classList.contains('bk');bx.classList.remove('toL','toR');void bx.offsetWidth;bx.classList.add('spin',back?'toR':'toL');
+ setTimeout(function(){t._pass=true;t.click()},320);setTimeout(function(){bx.classList.remove('spin','toL','toR')},820)},true);
+/* 3D tilt: the glass ball leans toward the pointer */
+(function(){var lg=g('lg'),bx=lg.querySelector('.bx');if(!bx||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ function set(rx,ry,sx,sy){bx.style.setProperty('--rx',rx+'deg');bx.style.setProperty('--ry',ry+'deg');bx.style.setProperty('--sx',sx+'px');bx.style.setProperty('--sy',sy+'px')}
+ lg.addEventListener('pointermove',function(e){if(bx.classList.contains('spin'))return;var r=bx.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  x=Math.max(-1,Math.min(1,x*1.6));y=Math.max(-1,Math.min(1,y*1.6));set((-y*9).toFixed(2),(x*9).toFixed(2),(x*-7).toFixed(1),(y*-5).toFixed(1))});
+ lg.addEventListener('pointerleave',function(){set(0,0,0,0)});
+})();
 new MutationObserver(function(){if(le.textContent)off()}).observe(le,{childList:true,characterData:true,subtree:true});
 new MutationObserver(function(){if(document.body.classList.contains('locked'))off()}).observe(document.body,{attributes:true,attributeFilter:['class']});
 })();
