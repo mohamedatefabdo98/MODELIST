@@ -294,7 +294,7 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 </head>
 <body class="locked">
 <div id="app"><aside id="sb"><div class="sbh"><span class="mk">M</span><div class="bt"><b>MODELIST</b><small>Attendance &amp; Leave</small></div></div><nav id="nav"></nav></aside><main id="mn">
-<header><button id="sbt" aria-label="Menu">☰</button><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>Attendance, Absence &amp; Leave Record</p><div class="tools"><div id="th" class="seg"><button data-m="light" title="Light mode" aria-label="Light mode"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button><button data-m="dark" title="Dark mode" aria-label="Dark mode"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/></svg></button></div><div class="seg lgs" role="group" aria-label="Language"><button data-l="en" title="English">EN</button><button data-l="ar" title="العربية">ع</button></div><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
+<header><button id="sbt" aria-label="Menu">☰</button><div class="adm"><span>Administration</span><b>Mohammed Atef</b></div><h1>MODELIST</h1><p>Attendance, Absence &amp; Leave Record</p><div class="tools"><div id="th" class="tgl" role="switch" aria-checked="true" tabindex="0" title="Light / Dark"><span class="hole"></span><span class="knob"><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4L7 7M17 17l1.6 1.6M5.4 18.6L7 17M17 7l1.6-1.6"/></svg><svg class="moon" viewBox="0 0 24 24"><path d="M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11z"/></svg></span><span class="fig"><svg viewBox="0 0 20 30"><circle cx="10" cy="4.6" r="3.4"/><path d="M10 8.2V19"/><g class="pa"><path d="M10 11L5 17M10 11l5 5M10 19L5 29M10 19l5 10"/></g><g class="pb"><path d="M10 11L7 18M10 11l3 7M10 19l-2 10M10 19l2 10"/></g><g class="pj"><path d="M10 11L4 5M10 11l6-6M10 19L5 27M10 19l5 8"/></g></svg></span></div><div class="seg lgs" role="group" aria-label="Language"><button data-l="en" title="English">EN</button><button data-l="ar" title="العربية">ع</button></div><button id="inb"><svg viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg><span>Inbox</span></button><button id="ex"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg><span>XLSX</span></button><button id="pdf"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>PDF</span></button><button id="bk"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 20h14"/></svg><span>Backup</span></button><button id="ct"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span>Settings</span></button><button id="lo"><svg viewBox="0 0 24 24"><path d="M9 4H5v16h4"/><path d="M16 8l4 4-4 4"/><path d="M20 12H9"/></svg><span>Logout</span></button></div></header>
 <section id="v-home" class="view" hidden><div class="home"><h2 id="hw">Welcome</h2><p>Choose a page from the menu on the left.</p></div></section>
 <section id="v-att" class="view" hidden><div class="bar">
   <button id="pv">◀ Previous Month</button>
@@ -489,11 +489,31 @@ document.addEventListener('click',()=>$('menu').style.display='none');
 $('pv').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()-1,27);load()};
 $('nx').onclick=()=>{start=new Date(start.getFullYear(),start.getMonth()+1,27);load()};
 $('td').onclick=()=>{setStart(new Date());load()};
-(function(){const r=document.documentElement,seg=$('th');
+(function(){const r=document.documentElement,th=$('th'),fig=th.querySelector('.fig'),hole=th.querySelector('.hole'),knob=th.querySelector('.knob');
  try{const x=localStorage.getItem('theme');if(x==='dark'||x==='light')r.setAttribute('data-theme',x)}catch(e){}
  const isDark=()=>{const x=r.getAttribute('data-theme');return x?x==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
- const paint=()=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',(b.dataset.m==='dark')===isDark()));
- seg.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('button');if(!b)return;r.setAttribute('data-theme',b.dataset.m);try{localStorage.setItem('theme',b.dataset.m)}catch(er){}paint()});
+ const paint=()=>{th.dataset.dk=isDark()?'1':'0';th.setAttribute('aria-checked',isDark()?'true':'false')};
+ const apply=d=>{const m=d?'dark':'light';r.setAttribute('data-theme',m);try{localStorage.setItem('theme',m)}catch(er){}paint()};
+ let busy=false;const T=(f,ms)=>setTimeout(f,ms);
+ function go(){if(busy)return;busy=true;const to=!isDark();
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){apply(to);busy=false;return}
+  const sx=knob.offsetLeft+knob.offsetWidth-12,ex=hole.offsetLeft+hole.offsetWidth/2-10,D=2300;
+  th.classList.add('press');
+  fig.animate([
+   {transform:'translateX('+(sx-6)+'px) scale(.12)',opacity:0,offset:0},
+   {transform:'translateX('+(sx+8)+'px) scale(1)',opacity:1,offset:.13},
+   {transform:'translateX('+ex+'px) scale(1)',opacity:1,offset:.66},
+   {transform:'translateX('+ex+'px) translateY(-9px) scale(1)',opacity:1,offset:.76,easing:'ease-in'},
+   {transform:'translateX('+ex+'px) translateY(3px) scale(.12)',opacity:0,offset:.9},
+   {transform:'translateX('+ex+'px) translateY(3px) scale(.12)',opacity:0,offset:1}],{duration:D,easing:'linear'});
+  T(()=>th.classList.remove('press'),330);
+  T(()=>th.classList.add('walk'),330);
+  T(()=>{th.classList.remove('walk');th.classList.add('jump')},D*.66);
+  T(()=>hole.classList.add('open'),D*.8);
+  T(()=>apply(to),D*.84);
+  T(()=>{th.classList.remove('jump');hole.classList.remove('open');busy=false},D+150)}
+ th.addEventListener('click',e=>{e.stopPropagation();go()});
+ th.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
  paint()})();
 try{const s=JSON.parse(localStorage.getItem('emp')||'null');if(s&&s.length)EMP=s}catch(e){}
 try{const h=JSON.parse(localStorage.getItem('hid')||'null');if(h&&h.length)HID=h}catch(e){}

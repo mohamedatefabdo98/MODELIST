@@ -115,3 +115,28 @@ button:disabled{opacity:.55;cursor:not-allowed}
  100%{transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry))}}
 
 @media(prefers-reduced-motion:reduce){#lg .bx,#lg .bx.spin.toL,#lg .bx.spin.toR{animation:none}}
+
+/* ===== 4) LIGHT / DARK TOGGLE: neumorphic panel + knob (sun / moon) + little man who walks into the hole ===== */
+.tgl{--pn:#e4e8f6;--ps:8px 8px 18px rgba(150,162,196,.55),-8px -8px 18px rgba(255,255,255,.9);--kn:linear-gradient(145deg,#f3f5fc,#dde2f1);--ks:5px 5px 11px rgba(150,162,196,.6),-5px -5px 11px #fff;--kp:inset 4px 4px 9px rgba(150,162,196,.6),inset -4px -4px 9px #fff;--hl:#d6dbed;--hs:inset 2px 2px 4px rgba(140,152,188,.7),inset -2px -2px 4px rgba(255,255,255,.95);--man:#3b3e57;
+ position:relative;display:inline-block;flex:none;width:150px;height:64px;border-radius:22px;cursor:pointer;background:var(--pn);box-shadow:var(--ps);transition:background .55s,box-shadow .55s;-webkit-tap-highlight-color:transparent;outline:none;user-select:none;margin:4px 8px;align-self:center}
+.tgl[data-dk="1"]{--pn:#1e2130;--ps:0 12px 26px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);--kn:linear-gradient(145deg,#242839,#191c28);--ks:5px 5px 12px #0a0c13,-3px -3px 9px rgba(66,72,100,.28);--kp:inset 4px 4px 9px #0a0c13,inset -3px -3px 8px rgba(66,72,100,.25);--hl:#0a0b11;--hs:inset 2px 2px 4px #000,inset -1px -1px 3px rgba(80,86,110,.25);--man:#fff}
+.tgl:focus-visible{box-shadow:var(--ps),0 0 0 2px #38bdf8}
+.tgl .knob{position:absolute;left:9px;top:9px;width:46px;height:46px;border-radius:50%;background:var(--kn);box-shadow:var(--ks);display:grid;place-items:center;transition:background .55s,box-shadow .35s,transform .3s}
+.tgl.press .knob{box-shadow:var(--kp);transform:scale(.94)}
+.tgl .knob svg{grid-area:1/1;width:24px;height:24px;transition:opacity .45s,transform .6s cubic-bezier(.3,1.4,.5,1)}
+.tgl .sun{fill:#ff9f0a;stroke:#ff9f0a;stroke-width:2;stroke-linecap:round}
+.tgl .moon{fill:#29b6ff;stroke:none;opacity:0;transform:rotate(-70deg) scale(.5)}
+.tgl[data-dk="1"] .sun{opacity:0;transform:rotate(90deg) scale(.5)}
+.tgl[data-dk="1"] .moon{opacity:1;transform:none;filter:drop-shadow(0 0 5px rgba(41,182,255,.55))}
+.tgl .hole{position:absolute;left:94px;top:43px;width:38px;height:11px;border-radius:50%;background:var(--hl);box-shadow:var(--hs);transition:background .45s,box-shadow .45s}
+.tgl .hole.open{background:#000;box-shadow:inset 0 0 0 #000}
+.tgl .fig{position:absolute;left:0;top:18px;width:20px;height:30px;opacity:0;color:var(--man);transform-origin:50% 100%;pointer-events:none;transition:color .3s}
+.tgl .fig svg{width:20px;height:30px;overflow:visible;fill:currentColor;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tgl .fig svg path{fill:none}
+.tgl .pa,.tgl .pb,.tgl .pj{opacity:0}
+.tgl.walk .pa{animation:tgA .4s steps(1) infinite}
+.tgl.walk .pb{animation:tgB .4s steps(1) infinite}
+.tgl.jump .pj{opacity:1}
+@keyframes tgA{0%{opacity:1}50%{opacity:0}}
+@keyframes tgB{0%{opacity:0}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.tgl,.tgl *{transition:none!important}}
