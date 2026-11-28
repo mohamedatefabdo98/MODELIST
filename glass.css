@@ -140,3 +140,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
 @keyframes tgA{0%{opacity:1}50%{opacity:0}}
 @keyframes tgB{0%{opacity:0}50%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.tgl,.tgl *{transition:none!important}}
+
+/* ===== 5) LIGHT THEME: readable text on the transparent glass buttons ===== */
+:root[data-theme="light"] button:not([data-l]):not([data-m]):not([data-t]){color:#1f2937!important;text-shadow:none!important;border-color:rgba(60,80,120,.28)!important}
+:root[data-theme="light"] #lg button,:root[data-theme="light"] #lg .lnk{color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.35)!important}
