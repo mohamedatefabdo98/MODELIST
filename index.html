@@ -281,14 +281,18 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 @keyframes dr{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:1}70%{transform:translateY(46px) scale(1,1.25);opacity:.9}100%{transform:translateY(70px) scale(.8,1.4);opacity:0}}
 #lg .fx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s}
 #lg.busy .fx{opacity:1}
-#lg .fx::before{content:'';position:absolute;inset:-20%;background:radial-gradient(circle at 50% 50%,rgba(90,180,245,.38),rgba(29,95,145,.14) 45%,transparent 70%);animation:fxb 5s ease-in-out infinite}
-@keyframes fxb{0%,100%{transform:scale(.85);opacity:.7}50%{transform:scale(1.15);opacity:1}}
-#lg .fx .rp{position:absolute;left:50%;top:50%;width:min(88vw,400px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.4);box-shadow:0 0 30px rgba(255,255,255,.2),inset 0 0 30px rgba(255,255,255,.1);transform:translate(-50%,-50%) scale(1);opacity:0;animation:fxr 3.6s ease-out infinite}
-#lg .fx .rp:nth-child(2){animation-delay:1.2s}#lg .fx .rp:nth-child(3){animation-delay:2.4s}
-@keyframes fxr{0%{transform:translate(-50%,-50%) scale(1);opacity:.7}100%{transform:translate(-50%,-50%) scale(4.2);opacity:0}}
-#lg .fx .dw{bottom:-30px;animation:fxu linear infinite}
-@keyframes fxu{0%{transform:translateY(0) scale(.7);opacity:0}10%{opacity:1}100%{transform:translateY(-115vh) scale(1.1);opacity:0}}
-@media(prefers-reduced-motion:reduce){.dw,#lg .fx::before,#lg .fx .rp{animation:none}}
+#lg .fx{background:radial-gradient(ellipse at 50% 42%,rgba(14,40,90,.38),rgba(2,6,20,.74) 78%)}
+#lg .fx::before{display:none}
+/* night sky: real stars that light up and fade out */
+#lg .fx .st{position:absolute;border-radius:50%;width:var(--s,2px);height:var(--s,2px);background:var(--c,#fff);opacity:0;
+ box-shadow:0 0 calc(var(--s,2px)*2) calc(var(--s,2px)*.5) var(--c,#fff),0 0 calc(var(--s,2px)*6) var(--c,#fff);
+ animation:stw var(--d,3s) ease-in-out var(--l,0s) infinite}
+#lg .fx .st.bg::before,#lg .fx .st.bg::after{content:'';position:absolute;left:50%;top:50%;width:calc(var(--s,2px)*10);height:1px;
+ background:linear-gradient(90deg,transparent,var(--c,#fff),transparent);transform:translate(-50%,-50%)}
+#lg .fx .st.bg::after{transform:translate(-50%,-50%) rotate(90deg)}
+@keyframes stw{0%,100%{opacity:0;transform:scale(.4)}18%{opacity:var(--o,1);transform:scale(1)}28%{opacity:calc(var(--o,1)*.35)}42%{opacity:var(--o,1);transform:scale(1.08)}75%{opacity:calc(var(--o,1)*.15);transform:scale(.7)}}
+#lg:not(.busy) .fx .st{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){#lg .fx .st{animation:none;opacity:.7}}
 </style>
 <link rel="stylesheet" href="glass.css">
 </head>
@@ -1005,9 +1009,11 @@ new MutationObserver(function(){if(document.body.classList.contains('locked'))of
 <script>
 (function(){var lg=document.getElementById('lg'),w=lg&&lg.querySelector('.wv');if(!lg||!w)return;
 function R(a,b){return a+Math.random()*(b-a)}
-function drop(par,x,sz,dur,del){var d=document.createElement('s');d.className='dw';d.style.cssText='left:'+x+'%;top:auto;width:'+sz+'px;height:'+sz+'px;animation-duration:'+dur+'s;animation-delay:'+del+'s';par.appendChild(d)}
-var f=document.createElement('div');f.className='fx';f.innerHTML='<span class="rp"></span><span class="rp"></span><span class="rp"></span>';
-for(var i=0;i<22;i++)drop(f,R(2,96),R(6,22),R(6,13),-R(0,13));
+var CL=['#ffffff','#ffffff','#ffffff','#cfe3ff','#aecbff','#fff1d0','#ffe2b8'];
+function star(par){var r=Math.random(),big=r>.96,mid=r>.8,s=big?R(3,4.2):mid?R(2,3):R(1,2),e=document.createElement('i');e.className='st'+(big?' bg':'');
+ e.style.cssText='left:'+R(0,100).toFixed(2)+'%;top:'+R(0,100).toFixed(2)+'%;--s:'+s.toFixed(1)+'px;--c:'+CL[Math.floor(Math.random()*CL.length)]+';--o:'+R(.55,1).toFixed(2)+';--d:'+R(2.2,6.5).toFixed(2)+'s;--l:-'+R(0,6.5).toFixed(2)+'s';par.appendChild(e)}
+var f=document.createElement('div');f.className='fx';
+for(var i=0;i<170;i++)star(f);
 lg.insertBefore(f,lg.firstChild);
 })();
 </script>
