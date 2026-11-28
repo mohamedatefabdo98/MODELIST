@@ -292,7 +292,16 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 #lg .fx .st.bg::after{transform:translate(-50%,-50%) rotate(90deg)}
 @keyframes stw{0%,100%{opacity:0;transform:scale(.4)}18%{opacity:var(--o,1);transform:scale(1)}28%{opacity:calc(var(--o,1)*.35)}42%{opacity:var(--o,1);transform:scale(1.08)}75%{opacity:calc(var(--o,1)*.15);transform:scale(.7)}}
 #lg:not(.busy) .fx .st{animation-play-state:paused}
-@media(prefers-reduced-motion:reduce){#lg .fx .st{animation:none;opacity:.7}}
+/* last 0.7s: the stars rush toward the screen and flare, then the site fades in */
+#lg.warp .fx{animation:fxw .7s cubic-bezier(.55,0,.9,.55) forwards;transform-origin:50% 50%}
+@keyframes fxw{from{transform:scale(1)}to{transform:scale(7)}}
+#lg.warp .fx .st{animation:stf .7s ease-in forwards}
+@keyframes stf{0%{opacity:.5}35%{opacity:1}100%{opacity:1;box-shadow:0 0 calc(var(--s,2px)*3) calc(var(--s,2px)*1.2) #fff,0 0 calc(var(--s,2px)*10) var(--c,#fff)}}
+#lg.warp .fx::before{display:block;content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff,rgba(200,228,255,.85) 38%,transparent 72%);opacity:0;animation:fxf .7s ease-in forwards}
+@keyframes fxf{0%,45%{opacity:0}100%{opacity:1}}
+.lgflash{position:fixed;inset:0;z-index:99999;pointer-events:none;background:radial-gradient(circle at 50% 50%,#fff,#d8ecff);opacity:1;transition:opacity .45s ease-out}
+.lgflash.out{opacity:0}
+@media(prefers-reduced-motion:reduce){#lg .fx .st{animation:none;opacity:.7}#lg.warp .fx,#lg.warp .fx .st,#lg.warp .fx::before{animation:none}}
 </style>
 <link rel="stylesheet" href="glass.css">
 </head>
@@ -671,8 +680,11 @@ $('lb').onclick=async()=>{const raw=$('lu').value.trim(),p=$('lp').value,B=$('lb
   if(raw.toLowerCase()===ADMIN_USER){const c=await auth.signInWithEmailAndPassword(LOGIN_EMAIL,p);if(!c.user||c.user.email!==LOGIN_EMAIL)throw 0;who='admin'}
   else{const s=await db.collection('login').doc(raw).get();if(!s.exists)throw 0;const em=s.data().email;try{await auth.signInWithEmailAndPassword(em,FBP(p))}catch(e1){await auth.signInWithEmailAndPassword(em,p)}who=raw}}
  catch(e){B.disabled=false;B.classList.add('bad');LBP('#e11d2e','225,29,46');try{B.animate([{transform:'translateX(0)'},{transform:'translateX(-9px)'},{transform:'translateX(9px)'},{transform:'translateX(-6px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:450})}catch(x){}$('le').textContent='Check your user ID or password and try again';return}
- B.classList.add('ok');LBP('#16a34a','22,163,74');await wait(650);$('lg').classList.add('busy');await wait(1500);
- B.classList.remove('ok');LBR();B.disabled=false;$('lp').value='';setRole(who)};
+ B.classList.add('ok');LBP('#16a34a','22,163,74');await wait(650);$('lg').classList.add('busy');await wait(1300);
+ $('lg').classList.add('warp');await wait(700);
+ const fl=document.createElement('div');fl.className='lgflash';document.body.appendChild(fl);
+ requestAnimationFrame(()=>requestAnimationFrame(()=>fl.classList.add('out')));setTimeout(()=>fl.remove(),800);
+ B.classList.remove('ok');LBR();B.disabled=false;$('lp').value='';$('lg').classList.remove('warp','busy');setRole(who)};
 ['lu','lp'].forEach(i=>$(i).addEventListener('input',()=>{$('lb').classList.remove('bad');LBR();$('le').textContent=''}));
 $('lf').onclick=()=>V('lv3');
 document.querySelectorAll('#lg .bk').forEach(b=>b.onclick=()=>V('lv1'));
@@ -988,7 +1000,7 @@ if(ar)apply();else paint();
 <script>if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})</script>
 <script>
 (function(){var g=document.getElementById.bind(document),lb=g('lb'),le=g('le'),T;
-function off(){lb.classList.remove('go');g('lg').classList.remove('busy');clearTimeout(T)}
+function off(){lb.classList.remove('go');g('lg').classList.remove('busy','warp');clearTimeout(T)}
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#lf,#lg .bk,#lb');if(!t)return;
  if(t.id==='lb')return;
  if(t._pass){t._pass=false;return}
