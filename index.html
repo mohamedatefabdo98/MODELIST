@@ -658,17 +658,18 @@ function subMine(){if(!db||unsubP.length)return;const c=ROLE;
 function subContact(){if(!db||unsubC)return;try{unsubC=db.collection('settings').onSnapshot(s=>{s.docs.forEach(d=>{if(d.id==='contact')CONTACT=d.data();else if(d.id==='directory'){try{DIR=JSON.parse(d.data().list)}catch(e){DIR=[]}}})},()=>{})}catch(e){}}
 function startCloud(){load();subContact();if(ROLE==='admin'){subEmp();applyPatch();subInbox();subReq();migrate().then(pubSoon)}else subMine()}
 function setRole(r){ROLE=r;try{r?sessionStorage.setItem('role',r):sessionStorage.removeItem('role')}catch(e){}applyRole();if(r)startCloud()}
-$('lb').onclick=async()=>{const raw=$('lu').value.trim(),p=$('lp').value,B=$('lb'),wait=ms=>new Promise(r=>setTimeout(r,ms));$('le').textContent='';B.classList.remove('bad','ok');
+const LBP=(c,g)=>{const s=$('lb').style;s.setProperty('background',c,'important');s.setProperty('border','1px solid rgba(255,255,255,.6)','important');s.setProperty('box-shadow','0 0 0 3px rgba('+g+',.35),0 8px 24px rgba('+g+',.65)','important');s.setProperty('color','#fff','important');s.setProperty('opacity','1','important')},LBR=()=>{const s=$('lb').style;['background','border','box-shadow','color','opacity'].forEach(k=>s.removeProperty(k))};
+$('lb').onclick=async()=>{const raw=$('lu').value.trim(),p=$('lp').value,B=$('lb'),wait=ms=>new Promise(r=>setTimeout(r,ms));$('le').textContent='';B.classList.remove('bad','ok');LBR();
  if(!raw||!p){$('le').textContent='Enter username and password';return}
  if(!CLOUD){$('le').textContent='Cloud is not configured yet';return}
  if(B.disabled)return;B.disabled=true;let who=null;
  try{
   if(raw.toLowerCase()===ADMIN_USER){const c=await auth.signInWithEmailAndPassword(LOGIN_EMAIL,p);if(!c.user||c.user.email!==LOGIN_EMAIL)throw 0;who='admin'}
   else{const s=await db.collection('login').doc(raw).get();if(!s.exists)throw 0;const em=s.data().email;try{await auth.signInWithEmailAndPassword(em,FBP(p))}catch(e1){await auth.signInWithEmailAndPassword(em,p)}who=raw}}
- catch(e){B.disabled=false;B.classList.add('bad');$('le').textContent='Check your user ID or password and try again';return}
- B.classList.add('ok');await wait(650);$('lg').classList.add('busy');await wait(1500);
- B.classList.remove('ok');B.disabled=false;$('lp').value='';setRole(who)};
-['lu','lp'].forEach(i=>$(i).addEventListener('input',()=>{$('lb').classList.remove('bad');$('le').textContent=''}));
+ catch(e){B.disabled=false;B.classList.add('bad');LBP('#e11d2e','225,29,46');try{B.animate([{transform:'translateX(0)'},{transform:'translateX(-9px)'},{transform:'translateX(9px)'},{transform:'translateX(-6px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:450})}catch(x){}$('le').textContent='Check your user ID or password and try again';return}
+ B.classList.add('ok');LBP('#16a34a','22,163,74');await wait(650);$('lg').classList.add('busy');await wait(1500);
+ B.classList.remove('ok');LBR();B.disabled=false;$('lp').value='';setRole(who)};
+['lu','lp'].forEach(i=>$(i).addEventListener('input',()=>{$('lb').classList.remove('bad');LBR();$('le').textContent=''}));
 $('lf').onclick=()=>V('lv3');
 document.querySelectorAll('#lg .bk').forEach(b=>b.onclick=()=>V('lv1'));
 [['lu','lb'],['lp','lb']].forEach(([i,b])=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$(b).click()}));
