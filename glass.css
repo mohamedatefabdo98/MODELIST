@@ -110,6 +110,16 @@ button:disabled{opacity:.55;cursor:not-allowed}
 #lg .fw:has(input:-webkit-autofill) .ic.u{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a9c6de'><path d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5.5V21h16v-1.5C20 16 16 14 12 14z'/></svg>")}
 #lg .fw:has(input:-webkit-autofill) .ic.p{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a9c6de'><path d='M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zm-8-2a3 3 0 0 1 6 0v2H9V7z'/></svg>")}
 
+
+/* login result: green on success, red + message under the password on failure */
+#lg #lb.ok{background:linear-gradient(145deg,rgba(74,222,128,.80),rgba(22,163,74,.70))!important;color:#fff;opacity:1;
+ box-shadow:0 0 22px rgba(34,197,94,.55),inset 0 1px 0 rgba(255,255,255,.4)!important}
+#lg #lb.bad{background:linear-gradient(145deg,rgba(248,113,113,.85),rgba(220,38,38,.75))!important;color:#fff;
+ box-shadow:0 0 22px rgba(239,68,68,.55),inset 0 1px 0 rgba(255,255,255,.4)!important;animation:lgshk .4s}
+@keyframes lgshk{0%,100%{translate:0}20%{translate:-7px}40%{translate:7px}60%{translate:-5px}80%{translate:4px}}
+#lg #le{color:#ffb4b4;font-size:12px;font-weight:600;line-height:1.4;min-height:0;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+#lg #le:empty{display:none}
+
 /* "forgot password" / "back": turn sideways. JS adds .spin + .toL (forward) or .toR (back).
    The face swaps while the circle is edge-on (44%-50%), then the new face comes round from the other side. */
 #lg .bx.spin.toL{animation:lgfl 7s ease-in-out infinite,lgtoL .8s both}
