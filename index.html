@@ -232,11 +232,11 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 #nav .lb{overflow:hidden;text-overflow:ellipsis;flex:1;text-align:start}
 @media(min-width:901px){
  #sb{position:fixed;left:14px;top:14px;height:calc(100vh - 28px);width:64px;z-index:40;transition:width .32s cubic-bezier(.4,0,.2,1)}
- #sb:hover,#sb:focus-within{width:310px}
+ #sb:hover,#sb:has(:focus-visible){width:310px}
  #mn{margin-left:92px}
  #sb .bt,#sb .lb{opacity:0;transition:opacity .15s}
- #sb:hover .bt,#sb:hover .lb,#sb:focus-within .bt,#sb:focus-within .lb{opacity:1;transition-delay:.12s}
- #sb:not(:hover):not(:focus-within) .nb{position:absolute;top:4px;left:30px;margin:0;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px}
+ #sb:hover .bt,#sb:hover .lb,#sb:has(:focus-visible) .bt,#sb:has(:focus-visible) .lb{opacity:1;transition-delay:.12s}
+ #sb:not(:hover):not(:has(:focus-visible)) .nb{position:absolute;top:4px;left:30px;margin:0;min-width:16px;height:16px;line-height:16px;font-size:10px;padding:0 4px}
 }
 @media(max-width:900px){
  #sb{position:fixed;top:12px;bottom:12px;height:auto;width:250px;left:-290px;z-index:60}
