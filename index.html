@@ -302,6 +302,13 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 .lgflash{position:fixed;inset:0;z-index:99999;pointer-events:none;background:radial-gradient(circle at 50% 50%,#fff,#d8ecff);opacity:1;transition:opacity .45s ease-out}
 .lgflash.out{opacity:0}
 @media(prefers-reduced-motion:reduce){#lg .fx .st{animation:none;opacity:.7}#lg.warp .fx,#lg.warp .fx .st,#lg.warp .fx::before{animation:none}}
+/* logout: screen closes (top + bottom), holds, then opens on the login page */
+.lgout{position:fixed;inset:0;z-index:100000;overflow:hidden}
+.lgout::before,.lgout::after{content:'';position:absolute;left:0;right:0;height:50.3%;background:#04070f;transition:transform .55s cubic-bezier(.7,0,.3,1)}
+.lgout::before{top:0;transform:translateY(-101%);box-shadow:0 2px 16px 2px rgba(150,200,255,.55)}
+.lgout::after{bottom:0;transform:translateY(101%);box-shadow:0 -2px 16px 2px rgba(150,200,255,.55)}
+.lgout.in::before,.lgout.in::after{transform:none}
+body.locked>.lgout:not(#lg):not(script){display:block!important}
 /* welcome text + name glow for 2s when the site opens (the login light spills into them) */
 body.lgglow #hw,body.lgglow .adm .who b{animation:lgglow 2s ease-in-out 1 both}
 @keyframes lgglow{0%{text-shadow:0 0 0 rgba(120,190,255,0)}
@@ -712,9 +719,17 @@ $('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('
   if(c.user&&c.user.email===ADMIN_EMAIL){m('Verified. Your username is: '+ADMIN_USER,true);setTimeout(()=>setRole('admin'),2000)}
   else{await auth.signOut();m('This Google account is not the admin account')}}
  catch(e){m('Google sign-in failed')}};
-$('lo').onclick=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
+const doOut=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
  unsubP.forEach(f=>{try{f()}catch(e){}});
  unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
+/* logout motion: the screen shuts like a TV from top and bottom, stays closed ~2s, then the login page opens */
+$('lo').onclick=()=>{const fin=()=>{doOut();const m=window.__outMsg;window.__outMsg=null;if(m)$('le').textContent=m};
+ if(window.__outBusy)return;
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches){fin();return}
+ window.__outBusy=1;const k=document.createElement('div');k.className='lgout';document.body.appendChild(k);
+ requestAnimationFrame(()=>requestAnimationFrame(()=>k.classList.add('in')));
+ setTimeout(()=>{fin();k.classList.remove('in')},2000);
+ setTimeout(()=>{k.remove();window.__outBusy=0},2700)};
 const ADMIN_CODE='2622';
 const isAdminAuth=()=>!!(auth&&auth.currentUser&&ADMINS.indexOf(auth.currentUser.email)>=0);
 function stopAll(){[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
@@ -1052,7 +1067,7 @@ lg.insertBefore(f,lg.firstChild);
 function bump(){last=Date.now()}
 ['mousemove','mousedown','keydown','touchstart','wheel','scroll','click'].forEach(function(e){addEventListener(e,bump,{passive:true,capture:true})});
 function chk(){if(document.body.classList.contains('locked')){last=Date.now();return}
- if(Date.now()-last>=LIM){last=Date.now();lo.click();var le=document.getElementById('le');if(le)le.textContent='You were logged out after 5 minutes of inactivity'}}
+ if(Date.now()-last>=LIM){last=Date.now();window.__outMsg='You were logged out after 5 minutes of inactivity';lo.click()}}
 setInterval(chk,5000);document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 })();
 </script>
