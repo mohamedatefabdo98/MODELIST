@@ -302,12 +302,9 @@ html[lang=ar],html[lang=ar] *{font-family:Arial,sans-serif!important}
 .lgflash{position:fixed;inset:0;z-index:99999;pointer-events:none;background:radial-gradient(circle at 50% 50%,#fff,#d8ecff);opacity:1;transition:opacity .45s ease-out}
 .lgflash.out{opacity:0}
 @media(prefers-reduced-motion:reduce){#lg .fx .st{animation:none;opacity:.7}#lg.warp .fx,#lg.warp .fx .st,#lg.warp .fx::before{animation:none}}
-/* logout: screen closes (top + bottom), holds, then opens on the login page */
-.lgout{position:fixed;inset:0;z-index:100000;overflow:hidden}
-.lgout::before,.lgout::after{content:'';position:absolute;left:0;right:0;height:50.3%;background:#04070f;transition:transform .55s cubic-bezier(.7,0,.3,1)}
-.lgout::before{top:0;transform:translateY(-101%);box-shadow:0 2px 16px 2px rgba(150,200,255,.55)}
-.lgout::after{bottom:0;transform:translateY(101%);box-shadow:0 -2px 16px 2px rgba(150,200,255,.55)}
-.lgout.in::before,.lgout.in::after{transform:none}
+/* logout: the screen fades smoothly to black for 2s, then the login page opens */
+.lgout{position:fixed;inset:0;z-index:100000;background:#04070f;opacity:0;transition:opacity .6s ease-out}
+.lgout.in{opacity:1;transition-duration:2s;transition-timing-function:ease-in-out}
 body.locked>.lgout:not(#lg):not(script){display:block!important}
 /* welcome text + name glow for 2s when the site opens (the login light spills into them) */
 body.lgglow #hw,body.lgglow .adm .who b{animation:lgglow 2s ease-in-out 1 both}
@@ -722,14 +719,14 @@ $('lgg').onclick=async()=>{const m=(x,ok)=>{$('lre').className=ok?'ok':'err';$('
 const doOut=()=>{[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
  unsubP.forEach(f=>{try{f()}catch(e){}});
  unsubI=unsubE=unsubR=unsubC=unsub=unsub2=null;CONTACT=null;unsubP=[];MSG=[];REQS=[];MYREQ=[];REQA=[];REQB=[];DIR=[];PROFILE=null;ECELLS={};flt='';try{auth&&auth.signOut()}catch(e){}setRole(null)};
-/* logout motion: the screen shuts like a TV from top and bottom, stays closed ~2s, then the login page opens */
+/* logout motion: the screen fades to black over 2s, then the login page opens */
 $('lo').onclick=()=>{const fin=()=>{doOut();const m=window.__outMsg;window.__outMsg=null;if(m)$('le').textContent=m};
  if(window.__outBusy)return;
  if(matchMedia('(prefers-reduced-motion:reduce)').matches){fin();return}
  window.__outBusy=1;const k=document.createElement('div');k.className='lgout';document.body.appendChild(k);
  requestAnimationFrame(()=>requestAnimationFrame(()=>k.classList.add('in')));
- setTimeout(()=>{fin();k.classList.remove('in')},2000);
- setTimeout(()=>{k.remove();window.__outBusy=0},2700)};
+ setTimeout(()=>{fin();k.classList.remove('in')},2050);
+ setTimeout(()=>{k.remove();window.__outBusy=0},2800)};
 const ADMIN_CODE='2622';
 const isAdminAuth=()=>!!(auth&&auth.currentUser&&ADMINS.indexOf(auth.currentUser.email)>=0);
 function stopAll(){[()=>unsubI&&unsubI(),()=>unsubE&&unsubE(),()=>unsubR&&unsubR(),()=>unsubC&&unsubC(),()=>unsub&&unsub(),()=>unsub2&&unsub2()].forEach(f=>{try{f()}catch(e){}});
